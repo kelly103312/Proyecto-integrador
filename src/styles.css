@@ -13,3 +13,7 @@ body,
 canvas{
     touch-action: none;
 }
+
+/* .title {
+    color: red;
+} */

@@ -1,9 +1,13 @@
+import React from 'react'
 import { RoutesGame } from "./routes/RoutesGame";
 
 const Experience = () => {
-    return (
-        <RoutesGame />
-    )
-}
+  return (
+    <>
+     <RoutesGame />
+    </>
+  );
+};
 
 export default Experience;
+
