@@ -1,15 +1,11 @@
-import React, { StrictMode } from 'react';
-import ReactDOM from 'react-dom/client';
-import './index.css';
-import './Experience'
-import { Experience } from './Experience';
-import { Canvas } from '@react-three/fiber';
-import { KeyboardControls, Loader } from '@react-three/drei';
+import "./styles.css";
+import { createRoot } from "react-dom/client";
+import Experience from "./Experience";
+import { Canvas } from "@react-three/fiber";
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
+const root = createRoot(document.getElementById("root"));
+
 root.render(
-  <StrictMode>
-    <Experience/>
-  </StrictMode>
-);
-
+    
+    <Experience />
+)
