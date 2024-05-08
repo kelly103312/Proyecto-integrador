@@ -8,16 +8,16 @@ export const World = (props) => {
     return (
       <group {...props} dispose={null}>
         <group>
-          <RigidBody type='fixed' name="floor">
+          <RigidBody type='fixed' name="floor" colliders="trimesh">
               <mesh
                 castShadow
                 receiveShadow
                 geometry={nodes.Floor.geometry}
-                material={materials.floorMaterial}
+                material={materials.floormaterial}
               />
           </RigidBody>
-          <RigidBody type='fixed' colliders="trimesh" name="walls">
 
+          <RigidBody type='fixed' colliders="trimesh" name="walls">
             <mesh
               castShadow
               receiveShadow
@@ -25,20 +25,17 @@ export const World = (props) => {
               material={materials.wallsMaterial}
             />
             <mesh
-              onClick={(e)=>e.stopPropagation()}
-              castShadow
-              receiveShadow
-              geometry={nodes.Caballeros.geometry}
-              material={materials['12943_Stone_Chess_Night_Side_A']}
-            />
-            <mesh
-              onClick={(e)=>e.stopPropagation()}
               castShadow
               receiveShadow
               geometry={nodes.Mesa.geometry}
-              material={materials.wallsMaterial}
-              position={[-0.275, 0, -92.3]}
+              material={materials.mesamaterial}
             />
+            {/* <mesh
+              castShadow
+              receiveShadow
+              geometry={nodes.caballeros.geometry}
+              material={materials['12943_Stone_Chess_Night_Side_A.001']}
+            /> */}
           </RigidBody>
         </group>
       </group>
