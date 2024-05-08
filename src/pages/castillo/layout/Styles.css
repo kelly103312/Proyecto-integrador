@@ -1,24 +1,4 @@
-html,
-body,
-#root{
-    position: fixed;
-    top: 0;
-    left: 0;
-    background-color: black;
-}
-
-canvas{
-    touch-action: none;
-}
-
-.welcome-text{
-    color: white;
-    padding: 1rem;
-    user-select: none;
-    
-}
-
-.container{
+.container-lifes{
     display: flex;
     justify-content: center;
     align-items: center;

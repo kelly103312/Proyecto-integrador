@@ -11,7 +11,7 @@ export const Pane = () => {
   }  
 
   return (
-    <div className='container'>
+    <div className='container-lifes'>
         {object}
     </div>
   )
