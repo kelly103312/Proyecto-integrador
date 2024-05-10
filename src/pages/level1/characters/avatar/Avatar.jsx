@@ -1,66 +1,48 @@
-import { useEffect, useRef } from "react";
-import { useAvatar } from "../../../../context/AvatarContext";
-import { useAnimations, useGLTF } from "@react-three/drei";
-import Ecctrl, { EcctrlAnimation } from "ecctrl";
+import React, { useRef, useEffect } from 'react';
+import { useGLTF, useAnimations } from '@react-three/drei';
+import { useAvatar } from '../../../../context/AvatarContext';
+import { CuboidCollider } from '@react-three/rapier'
+export default function Model() {
+    const modelRef = useRef();
+    const { avatar, setAvatar } = useAvatar();
+    const { nodes, materials, animations } = useGLTF('/assets/level1/models/avatar/fox.glb');
+    const { actions } = useAnimations(animations, modelRef);
 
-export default function Avatar() {
-    const avatarRef = useRef();
-    const rigidBodyAvatarRef = useRef();
-    const { avatar,setAvatar} = useAvatar();
-    const { nodes, materials, animations } = useGLTF('/assets/level1/models/avatar/comadreja.glb')
-
-    const { actions } = useAnimations(animations, avatarRef)
     useEffect(() => {
         actions[avatar.animation]?.reset().fadeIn(0.5).play();
         return () => {
-            if (actions[avatar.animation])
-                actions[avatar.animation].fadeOut(0.5);
-        }
-
+            if (actions[avatar.animation]) actions[avatar.animation].fadeOut(0.5);
+        };
     }, [actions, avatar.animation]);
 
-    useEffect(()=>{
-      setAvatar({
-          ...avatar,
-          avatarRef: avatarRef?.current,
-          rigidBodyAvatarRef: rigidBodyAvatarRef?.current
-      })
-    }, [avatarRef?.current, rigidBodyAvatarRef?.current])
+    useEffect(() => {
+        setAvatar({
+            ...avatar,
+            modelRef: modelRef.current,
+        });
+    }, [modelRef.current]);
 
     return (
-      
-      <group ref={avatarRef} name="Scene" position-y={-0.65}>
-      
-      <group
-        name="Armature"
-        position={[0.004, 0.275, 0.042]}
-        rotation={[3.016, 1.534, 1.655]}
-        scale={0.08}>
-        <group name="Cube">
+      <group ref={modelRef}> {/* Add dispose={null} */}
+        <group name="Scene">
+        <group ref={modelRef} position={[0, -0.9, 0]} rotation={[Math.PI / 2, 0, 0]} scale={[0.1, 0.1, 0.1]}>
+
           <skinnedMesh
-            name="Cube004"
-            geometry={nodes.Cube004.geometry}
-            material={materials.Gray}
-            skeleton={nodes.Cube004.skeleton}
+            name="MESH_CRASH001"
+            geometry={nodes.MESH_CRASH001.geometry}
+            material={materials['TEXTURE_Crash.001']}
+            skeleton={nodes.MESH_CRASH001.skeleton}
+            morphTargetDictionary={nodes.MESH_CRASH001.morphTargetDictionary}
+            morphTargetInfluences={nodes.MESH_CRASH001.morphTargetInfluences}
           />
-          <skinnedMesh
-            name="Cube004_1"
-            geometry={nodes.Cube004_1.geometry}
-            material={materials['Lighter Gray']}
-            skeleton={nodes.Cube004_1.skeleton}
-          />
-          <skinnedMesh
-            name="Cube004_2"
-            geometry={nodes.Cube004_2.geometry}
-            material={materials.Black}
-            skeleton={nodes.Cube004_2.skeleton}
-          />
+          <primitive object={nodes.mixamorigHips} />
         </group>
-        <primitive object={nodes.Bone} />
-        
+       
       </group>
     </group>
-    
-      )
-      
+  );
 }
+
+useGLTF.preload('/assets/level1/models/avatar/fox.glb');
+
+
