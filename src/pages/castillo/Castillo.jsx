@@ -9,13 +9,13 @@ import { WelcomeText } from './World/WelcomeText'
 import { Sphere } from './Figures/Sphere'
 import { AvatarPrincipal } from './Charaters/AvatarPrincipal'
 import { Controls } from './Controls/Controls'
-import Ecctrl from 'ecctrl'
 import { Bear } from './Charaters/Bear'
 import { Box } from './Figures/Box'
 import { Pane } from '../castillo/layout/Pane'
 import { Coins } from './Figures/Coins'
 import { Laberinto } from './Figures/Laberinto'
 import useMovements from '../../utils/key-movements'
+import { Charaters } from './Charaters/Charaters'
 
 
 export const Castillo = () => {
@@ -38,18 +38,8 @@ export const Castillo = () => {
           <BakeShadows />
           <Physics debug={true}>
             <World />            
-            <Ecctrl 
-              jumpVel={4}
-              name="AVATAR" 
-              autoBalance = {true}
-              camInitDis = {-10}
-              camMaxDis = {-10}
-              position={[0,0.5,-3]}
-              maxVelLimit={5}
-            >
-              <AvatarPrincipal />
-            </Ecctrl>
-            
+            <Charaters />
+
             <Sphere position={[0,1,-35]} velocity={3} />
             <Sphere position={[0,1,-40]} velocity={4} />
             <Sphere position={[0,1,-40]} velocity={5} />
@@ -57,8 +47,6 @@ export const Castillo = () => {
             <Sphere position={[0,1,-50]} velocity={7} />
             
             <Box position={[0,2,-5]} />
-            
-            <Bear position={[-1, 0, -80]} />
             
             <Laberinto position={[-4.6, 2, -15]} />
             <Coins position={[0, 2, -32]}/>
