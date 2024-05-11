@@ -2,6 +2,7 @@ import React, { useRef, useEffect } from 'react';
 import { useGLTF, useAnimations } from '@react-three/drei';
 import { useAvatar } from '../../../../context/AvatarContext';
 import { CuboidCollider } from '@react-three/rapier'
+
 export default function Model() {
     const modelRef = useRef();
     const { avatar, setAvatar } = useAvatar();
@@ -44,5 +45,4 @@ export default function Model() {
 }
 
 useGLTF.preload('/assets/level1/models/avatar/fox.glb');
-
 
