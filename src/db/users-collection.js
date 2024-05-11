@@ -1,8 +1,7 @@
 "use strict";
 
-import { db } from "../firebase/firebase.config";
 import { addDoc, collection, getDocs, query, where } from "firebase/firestore";
-
+import { db } from "../firebase/firebase.config";
 /**
  * Collection reference to the 'users' collection in Firestore.
  * @type {CollectionReference<DocumentData>}

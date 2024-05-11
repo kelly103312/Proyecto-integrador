@@ -1,27 +1,27 @@
 "use strict";
 
+// Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
-/**
- * Web app's Firebase configuration
- */
+// TODO: Add SDKs for Firebase products that you want to use
+// https://firebase.google.com/docs/web/setup#available-libraries
+
+// Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: process.env.REACT_APP_API_KEY,
-  authDomain: process.env.REACT_APP_AUTH_DOMAIN,
-  projectId: process.env.REACT_APP_PROJECT_ID,
-  storageBucket: process.env.REACT_APP_STORAGE_BUCKET,
-  messagingSenderId: process.env.REACT_APP_MESSAGING_SENDER_ID,
-  appId: process.env.REACT_APP_APP_ID
+  apiKey: "AIzaSyBb1ipj78MC3WGMJIsDxo7ubDd9AapmUl4",
+  authDomain: "cueva-encanta.firebaseapp.com",
+  projectId: "cueva-encanta",
+  storageBucket: "cueva-encanta.appspot.com",
+  messagingSenderId: "431079774204",
+  appId: "1:431079774204:web:8df4248e6a61486d3b0479"
 };
-/**
- * Initialize Firebase
- */
+
+// Initialize Firebase
 const app = initializeApp(firebaseConfig);
-/**
- * return auth and db
- */
+
 const auth = getAuth(app);
 const db = getFirestore(app);
 
-export { auth, db };
+
+export { auth, db }; 
