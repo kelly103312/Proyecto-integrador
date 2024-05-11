@@ -11,7 +11,7 @@ export const RoutesGame = () => {
   return (
     <BrowserRouter>
         <Routes>
-          <Route path="/" element={<Level1 />} />
+          <Route path="/" element={<Login />} />
           <Route path="/level1" element={<Level1 />} />
           <Route path="/level2" element={<Level2 />} />
           <Route path="/castillo" element={<Castillo/>} />
