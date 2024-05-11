@@ -1,3 +1,4 @@
+import React, { useRef } from 'react';
 import { Perf } from "r3f-perf";
 import { KeyboardControls, OrbitControls } from "@react-three/drei";
 import { Physics } from "@react-three/rapier";
@@ -8,10 +9,13 @@ import { Canvas } from "@react-three/fiber";
 import World from "./world/World";
 import Controls from "./controls/Controls";
 import Avatar from "./characters/avatar/Avatar";
+import Zombie from "./characters/zombies/Zombie.jsx";
+
 import useMovements from "../../utils/key-movements";
 import Ecctrl, { EcctrlAnimation } from "ecctrl";
 
 export default function Level1() {
+   
     const map = useMovements();
 
     return (
@@ -33,14 +37,15 @@ export default function Level1() {
                             jumpVel={4} 
                             position={[0,10,0]}
                         >
-                            <Avatar />
+                            <Avatar/>
+                            
                         </Ecctrl>
+                        <Zombie/>
                     </Physics>
                     
                 </Suspense>
                 <Controls />
             </Canvas>
         </KeyboardControls>
-
     )
 }
