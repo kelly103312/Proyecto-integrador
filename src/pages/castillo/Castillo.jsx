@@ -36,7 +36,7 @@ export const Castillo = () => {
           <Ligths />
           <EnviromentSky />
           <BakeShadows />
-          <Physics debug={true}>
+          <Physics debug={false}>
             <World />            
             <Charaters />
 
