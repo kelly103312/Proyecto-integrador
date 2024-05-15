@@ -10,9 +10,10 @@ import World from "./world/World";
 import Controls from "./controls/Controls";
 import Avatar from "./characters/avatar/Avatar";
 import Zombie from "./characters/zombies/Zombie.jsx";
-
+import { Pane } from '../level1/layout/Pane'
+import { Coins } from '../level1/Figures/Coins'
 import useMovements from "../../utils/key-movements";
-import Ecctrl, { EcctrlAnimation } from "ecctrl";
+import Ecctrl from "ecctrl";
 
 export default function Level1() {
    
@@ -20,6 +21,7 @@ export default function Level1() {
 
     return (
         <KeyboardControls map={map} >
+            <Pane />
             <Canvas
                 shadows={true}
                 
@@ -47,6 +49,12 @@ export default function Level1() {
                             
                         </Ecctrl>
                         <Zombie/>
+                        <Coins position={[0, 2, -32]}/>
+                       <Coins position={[0, 2, -38]} />
+                       <Coins position={[0, 2, -42]}/>
+                       <Coins position={[0, 2, -47]}/>
+                       <Coins position={[0, 2, -55]}/>
+
                     </Physics>
                     
                 </Suspense>
