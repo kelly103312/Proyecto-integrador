@@ -1,28 +1,31 @@
-import React, { createContext, useContext, useState } from 'react';
+import React, { createContext, useContext, useEffect, useState } from 'react';
 
 // Crear el contexto de vidas
+
 export const LifesContext = createContext();
 
 export const useLifes = () => {
-  const context = useContext(LifesContext);
-  if (!context) {
-    console.error("No existe el contexto");
-    return {};  // Retorna un objeto vacío en lugar de `undefined`
-  }
+    const context = useContext(LifesContext)
+    if(!context){
+        console.error("No existe el contexto");
+        return;
+    }
   return context;
-};
+}
 
 // Proveedor de contexto
 export const LifesProvider = ({ children }) => {
-  const [lifes, setLifes] = useState(3);
+    const [lifes, setLifes] = useState(3);
 
-  const restarLifes = () => {
-    setLifes((prevLifes) => prevLifes - 1);
-  };
+    const restarLifes = () => {
+      setLifes(lifes - 1);
+      return lifes;
+    };
 
   return (
-    <LifesContext.Provider value={{ lifes, restarLifes }}>
+    <LifesContext.Provider value={({ lifes, restarLifes })}>
       {children}
     </LifesContext.Provider>
   );
 };
+
