@@ -1,5 +1,5 @@
-import React from 'react';
-import './Styles.css';
+import React from 'react'
+import "./Styles.css";
 import { useLifes } from '../../../context/ManagementLifes';
 
 export const Pane = () => {
@@ -7,12 +7,12 @@ export const Pane = () => {
 
   var object = '';
   for (let i = 0; i < lifes; i++) {
-    object += ' ❤ ';
-  }
+    object+= ' ❤ '    
+  }  
 
   return (
     <div className='container-lifes'>
-      {object}
+        {object}
     </div>
-  );
-};
+  )
+}

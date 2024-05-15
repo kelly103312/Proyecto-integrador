@@ -45,4 +45,3 @@ export default function Model() {
 }
 
 useGLTF.preload('/assets/level1/models/avatar/fox.glb');
-
