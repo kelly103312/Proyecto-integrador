@@ -1,6 +1,6 @@
 import React, { useRef } from 'react';
 import { Perf } from "r3f-perf";
-import { KeyboardControls, OrbitControls } from "@react-three/drei";
+import { KeyboardControls, BakeShadows,Loader } from "@react-three/drei";
 import { Physics } from "@react-three/rapier";
 import { Suspense } from "react";
 import Lights from "./lights/Lights";
@@ -22,10 +22,16 @@ export default function Level1() {
         <KeyboardControls map={map} >
             <Canvas
                 shadows={true}
+                
+                camera={{
+                position: [0, 1.5, -0.5],
+                rotation: [0, 0, 0],
+        }}
             >
-                <Perf position="top-left" />
+                <Perf position="top-right" />
                 <Suspense fallback={null}>
                     <Lights />
+                    <BakeShadows />
                     <Environments />
                     <Physics debug={false}>
                         <World />
@@ -46,6 +52,7 @@ export default function Level1() {
                 </Suspense>
                 <Controls />
             </Canvas>
+            <Loader />
         </KeyboardControls>
     )
 }
