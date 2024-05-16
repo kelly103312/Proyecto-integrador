@@ -2,11 +2,13 @@ import React, { useEffect, useRef } from 'react'
 import { useAnimations, useGLTF } from '@react-three/drei'
 import { useAvatar } from '../../../context/AvatarContext'
 import * as THREE from 'three';
+import { UseCheckpoints } from '../../../context/ManagementCheckpoints';
 
 export const AvatarPrincipal = (props) => {
   const avatarBodyRef = useRef()
   const avatarRef = useRef()
   const {avatar,setAvatar} = useAvatar();
+  const {checkPoint, pointAchieved,pointValidated} = UseCheckpoints();
   const { nodes, materials, animations } = useGLTF('/assets/castillo/avatars/ardilla.glb')
 
   const {actions} = useAnimations(animations,avatarRef)
@@ -16,10 +18,6 @@ export const AvatarPrincipal = (props) => {
   },[])
 
   useEffect(()=>{
-    let vec= new THREE.Vector3();
-    avatarRef.current.getWorldPosition(vec)
-    console.log(vec)
-
     if(avatar.animation !== ""){
       actions[avatar.animation]?.reset().fadeIn(0.5).play();
       return()=>{
@@ -29,6 +27,17 @@ export const AvatarPrincipal = (props) => {
       }
     }
   },[avatar.animation,actions])
+
+  useEffect(()=>{
+    let vec= new THREE.Vector3();
+    avatarRef.current.getWorldPosition(vec)
+    let distance =vec.distanceTo(new THREE.Vector3(0,1,-60));
+    if(distance < 1.5){
+      pointAchieved(vec,"castillo")
+    }
+
+  })
+
 
   return (
     //<RigidBody  ref={avatarBodyRef} position={[0,1.5,-3]} colliders={"hull"}> 
