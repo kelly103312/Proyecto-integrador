@@ -36,7 +36,6 @@ export const CheckpointsProvider = ({children}) => {
     }
 
     const pointValidated = (nameLevel)=>{
-        console.log(nameLevel)
         var pointsBefore = localStorage.getItem('checkpoints')  
         pointsBefore = JSON.parse(pointsBefore);
         if(pointsBefore != null){

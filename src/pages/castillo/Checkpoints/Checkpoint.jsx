@@ -1,15 +1,15 @@
 import React, { useEffect, useState } from 'react'
 import { UseCheckpoints } from '../../../context/ManagementCheckpoints'
+import { useFrame } from '@react-three/fiber';
 
 export const Checkpoint = (props) => {
     const {checkPoint, pointValidated} = UseCheckpoints();
     const [obtained, setObtained] = useState(false);
 
-    useEffect(()=>{
+    useFrame(()=>{
         if(pointValidated("castillo")){
             setObtained(true);
         }
-        console.log("Obtuvo el checkpoint " + obtained)
     },[])
   return (
     <mesh position={props.position}>
