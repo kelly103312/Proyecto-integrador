@@ -1,6 +1,7 @@
 import React, { useEffect, useRef } from 'react'
 import { useAnimations, useGLTF } from '@react-three/drei'
 import { useAvatar } from '../../../context/AvatarContext'
+import * as THREE from 'three';
 
 export const AvatarPrincipal = (props) => {
   const avatarBodyRef = useRef()
@@ -15,6 +16,10 @@ export const AvatarPrincipal = (props) => {
   },[])
 
   useEffect(()=>{
+    let vec= new THREE.Vector3();
+    avatarRef.current.getWorldPosition(vec)
+    console.log(vec)
+
     if(avatar.animation !== ""){
       actions[avatar.animation]?.reset().fadeIn(0.5).play();
       return()=>{
