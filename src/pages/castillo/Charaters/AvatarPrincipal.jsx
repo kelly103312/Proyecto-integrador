@@ -3,6 +3,7 @@ import { useAnimations, useGLTF } from '@react-three/drei'
 import { useAvatar } from '../../../context/AvatarContext'
 import * as THREE from 'three';
 import { UseCheckpoints } from '../../../context/ManagementCheckpoints';
+import { useAuth } from '../../../context/AuthContext';
 
 export const AvatarPrincipal = (props) => {
   const avatarBodyRef = useRef()
@@ -12,6 +13,7 @@ export const AvatarPrincipal = (props) => {
   const { nodes, materials, animations } = useGLTF('/assets/castillo/avatars/ardilla.glb')
 
   const {actions} = useAnimations(animations,avatarRef)
+  const auth = useAuth()
   
   useEffect(()=>{
     actions["idle"].play();
@@ -32,8 +34,9 @@ export const AvatarPrincipal = (props) => {
     let vec= new THREE.Vector3();
     avatarRef.current.getWorldPosition(vec)
     let distance =vec.distanceTo(new THREE.Vector3(0,1,-60));
+    const { displayName, email } = auth.userLogged
     if(distance < 1.5){
-      pointAchieved(vec,"castillo")
+      pointAchieved(vec,"castillo",email,"Ardilla")
     }
 
   })

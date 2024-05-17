@@ -18,16 +18,39 @@ import useMovements from '../../utils/key-movements'
 import { Charaters } from './Charaters/Charaters'
 import { socket } from '../../socket/socket-manager'
 import { Checkpoint } from './Checkpoints/Checkpoint'
+import { useAuth } from '../../context/AuthContext'
+import { createUser, readUser } from '../../db/users-collection'
 
 
 export const Castillo = () => {
 
   const map = useMovements();
+  const auth = useAuth()
+  /**
+     * Save the user data in the DB.
+     * @param {*} valuesUser 
+     */
+  const saveDataUser = async (valuesUser) => {
+    const {success} = await readUser(valuesUser.email)
+    console.log(valuesUser)
+    if (!success)
+        await createUser(valuesUser)
+  }
+  /**
+   * When userLogged is changed call saveDataUser to save the user in the DB.
+   * @see saveDataUser
+   */
+  useEffect(() => {
+      if (auth.userLogged) {
+          const { displayName, email } = auth.userLogged
+          console.log(displayName)
+          saveDataUser({
+              displayName: displayName,
+              email: email,
+          })
+      }
+  }, [auth.userLogged])
 
-  useEffect(()=>{
-    socket.emit("player-connected")
-    console.log(socket);
-  },[])
   return (
     <KeyboardControls map={map}>
       <Pane />
