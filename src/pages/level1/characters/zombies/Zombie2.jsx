@@ -1,11 +1,14 @@
 import React, { useRef, useEffect } from 'react';
 import { useGLTF, useAnimations } from '@react-three/drei';
-import * as THREE from 'three'; // Importa Three.js
+import {LoopRepeat} from 'three'; // Importa Three.js
+import { RigidBody } from '@react-three/rapier';
+import { useLifes } from '../../../../context/ManagementLifes';
 
 export default function Zombie2(props) {
   const group = useRef();
   const { nodes, materials, animations } = useGLTF('/assets/level1/models/zombie/zombie1.glb');
   const { actions } = useAnimations(animations, group);
+  const { restarLifes } = useLifes();
 
   useEffect(() => {
     // Inicia el movimiento del Zombie
@@ -27,11 +30,11 @@ export default function Zombie2(props) {
     const moveDirection = (index) => {
       // Reproduce la animación Idle
       actions.Idle.play();
-      actions.Idle.setLoop(THREE.LoopRepeat, Infinity);
+      actions.Idle.setLoop(LoopRepeat, Infinity);
       
       // Configura la rotación del grupo del Zombie
       const [x, y, z] = directions[index].rotation;
-      group.current.rotation.set(x, y, z);
+     
 
       // Espera la duración del movimiento y luego cambia a la siguiente dirección
       setTimeout(() => {
@@ -44,8 +47,14 @@ export default function Zombie2(props) {
     moveDirection(0);
   };
 
+  const onCollisionExit = (e) => {
+    if (e.other.rigidBodyObject.name === "AVATAR") {
+      restarLifes();
+    }
+  }
   return (
-    <group ref={group} {...props} dispose={null}>
+    <RigidBody ref={group} onCollisionExit={onCollisionExit} {...props} dispose={null}>
+
       <group name="Scene">
         <group name="Armature" rotation={[Math.PI / 2, 0, 0]} scale={[0.01, 0.01, 0.01]}>
           <skinnedMesh
@@ -63,7 +72,7 @@ export default function Zombie2(props) {
           <primitive object={nodes.mixamorigHips} />
         </group>
       </group>
-    </group>
+      </RigidBody>
   );
 }
 

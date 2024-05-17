@@ -9,11 +9,14 @@ import { Canvas } from "@react-three/fiber";
 import World from "./world/World";
 import Controls from "./controls/Controls";
 import Avatar from "./characters/avatar/Avatar";
-import Zombie from "./characters/zombies/Zombie.jsx";
+
 import { Pane } from '../level1/layout/Pane'
 import { Coins } from '../level1/Figures/Coins'
 import useMovements from "../../utils/key-movements";
 import Ecctrl from "ecctrl";
+import Zombie1 from "./characters/zombies/Zombie1"
+import Zombie2 from "./characters/zombies/Zombie2"
+import Zombie3 from "./characters/zombies/Zombie3"
 
 export default function Level1() {
    
@@ -48,7 +51,10 @@ export default function Level1() {
                             <Avatar/>
                             
                         </Ecctrl>
-                        <Zombie/>
+                        <Zombie1 position={[0, 0, -10]} />
+                        <Zombie2 position={[0, 0, -30]} />
+                        <Zombie3 position={[0, 0, -50]} />
+
                         <Coins position={[0, 2, -32]}/>
                        <Coins position={[0, 2, -38]} />
                        <Coins position={[0, 2, -42]}/>

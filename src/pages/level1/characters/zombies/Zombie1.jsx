@@ -1,51 +1,51 @@
 import React, { useRef, useEffect } from 'react';
 import { useGLTF, useAnimations } from '@react-three/drei';
-import * as THREE from 'three'; // Importa Three.js
+import { LoopRepeat } from 'three';
+import { RigidBody } from '@react-three/rapier';
+import { useLifes } from '../../../../context/ManagementLifes';
 
 export default function Zombie1(props) {
   const group = useRef();
   const { nodes, materials, animations } = useGLTF('/assets/level1/models/zombie/zombie.glb');
   const { actions } = useAnimations(animations, group);
+  const { restarLifes } = useLifes();
 
   useEffect(() => {
     // Inicia el movimiento del Zombie
     moveRandom();
   }, []);
 
-  // Función para mover al Zombie en direcciones aleatorias
   const moveRandom = () => {
-    // Duración del movimiento en cada dirección (milisegundos)
     const duration = 3000;
-
-    // Direcciones en las que el Zombie puede moverse
     const directions = [
-      { rotation: [0, -Math.PI / 2, 0]},   // Dirección hacia la derecha
-      {  rotation: [0, Math.PI / 2, 0]}   // Dirección hacia la izquierda
+      { rotation: [0, -Math.PI / 2, 0] }, 
+      { rotation: [0, Math.PI / 2, 0] } 
     ];
 
-    // Función para mover el Zombie en una dirección específica
     const moveDirection = (index) => {
-      // Reproduce la animación Idle
       actions.Idle.play();
-      actions.Idle.setLoop(THREE.LoopRepeat, Infinity);
+      actions.Idle.setLoop(LoopRepeat, Infinity);
       
-      // Configura la rotación del grupo del Zombie
       const [x, y, z] = directions[index].rotation;
-      group.current.rotation.set(x, y, z);
+      
 
-      // Espera la duración del movimiento y luego cambia a la siguiente dirección
       setTimeout(() => {
-        const nextIndex = (index + 1) % directions.length; // Avanza al siguiente índice
-        moveDirection(nextIndex); // Mueve al Zombie en la siguiente dirección
+        const nextIndex = (index + 1) % directions.length;
+        moveDirection(nextIndex);
       }, duration);
     };
 
-    // Inicia el movimiento en la primera dirección
     moveDirection(0);
   };
 
+  const onCollisionExit = (e) => {
+    if (e.other.rigidBodyObject.name === "AVATAR") {
+      restarLifes();
+    }
+  }
+
   return (
-    <group ref={group} {...props} dispose={null}>
+    <RigidBody ref={group} onCollisionExit={onCollisionExit} {...props} dispose={null}>
       <group name="Scene">
         <group name="Armature" rotation={[Math.PI / 2, 0, 0]} scale={[0.01, 0.01, 0.01]}>
           <skinnedMesh
@@ -63,7 +63,7 @@ export default function Zombie1(props) {
           <primitive object={nodes.mixamorigHips} />
         </group>
       </group>
-    </group>
+    </RigidBody>
   );
 }
 
