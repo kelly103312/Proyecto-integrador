@@ -8,7 +8,7 @@ import Environments from "./staging/Environments";
 import { Canvas } from "@react-three/fiber";
 import World from "./world/World";
 import Controls from "./controls/Controls";
-import Avatar from "./characters/avatar/Avatar";
+import {Charaters} from "./characters/Charaters";
 
 import { Pane } from '../level1/layout/Pane'
 import { Coins } from '../level1/Figures/Coins'
@@ -41,21 +41,10 @@ export default function Level1() {
                     <Physics debug={false}>
                         <World />
                        
-                        <Ecctrl
-                            camInitDis={-2}
-                            camMaxDis={-2}
-                            maxVelLimit={5} 
-                            jumpVel={4} 
-                            position={[0,10,0]}
-                        >
-                            <Avatar/>
-                            
-                        </Ecctrl>
-                        <Zombie1 position={[0, 0, -10]} />
-                        <Zombie2 position={[0, 0, -30]} />
-                        <Zombie3 position={[0, 0, -50]} />
+                        
+                        <Charaters/>
 
-                        <Coins position={[0, 2, -32]}/>
+                       <Coins position={[0, 2, -32]}/>
                        <Coins position={[0, 2, -38]} />
                        <Coins position={[0, 2, -42]}/>
                        <Coins position={[0, 2, -47]}/>

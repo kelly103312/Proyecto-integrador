@@ -1,14 +1,13 @@
 import React, { useRef, useEffect } from 'react';
 import { useGLTF, useAnimations } from '@react-three/drei';
-import {LoopRepeat} from 'three'; // Importa Three.js
-import { RigidBody } from '@react-three/rapier';
-import { useLifes } from '../../../../context/ManagementLifes';
+import * as THREE from 'three'; // Importa Three.js
+import { useLifes } from '../../../../context/ManagementLifes'; // Importa el contexto de las vidas
 
 export default function Zombie2(props) {
   const group = useRef();
   const { nodes, materials, animations } = useGLTF('/assets/level1/models/zombie/zombie1.glb');
   const { actions } = useAnimations(animations, group);
-  const { restarLifes } = useLifes();
+  const { restarLifes } = useLifes(); // Obtiene la función para restar vidas del contexto
 
   useEffect(() => {
     // Inicia el movimiento del Zombie
@@ -30,11 +29,11 @@ export default function Zombie2(props) {
     const moveDirection = (index) => {
       // Reproduce la animación Idle
       actions.Idle.play();
-      actions.Idle.setLoop(LoopRepeat, Infinity);
+      actions.Idle.setLoop(THREE.LoopRepeat, Infinity);
       
       // Configura la rotación del grupo del Zombie
       const [x, y, z] = directions[index].rotation;
-     
+      group.current.rotation.set(x, y, z);
 
       // Espera la duración del movimiento y luego cambia a la siguiente dirección
       setTimeout(() => {
@@ -47,14 +46,15 @@ export default function Zombie2(props) {
     moveDirection(0);
   };
 
+  // Función para manejar la salida de colisión con el avatar y restar vidas
   const onCollisionExit = (e) => {
     if (e.other.rigidBodyObject.name === "AVATAR") {
-      restarLifes();
+      restarLifes(); // Resta una vida cuando el Zombie sale de colisión con el avatar
     }
-  }
-  return (
-    <RigidBody ref={group} onCollisionExit={onCollisionExit} {...props} dispose={null}>
+  };
 
+  return (
+    <group ref={group} {...props} dispose={null} onCollisionExit={onCollisionExit}> {/* Agrega el manejador de colisión */}
       <group name="Scene">
         <group name="Armature" rotation={[Math.PI / 2, 0, 0]} scale={[0.01, 0.01, 0.01]}>
           <skinnedMesh
@@ -72,8 +72,6 @@ export default function Zombie2(props) {
           <primitive object={nodes.mixamorigHips} />
         </group>
       </group>
-      </RigidBody>
+    </group>
   );
 }
-
-useGLTF.preload('/assets/level1/models/zombie/zombie1.glb');
