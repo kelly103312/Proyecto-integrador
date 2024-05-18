@@ -7,140 +7,113 @@ export default function Model(props) {
 
   return (
     <group {...props} dispose={null}>
-      <group>
+      <group name="Scene">
         <RigidBody type="fixed" colliders="trimesh">
           <mesh
-            castShadow
-            receiveShadow
-            geometry={nodes.Floor.geometry}
-            material={materials['floorMaterial.001']}
+           name="Floor"
+           geometry={nodes.Floor.geometry}
+           material={materials['floorMaterial.001']}
           />
         </RigidBody>
         <RigidBody type="fixed" colliders="trimesh">
-          <mesh
-            castShadow
-            receiveShadow
-            geometry={nodes.Walls.geometry}
-            material={materials['wallMaterial.001']}
-          />
+        <mesh
+          name="Walls"
+          geometry={nodes.Walls.geometry}
+          material={materials['wallMaterial.001']}
+        />
         </RigidBody>
         {/* Aquí está el código proporcionado */}
         <mesh
-          castShadow
-          receiveShadow
+          name="tree"
           geometry={nodes.tree.geometry}
           material={materials['Material.001']}
-          position={[-2.757, 0, 0]}
-        >
+          position={[-1.521, -0.019, -2.767]}>
           <mesh
-            castShadow
-            receiveShadow
+            name="leaves"
             geometry={nodes.leaves.geometry}
             material={materials['Material.002']}
           />
         </mesh>
         <mesh
-          castShadow
-          receiveShadow
+          name="treef"
           geometry={nodes.treef.geometry}
           material={materials['Material.001']}
-          position={[-2.027, 0.61, -46.839]}
-        >
+          position={[-1.555, -0.066, -46.839]}>
           <mesh
-            castShadow
-            receiveShadow
+            name="leaves001"
             geometry={nodes.leaves001.geometry}
             material={materials['Material.002']}
           />
         </mesh>
         <mesh
-          castShadow
-          receiveShadow
+          name="treeg"
           geometry={nodes.treeg.geometry}
           material={materials['Material.001']}
-          position={[2.793, 0.53, -46.816]}
-        >
+          position={[2.349, -0.164, -46.816]}>
           <mesh
-            castShadow
-            receiveShadow
+            name="leaves002"
             geometry={nodes.leaves002.geometry}
             material={materials['Material.002']}
           />
         </mesh>
         <mesh
-          castShadow
-          receiveShadow
+          name="treeh"
           geometry={nodes.treeh.geometry}
           material={materials['Material.001']}
-          position={[3.434, 0.317, -0.338]}
-        >
+          position={[2.012, -0.053, -3.405]}>
           <mesh
-            castShadow
-            receiveShadow
+            name="leaves003"
             geometry={nodes.leaves003.geometry}
             material={materials['Material.002']}
           />
         </mesh>
         <mesh
-          castShadow
-          receiveShadow
+          name="treek"
           geometry={nodes.treek.geometry}
           material={materials['Material.001']}
-          position={[3.002, 0.148, -83.498]}
-        >
+          position={[2.41, 0.148, -85.336]}>
           <mesh
-            castShadow
-            receiveShadow
+            name="leaves004"
             geometry={nodes.leaves004.geometry}
             material={materials['Material.002']}
           />
         </mesh>
         <mesh
-          castShadow
-          receiveShadow
+          name="treel"
           geometry={nodes.treel.geometry}
           material={materials['Material.001']}
-          position={[-3.536, 0.125, -83.528]}
-        >
+          position={[-2.111, 0.031, -83.528]}>
           <mesh
-            castShadow
-            receiveShadow
+            name="leaves005"
             geometry={nodes.leaves005.geometry}
             material={materials['Material.002']}
           />
         </mesh>
         <mesh
-          castShadow
-          receiveShadow
+          name="treem"
           geometry={nodes.treem.geometry}
           material={materials['Material.001']}
-          position={[-3.452, 0.037, -59.067]}
-        >
+          position={[-3.452, 0.037, -59.067]}>
           <mesh
-            castShadow
-            receiveShadow
+            name="leaves006"
             geometry={nodes.leaves006.geometry}
             material={materials['Material.002']}
           />
         </mesh>
         <mesh
-          castShadow
-          receiveShadow
+          name="treen"
           geometry={nodes.treen.geometry}
           material={materials['Material.001']}
-          position={[3.775, 0.47, -59.37]}
-        >
+          position={[3.098, -0.005, -65.786]}>
           <mesh
-            castShadow
-            receiveShadow
+            name="leaves007"
             geometry={nodes.leaves007.geometry}
             material={materials['Material.002']}
           />
         </mesh>
-        <group position={[-0.005, 0.12, 0.014]} rotation={[3.123, 0, 0]} scale={0} />
+        <group name="group" position={[-0.005, 0.12, 0.014]} rotation={[3.123, 0, 0]} scale={0} />
         <mesh
-          castShadow
-          receiveShadow
+          name="polySurface10"
           geometry={nodes.polySurface10.geometry}
           material={materials.lambert1}
           position={[0.16, -1.001, -96.5]}
@@ -148,7 +121,7 @@ export default function Model(props) {
           scale={0.248}
         />
       </group>
-    </group>
+    </group> 
   );
 }
 useGLTF.preload("/assets/level1/models/world/game.glb");

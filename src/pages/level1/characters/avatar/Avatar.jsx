@@ -26,15 +26,15 @@ export default function Model() {
     return (
       <group ref={modelRef}> {/* Add dispose={null} */}
         <group name="Scene">
-        <group ref={modelRef} position={[0, -0.9, 0]} rotation={[Math.PI / 2, 0, 0]} scale={[0.1, 0.1, 0.1]}>
+        <group ref={modelRef} position={[0, -0.9, 0]} rotation={[Math.PI / 2, 0, 0]} scale={[0.001, 0.001, 0.001]}>
 
-          <skinnedMesh
-            name="MESH_CRASH001"
-            geometry={nodes.MESH_CRASH001.geometry}
+         <skinnedMesh
+            name="MESH_CRASH002"
+            geometry={nodes.MESH_CRASH002.geometry}
             material={materials['TEXTURE_Crash.001']}
-            skeleton={nodes.MESH_CRASH001.skeleton}
-            morphTargetDictionary={nodes.MESH_CRASH001.morphTargetDictionary}
-            morphTargetInfluences={nodes.MESH_CRASH001.morphTargetInfluences}
+            skeleton={nodes.MESH_CRASH002.skeleton}
+            morphTargetDictionary={nodes.MESH_CRASH002.morphTargetDictionary}
+            morphTargetInfluences={nodes.MESH_CRASH002.morphTargetInfluences}
           />
           <primitive object={nodes.mixamorigHips} />
         </group>
@@ -45,4 +45,3 @@ export default function Model() {
 }
 
 useGLTF.preload('/assets/level1/models/avatar/fox.glb');
-
