@@ -28,10 +28,7 @@ export default function Level1() {
             <Canvas
                 shadows={true}
                 
-                camera={{
-                position: [0, 1.5, -0.5],
-                rotation: [0, 0, 0],
-        }}
+         
             >
                 <Perf position="top-right" />
                 <Suspense fallback={null}>
