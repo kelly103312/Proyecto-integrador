@@ -1,6 +1,6 @@
 import { BakeShadows, KeyboardControls, Loader } from '@react-three/drei'
 import { Canvas } from '@react-three/fiber'
-import React, { Suspense } from 'react'
+import React, { Suspense, useEffect } from 'react'
 import { World } from './World/World'
 import { Physics } from '@react-three/rapier'
 import { Ligths } from './Lights/Ligths'
@@ -16,11 +16,15 @@ import { Coins } from './Figures/Coins'
 import { Laberinto } from './Figures/Laberinto'
 import useMovements from '../../utils/key-movements'
 import { Charaters } from './Charaters/Charaters'
-
+import { socket } from '../../socket/socket-manager'
 
 export const Castillo = () => {
   const map = useMovements();
   console.log(map);
+
+  useEffect(()=>{
+    socket.emit("player-connected")
+  },[])
   return (
     <KeyboardControls map={map}>
       <Pane />
