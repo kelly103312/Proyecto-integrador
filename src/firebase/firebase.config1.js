@@ -9,12 +9,12 @@ import { getFirestore } from "firebase/firestore";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyC9Ma3fOSb_D-k21TU0uotWhEbsNgXM6Xs",
-  authDomain: "game-a4e35.firebaseapp.com",
-  projectId: "game-a4e35",
-  storageBucket: "game-a4e35.appspot.com",
-  messagingSenderId: "501566743396",
-  appId: "1:501566743396:web:49a8a351be6a2c69445071"
+  apiKey: "AIzaSyBb1ipj78MC3WGMJIsDxo7ubDd9AapmUl4",
+  authDomain: "cueva-encanta.firebaseapp.com",
+  projectId: "cueva-encanta",
+  storageBucket: "cueva-encanta.appspot.com",
+  messagingSenderId: "431079774204",
+  appId: "1:431079774204:web:8df4248e6a61486d3b0479"
 };
 
 // Initialize Firebase

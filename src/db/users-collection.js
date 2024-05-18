@@ -28,7 +28,7 @@ const createUser = async (userData) => {
 const readUser = async (userEmail) => {
     try {
         const userSnapshot = await getDocs(query(usersRef, where("email", "==", userEmail)));
-
+        
         if (userSnapshot.empty) {
             return { success: false, message: "User not found" };
         }
