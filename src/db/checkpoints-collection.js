@@ -6,7 +6,7 @@ import { db } from "../firebase/firebase.config";
  * Collection reference to the 'users' collection in Firestore.
  * @type {CollectionReference<DocumentData>}
  */
-const checkpointsRef = collection(db, "chackpoints");
+const checkpointsRef = collection(db, "checkpoints");
 /**
  * Creates a new user document in Firestore.
  * @param {Object} checkpointData - The data of the user to be created.

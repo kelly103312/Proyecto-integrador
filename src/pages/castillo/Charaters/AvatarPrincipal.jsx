@@ -4,6 +4,7 @@ import { useAvatar } from '../../../context/AvatarContext'
 import * as THREE from 'three';
 import { UseCheckpoints } from '../../../context/ManagementCheckpoints';
 import { useAuth } from '../../../context/AuthContext';
+import { createCheckpoint, readCheckpoint } from '../../../db/checkpoints-collection';
 
 export const AvatarPrincipal = (props) => {
   const avatarBodyRef = useRef()
@@ -36,7 +37,9 @@ export const AvatarPrincipal = (props) => {
     let distance =vec.distanceTo(new THREE.Vector3(0,1,-60));
     const { displayName, email } = auth.userLogged
     if(distance < 1.5){
-      pointAchieved(vec,"castillo",email,"Ardilla")
+      console.log("Holi")
+      pointAchieved(vec,"Castillo",email,"Ardilla")
+      
     }
 
   })

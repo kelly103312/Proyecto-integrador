@@ -19,19 +19,32 @@ export const UseCheckpoints = () =>{
 export const CheckpointsProvider = ({children}) => {
     const [checkpoints, setCheckpoint] = useState();
 
-    const pointAchieved = async (avatarPosition, nameLevel,email,avatarName)=>{
-        var element = {
+    const pointAchieved = (avatarPosition, nameLevel,email,avatarName)=>{
+          var position = {
+            x : avatarPosition.x,
+            y : avatarPosition.y,
+            z : avatarPosition.z,
+          }
+          var element = {
             avatar : avatarName,
-            position : avatarPosition,
+            position : position,
             level : nameLevel,
             user : email,
-
-        };
-
-        const {success} = await readCheckpoint(email,nameLevel)
-        if (!success)
-            await createCheckpoint(element)
-
+    
+          };
+            const saveCheckpoint = async () => {
+                const {success} = await readCheckpoint(email,nameLevel)
+                if (!success){
+                  const response = await createCheckpoint(element)
+                }
+            }
+            saveCheckpoint()
+        /*const {success} = await readCheckpoint(email,nameLevel)
+        if (!success){
+            const result = await createCheckpoint(element)
+            console.log(result)
+        }
+        console.log(success)*/
         /*var pointsBefore = localStorage.getItem('checkpoints')  
         
         if(pointsBefore != null){
@@ -42,23 +55,28 @@ export const CheckpointsProvider = ({children}) => {
                 [nameLevel]:element
             }
         }
-        localStorage.setItem('checkpoints',JSON.stringify(pointsBefore));*/
-
+        //localStorage.setItem('checkpoints',JSON.stringify(pointsBefore));
+        saveCheckpoint();*/
 
     }
 
-    const pointValidated = async (nameLevel,email)=>{
-        /*var pointsBefore = localStorage.getItem('checkpoints')  
+    const pointValidated = (nameLevel,email)=>{
+        const readCheckpoints = async () => {
+            const {success} = await readCheckpoint(email,nameLevel)
+            return success;
+        }
+        console.log(readCheckpoints())
+        var pointsBefore = localStorage.getItem('checkpoints')  
         pointsBefore = JSON.parse(pointsBefore);
         if(pointsBefore != null){
             if(pointsBefore[nameLevel] != undefined){
                 return true;
             }
         }
-        return false;*/
-        const {success} = await readCheckpoint(email,nameLevel)
+        return false;
+        /*const {success} = await readCheckpoint(email,nameLevel)
         console.log(success)
-        return success;
+        return success;*/
     }
 
   return (
