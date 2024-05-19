@@ -70,7 +70,7 @@ export default function Level2() {
                         <RedMen />
                         <Player1/>
                     </Physics>
-                    <WelcomeText position={[0, 1, -2]} />
+                    <WelcomeText position={[0, 6, -93]} />
                     <Controls />
                 </Canvas>
             </KeyboardControls>
