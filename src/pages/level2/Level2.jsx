@@ -6,7 +6,6 @@ import WelcomeText from "./abstractions/WelcomeText";
 import RedMen from "./characters/redMen/RedMen";
 import Lights from "./lights/Lights";
 import Environments from "./staging/Environments";
-import Girl from "./characters/girl/Girl";
 import Player1 from "./characters/players/Player1";
 import { Canvas } from "@react-three/fiber";
 import World from "./world/World";
@@ -66,11 +65,10 @@ export default function Level2() {
                     <Environments />
                     <Physics debug={false}>
                         <World />
-                        <Girl />
                         <RedMen />
                         <Player1/>
                     </Physics>
-                    <WelcomeText position={[0, 6, -93]} />
+                    <WelcomeText position={[-13, 15, -93]} />
                     <Controls />
                 </Canvas>
             </KeyboardControls>
