@@ -20,22 +20,34 @@ import { socket } from '../../socket/socket-manager'
 import { Checkpoint } from './Checkpoints/Checkpoint'
 import { useAuth } from '../../context/AuthContext'
 import { createUser, readUser } from '../../db/users-collection'
+import { readCheckpoint, pointValidated} from '../../db/checkpoints-collection'
+import { UseCheckpoints } from '../../context/ManagementCheckpoints'
+import * as THREE from 'three';
 
 
 export const Castillo = () => {
 
   const map = useMovements();
   const auth = useAuth()
+  const {checkpoints,obtained} = UseCheckpoints();
   /**
      * Save the user data in the DB.
      * @param {*} valuesUser 
      */
   const saveDataUser = async (valuesUser) => {
     const {success} = await readUser(valuesUser.email)
-    console.log(valuesUser)
+    
     if (!success)
         await createUser(valuesUser)
   }
+
+  const readCheckpoints = async (email,nameLevel) => {
+    const {success} = await readCheckpoint(email,nameLevel)
+    if(success){
+      await obtained();
+    }
+  }
+
   /**
    * When userLogged is changed call saveDataUser to save the user in the DB.
    * @see saveDataUser
@@ -43,14 +55,16 @@ export const Castillo = () => {
   useEffect(() => {
       if (auth.userLogged) {
           const { displayName, email } = auth.userLogged
-          console.log(displayName)
           saveDataUser({
               displayName: displayName,
               email: email,
           })
+          readCheckpoints(email,"Castillo");
       }
   }, [auth.userLogged])
 
+
+  
   return (
     <KeyboardControls map={map}>
       <Pane />

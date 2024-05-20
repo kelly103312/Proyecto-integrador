@@ -13,7 +13,6 @@ export const useLifes = () => {
   return context;
 }
 
-// Proveedor de contexto
 export const LifesProvider = ({ children }) => {
     const [lifes, setLifes] = useState(3);
 

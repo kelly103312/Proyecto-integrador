@@ -10,7 +10,7 @@ export const AvatarPrincipal = (props) => {
   const avatarBodyRef = useRef()
   const avatarRef = useRef()
   const {avatar,setAvatar} = useAvatar();
-  const {checkPoint, pointAchieved,pointValidated} = UseCheckpoints();
+  const {checkpoints, pointAchieved} = UseCheckpoints();
   const { nodes, materials, animations } = useGLTF('/assets/castillo/avatars/ardilla.glb')
 
   const {actions} = useAnimations(animations,avatarRef)
@@ -36,10 +36,9 @@ export const AvatarPrincipal = (props) => {
     avatarRef.current.getWorldPosition(vec)
     let distance =vec.distanceTo(new THREE.Vector3(0,1,-60));
     const { displayName, email } = auth.userLogged
-    if(distance < 1.5){
-      console.log("Holi")
+    
+    if(distance < 2.2){
       pointAchieved(vec,"Castillo",email,"Ardilla")
-      
     }
 
   })
