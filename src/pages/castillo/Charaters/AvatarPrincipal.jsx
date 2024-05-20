@@ -36,7 +36,7 @@ export const AvatarPrincipal = (props) => {
     avatarRef.current.getWorldPosition(vec)
     let distance =vec.distanceTo(new THREE.Vector3(0,1,-60));
     const { displayName, email } = auth.userLogged
-    
+    console.log(distance)
     if(distance < 2.2){
       pointAchieved(vec,"Castillo",email,"Ardilla")
     }
