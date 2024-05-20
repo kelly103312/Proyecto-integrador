@@ -6,21 +6,23 @@ import { useFrame } from '@react-three/fiber'
 
 export const Bear = (props) => {
   const { nodes, materials } = useGLTF('/assets/castillo/avatars/bear.glb')
-  const ref = useRef();
+  const bearRef = useRef();
 
-  // Lógica de persecución
-  useFrame(() => {
-      /*if (props.pursue) {
-          const distance = ref.current.position.distanceTo(props.onAttack.position.current.position);
-          if (distance < 2) { // Cambia este valor según la distancia deseada para el ataque
-              console.log("ATAQUE")
-          }
-      }*/
-  });
+  useFrame((state,delta) => {
+    const elapsedTime = state.clock.getElapsedTime();
+    if(bearRef.current){
+        console.log(bearRef.current)
+        bearRef.current.setTranslation({
+            x: props.position[0] + Math.cos(elapsedTime) * 2,
+            y: props.position[1] ,
+            z: props.position[2] ,
+          },true);
+    }
+  },[bearRef.current]);
 
   return (
-      <RigidBody colliders="trimesh" >
-          <group ref={ref} {...props} dispose={null}>
+      <RigidBody ref={bearRef} colliders="trimesh" position={props.position}>
+          <group  dispose={null}>
               <group>
                   <mesh
                       geometry={nodes.bear.geometry}
