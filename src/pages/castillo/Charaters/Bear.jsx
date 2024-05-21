@@ -11,12 +11,11 @@ export const Bear = (props) => {
   useFrame((state,delta) => {
     const elapsedTime = state.clock.getElapsedTime();
     if(bearRef.current){
-        console.log(bearRef.current)
-        bearRef.current.setTranslation({
-            x: props.position[0] + Math.cos(elapsedTime) * 2,
+        /*bearRef.current.setTranslation({
+            x: props.position[0] ,
             y: props.position[1] ,
             z: props.position[2] ,
-          },true);
+          },true);*/
     }
   },[bearRef.current]);
 

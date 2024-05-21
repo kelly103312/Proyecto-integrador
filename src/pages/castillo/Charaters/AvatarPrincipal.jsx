@@ -37,7 +37,7 @@ export const AvatarPrincipal = (props) => {
     let distance =vec.distanceTo(new THREE.Vector3(0,1,-60));
     const { displayName, email } = auth.userLogged
     console.log(distance)
-    if(distance < 2.2){
+    if(distance < 2.2 && !checkpoints){
       pointAchieved(vec,"Castillo",email,"Ardilla")
     }
 
