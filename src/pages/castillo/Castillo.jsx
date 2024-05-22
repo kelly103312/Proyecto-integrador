@@ -22,8 +22,6 @@ import { useAuth } from '../../context/AuthContext'
 import { createUser, readUser } from '../../db/users-collection'
 import { readCheckpoint, pointValidated} from '../../db/checkpoints-collection'
 import { UseCheckpoints } from '../../context/ManagementCheckpoints'
-import * as THREE from 'three';
-import { useAvatar } from '../../context/AvatarContext'
 
 
 export const Castillo = () => {
@@ -31,8 +29,7 @@ export const Castillo = () => {
   const map = useMovements();
   const auth = useAuth()
   const {checkpoints,obtained} = UseCheckpoints();
-  const {avatar,setAvatar} = useAvatar();
-  var positionAvatar;
+
   /**
      * Save the user data in the DB.
      * @param {*} valuesUser 
