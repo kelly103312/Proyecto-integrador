@@ -19,11 +19,17 @@ export const Bear = (props) => {
     }
   },[bearRef.current]);
 
+
+  const onHandleAtack = (e)=>{
+    console.log("attack")
+    console.log(e)
+  }
   return (
       <RigidBody ref={bearRef} colliders="trimesh" position={props.position}>
           <group  dispose={null}>
               <group>
                   <mesh
+                      onClick={onHandleAtack}
                       geometry={nodes.bear.geometry}
                       material={materials['Material.002']}
                       userData={{ name: 'bear' }}
