@@ -18,6 +18,7 @@ export const AvatarPrincipal = (props) => {
   
   useEffect(()=>{
     actions["idle"].play();
+    
   },[])
 
   useEffect(()=>{
@@ -47,7 +48,7 @@ export const AvatarPrincipal = (props) => {
   return (
     //<RigidBody  ref={avatarBodyRef} position={[0,1.5,-3]} colliders={"hull"}> 
       <group ref={avatarRef}  rotation={[Math.PI / 2, 0, 0]} position-y={-0.8}>
-       <group ref={props.onAttack.position} name="Armature" scale={0.336}>
+       <group name="Armature" scale={0.336}>
           <skinnedMesh
             name="Body"
             geometry={nodes.Body.geometry}

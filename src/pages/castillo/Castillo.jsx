@@ -23,6 +23,7 @@ import { createUser, readUser } from '../../db/users-collection'
 import { readCheckpoint, pointValidated} from '../../db/checkpoints-collection'
 import { UseCheckpoints } from '../../context/ManagementCheckpoints'
 import * as THREE from 'three';
+import { useAvatar } from '../../context/AvatarContext'
 
 
 export const Castillo = () => {
@@ -30,6 +31,8 @@ export const Castillo = () => {
   const map = useMovements();
   const auth = useAuth()
   const {checkpoints,obtained} = UseCheckpoints();
+  const {avatar,setAvatar} = useAvatar();
+  var positionAvatar;
   /**
      * Save the user data in the DB.
      * @param {*} valuesUser 
@@ -42,9 +45,10 @@ export const Castillo = () => {
   }
 
   const readCheckpoints = async (email,nameLevel) => {
-    const {success} = await readCheckpoint(email,nameLevel)
+    const {success,checkpointData} = await readCheckpoint(email,nameLevel)
     if(success){
       await obtained();
+      localStorage.setItem('position', JSON.stringify(checkpointData[0].position));
     }
   }
 
@@ -83,7 +87,7 @@ export const Castillo = () => {
           <Physics debug={false}>
             <Checkpoint position={[0,1,-60]}/>
             <World />            
-            <Charaters />
+            <Charaters/>
 
             <Sphere position={[0,1,-35]} velocity={3} />
             <Sphere position={[0,1,-40]} velocity={4} />
