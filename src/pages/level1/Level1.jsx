@@ -9,14 +9,10 @@ import { Canvas } from "@react-three/fiber";
 import World from "./world/World";
 import Controls from "./controls/Controls";
 import {Charaters} from "./characters/Charaters";
-
 import { Pane } from '../level1/layout/Pane'
 import { Coins } from '../level1/Figures/Coins'
 import useMovements from "../../utils/key-movements";
-import Ecctrl from "ecctrl";
-import Zombie1 from "./characters/zombies/Zombie1"
-import Zombie2 from "./characters/zombies/Zombie2"
-import Zombie3 from "./characters/zombies/Zombie3"
+
 
 export default function Level1() {
    
@@ -27,7 +23,10 @@ export default function Level1() {
             <Pane />
             <Canvas
                 shadows={true}
-                
+                camera={{
+                    position: [0, 1.5, -0.5],
+                    rotation: [0, 0, 0],
+                  }}
          
             >
                 <Perf position="top-right" />
@@ -37,9 +36,10 @@ export default function Level1() {
                     <Environments />
                     <Physics debug={false}>
                         <World />
+                        <Charaters/>
                        
                         
-                        <Charaters/>
+                        
 
                        <Coins position={[0, 2, -32]}/>
                        <Coins position={[0, 2, -38]} />

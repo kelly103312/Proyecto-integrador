@@ -7,7 +7,7 @@ import Zombie2 from './zombies/Zombie2';
 import Zombie3 from './zombies/Zombie3';
 
 export const Charaters = () => {
-    const [avatarPosition, setAvatarPosition] = useState([0, 0.5, -3]);
+    const [avatarPosition, setAvatarPosition] = useState([0, 10, 0]);
     const [avatarPassedZombie1, setAvatarPassedZombie1] = useState(false);
     const [avatarPassedZombie2, setAvatarPassedZombie2] = useState(false);
     const [avatarPassedZombie3, setAvatarPassedZombie3] = useState(false);
@@ -20,30 +20,30 @@ export const Charaters = () => {
 
     // Verifica si el avatar ha pasado por las posiciones de los zombies
     useFrame(() => {
-        if (avatarRef.current) { // Verifica si avatarRef.current no es undefined
+        if (avatarRef.current) {
             const avatarPos = avatarRef.current.position;
-            console.log(avatarPos);
 
-            if (!avatarPassedZombie1 && avatarPos.x <= -10) {
+            console.log("Avatar position in useFrame:", avatarPos); // Agrega este console.log para verificar la posición en cada frame
+
+            // Comprueba si la posición del avatar coincide con la de los zombies
+            if (!avatarPassedZombie1 && avatarPos.z <= -10) {
                 setAvatarPassedZombie1(true);
                 console.log("Avatar pasó por Zombie1");
             }
-            if (!avatarPassedZombie2 && avatarPos.x <= -30) {
+            if (!avatarPassedZombie2 && avatarPos.z <= -30) {
                 setAvatarPassedZombie2(true);
                 console.log("Avatar pasó por Zombie2");
             }
-            if (!avatarPassedZombie3 && avatarPos.x <= -50) {
+            if (!avatarPassedZombie3 && avatarPos.z <= -50) {
                 setAvatarPassedZombie3(true);
                 console.log("Avatar pasó por Zombie3");
             }
         }
     });
 
-    // Actualiza la posición del avatar cuando avatarPosition cambie
+    // Verifica si la posición del avatar se actualiza correctamente
     useEffect(() => {
-        if (avatarRef.current) {
-            avatarRef.current.position.set(...avatarPosition);
-        }
+        console.log("Avatar position updated:", avatarPosition); // Agrega este console.log para verificar la actualización de la posición del avatar
     }, [avatarPosition]);
 
     return (
@@ -55,11 +55,14 @@ export const Charaters = () => {
                 jumpVel={4}
                 name="AVATAR" 
                 autoBalance={true}
-                camInitDis={-10}
-                camMaxDis={-10}
-                position={avatarPosition}
                 maxVelLimit={5}
-                onChangePosition={setAvatarPosition}
+                camInitDis={-10}
+                position={avatarPosition}
+                camMaxDis={-10}
+                onChangePosition={(newPosition) => {
+                    console.log("New avatar position:", newPosition); // Agrega este console.log para verificar la nueva posición enviada por el Ecctrl
+                    setAvatarPosition(newPosition);
+                }}
             >
                 <Avatar ref={avatarRef} onAttack={handleAttack} />
             </Ecctrl>
