@@ -20,6 +20,7 @@ export const Charaters = () => {
 
     // Verifica si el avatar ha pasado por las posiciones de los zombies
     useFrame(() => {
+        
         if (avatarRef.current) {
             const avatarPos = avatarRef.current.position;
 
@@ -43,6 +44,7 @@ export const Charaters = () => {
 
     // Verifica si la posición del avatar se actualiza correctamente
     useEffect(() => {
+        
         console.log("Avatar position updated:", avatarPosition); // Agrega este console.log para verificar la actualización de la posición del avatar
     }, [avatarPosition]);
 

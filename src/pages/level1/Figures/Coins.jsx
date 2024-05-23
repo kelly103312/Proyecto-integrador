@@ -14,6 +14,7 @@ export const Coins = (props) => {
       if(e.other.rigidBodyObject.name === "AVATAR"){
         console.log("coin ++")
         setVisible(false);
+        props.onCollect();
       }
     }
   return (
