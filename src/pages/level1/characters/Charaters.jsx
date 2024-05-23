@@ -60,7 +60,7 @@ export const Charaters = () => {
                 position={avatarPosition}
                 camMaxDis={-9}
                 onChangePosition={(newPosition) => {
-                    console.log("New avatar position:", newPosition); // Agrega este console.log para verificar la nueva posición enviada por el Ecctrl
+                    console.log("New avatar position:", newPosition); // Agrega este console.log para vrificar la nueva posición enviada por el Ecctrl
                     setAvatarPosition(newPosition);
                 }}
             >
