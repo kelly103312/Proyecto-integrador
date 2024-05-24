@@ -8,7 +8,7 @@ export default function useMovements(){
         rightward: "rightward",
         jump: "jump",
         exit: "exit",
-        attack : "KeyQ",
+        attack : "attack",
         run: "run"
     }
 
