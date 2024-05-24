@@ -9,7 +9,7 @@ export const World = (props) => {
     const navigate = useNavigate();
     const onCollisionExit = (e) =>{
       if(e.other.rigidBodyObject.name === "AVATAR"){
-        navigate('/level2');
+        navigate('/level1');
       }
     }
     return (

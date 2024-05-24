@@ -7,8 +7,6 @@ export const Checkpoint = (props) => {
     const {checkpoints,obtained} = UseCheckpoints();
     const auth = useAuth()
     
-    useEffect(()=>{
-    },[checkpoints])
     
   return (
     <mesh position={props.position}>
