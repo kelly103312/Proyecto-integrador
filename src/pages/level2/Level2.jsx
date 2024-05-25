@@ -6,7 +6,6 @@ import WelcomeText from "./abstractions/WelcomeText";
 import RedMen from "./characters/redMen/RedMen";
 import Lights from "./lights/Lights";
 import Environments from "./staging/Environments";
-import Girl from "./characters/girl/Girl";
 import Player1 from "./characters/players/Player1";
 import { Canvas } from "@react-three/fiber";
 import World from "./world/World";
@@ -29,7 +28,7 @@ export default function Level2() {
      * @param {*} valuesUser 
      */
     const saveDataUser = async (valuesUser) => {
-        const {success} = await readUser(valuesUser.email)
+        const { success } = await readUser(valuesUser.email)
         if (!success)
             await createUser(valuesUser)
     }
@@ -60,17 +59,18 @@ export default function Level2() {
                 <Players />
                 <Logout />
                 <EcctrlJoystick />
-                <Canvas shadows={true}>
+                <Canvas shadows={true} camera={{
+                    position: [0, 1, 0],
+                }} >
                     {/* <Perf position="top-left" /> */}
                     <Lights />
                     <Environments />
                     <Physics debug={false}>
                         <World />
-                        <Girl />
                         <RedMen />
-                        <Player1/>
+                        <Player1 />
                     </Physics>
-                    <WelcomeText position={[0, 1, -2]} />
+                    <WelcomeText position={[1, 15, -93]} />
                     <Controls />
                 </Canvas>
             </KeyboardControls>
