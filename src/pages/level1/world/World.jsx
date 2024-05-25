@@ -3,27 +3,32 @@ import { useGLTF } from '@react-three/drei';
 import { RigidBody } from '@react-three/rapier';
 import * as THREE from 'three';
 import { useLifes } from '../../../context/ManagementLifes';
+import { useNavigate } from 'react-router-dom';
+
 export default function Model(props) {
-  
     const { nodes, materials } = useGLTF('/assets/level1/models/world/game.glb');
     const { restarLifes } = useLifes();
-    // State to hold the current color
+    const navigate = useNavigate();
     const [color, setColor] = useState(new THREE.Color(0xffffff));
 
-    // Function to change color periodicall
     useEffect(() => {
         const interval = setInterval(() => {
             setColor(new THREE.Color(Math.random(), Math.random(), Math.random()));
-        }, 1000); // Change color every 1 second
+        }, 1000);
 
-        return () => clearInterval(interval); // Cleanup on unmount
+        return () => clearInterval(interval);
     }, []);
 
-    const onCollisionExit = (e) => {
+    const handleCollisionExit = (e) => {
         if (e.other.rigidBodyObject.name === 'AVATAR') {
-                 restarLifes();
-                window.location.reload();
-           
+            restarLifes();
+            window.location.reload();
+        }
+    };
+
+    const handleCollisionExits = (e) => {
+        if (e.other.rigidBodyObject.name === 'AVATAR') {
+            navigate('/cueva_encantada');
         }
     };
 
@@ -132,15 +137,17 @@ export default function Model(props) {
                         material={materials['Material.002']}
                     />
                 </mesh>
-                <mesh
-                    name="polySurface10"
-                    geometry={nodes.polySurface10.geometry}
-                    material={materials.lambert1}
-                    position={[0.133, -1.001, -96.5]}
-                    rotation={[Math.PI / 2, 0, -3.084]}
-                    scale={0.248}
-                />
-                <RigidBody type="fixed" onCollisionExit={onCollisionExit} colliders="trimesh">
+                <RigidBody type="fixed" onCollisionEnter={handleCollisionExits} colliders="trimesh">
+                    <mesh
+                        name="polySurface10"
+                        geometry={nodes.polySurface10.geometry}
+                        material={materials.lambert1}
+                        position={[0.133, -1.001, -96.5]}
+                        rotation={[Math.PI / 2, 0, -3.084]}
+                        scale={0.248}
+                    />
+                </RigidBody>
+                <RigidBody type="fixed" onCollisionEnter={handleCollisionExit} colliders="trimesh">
                     <mesh
                         name="Hueco1"
                         geometry={nodes.Hueco1.geometry}
@@ -151,8 +158,7 @@ export default function Model(props) {
                         <meshStandardMaterial color={color} transparent opacity={1} />
                     </mesh>
                 </RigidBody>
-
-                <RigidBody type="fixed" colliders="trimesh" onCollisionExit={onCollisionExit}>
+                <RigidBody type="fixed" onCollisionEnter={handleCollisionExit} colliders="trimesh">
                     <mesh
                         name="Hueco2"
                         geometry={nodes.Hueco2.geometry}
@@ -163,7 +169,7 @@ export default function Model(props) {
                         <meshStandardMaterial color={color} transparent opacity={1} />
                     </mesh>
                 </RigidBody>
-                <RigidBody type="fixed" colliders="trimesh" onCollisionExit={onCollisionExit}>
+                <RigidBody type="fixed" onCollisionEnter={handleCollisionExit} colliders="trimesh">
                     <mesh
                         name="Hueco3"
                         geometry={nodes.Hueco3.geometry}
@@ -174,7 +180,7 @@ export default function Model(props) {
                         <meshStandardMaterial color={color} transparent opacity={1} />
                     </mesh>
                 </RigidBody>
-                <RigidBody type="fixed" colliders="trimesh" onCollisionExit={onCollisionExit}>
+                <RigidBody type="fixed" onCollisionEnter={handleCollisionExit} colliders="trimesh">
                     <mesh
                         name="Hueco5"
                         geometry={nodes.Hueco5.geometry}
@@ -185,7 +191,7 @@ export default function Model(props) {
                         <meshStandardMaterial color={color} transparent opacity={1} />
                     </mesh>
                 </RigidBody>
-                <RigidBody type="fixed" colliders="trimesh" onCollisionExit={onCollisionExit}>
+                <RigidBody type="fixed" onCollisionEnter={handleCollisionExit} colliders="trimesh">
                     <mesh
                         name="Hueco4"
                         geometry={nodes.Hueco4.geometry}
@@ -196,7 +202,7 @@ export default function Model(props) {
                         <meshStandardMaterial color={color} transparent opacity={1} />
                     </mesh>
                 </RigidBody>
-                <RigidBody type="fixed" colliders="trimesh" onCollisionExit={onCollisionExit}>
+                <RigidBody type="fixed" onCollisionEnter={handleCollisionExit} colliders="trimesh">
                     <mesh
                         name="Hueco6"
                         geometry={nodes.Hueco6.geometry}
