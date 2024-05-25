@@ -1,17 +1,24 @@
 import React, { useEffect, useRef } from 'react'
 import { useAnimations, useGLTF } from '@react-three/drei'
 import { useAvatar } from '../../../context/AvatarContext'
+import * as THREE from 'three';
+import { UseCheckpoints } from '../../../context/ManagementCheckpoints';
+import { useAuth } from '../../../context/AuthContext';
+import { createCheckpoint, readCheckpoint } from '../../../db/checkpoints-collection';
 
 export const AvatarPrincipal = (props) => {
   const avatarBodyRef = useRef()
   const avatarRef = useRef()
   const {avatar,setAvatar} = useAvatar();
+  const {checkpoints, pointAchieved} = UseCheckpoints();
   const { nodes, materials, animations } = useGLTF('/assets/castillo/avatars/ardilla.glb')
 
   const {actions} = useAnimations(animations,avatarRef)
+  const auth = useAuth()
   
   useEffect(()=>{
     actions["idle"].play();
+    
   },[])
 
   useEffect(()=>{
@@ -25,10 +32,23 @@ export const AvatarPrincipal = (props) => {
     }
   },[avatar.animation,actions])
 
+  useEffect(()=>{
+    let vec= new THREE.Vector3();
+    avatarRef.current.getWorldPosition(vec)
+    let distance =vec.distanceTo(new THREE.Vector3(0,1,-60));
+    const { displayName, email } = auth.userLogged
+    console.log(distance)
+    if(distance < 2.2 && !checkpoints){
+      pointAchieved(vec,"Castillo",email,"Ardilla")
+    }
+
+  })
+
+
   return (
     //<RigidBody  ref={avatarBodyRef} position={[0,1.5,-3]} colliders={"hull"}> 
       <group ref={avatarRef}  rotation={[Math.PI / 2, 0, 0]} position-y={-0.8}>
-       <group ref={props.onAttack.position} name="Armature" scale={0.336}>
+       <group name="Armature" scale={0.336}>
           <skinnedMesh
             name="Body"
             geometry={nodes.Body.geometry}

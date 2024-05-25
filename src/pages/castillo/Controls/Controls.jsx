@@ -12,7 +12,7 @@ export const Controls = () => {
 
     useEffect(()=>{
         const unsubscribe = sub(
-            (state) => state.forward || state.backward || state.leftward || state.rightward,
+            (state) => state.forward || state.backward || state.leftward || state.rightward ||state.attack,
             (pressed) => {
               setAvatar({ ...avatar, animation: pressed ? "run" : "idle" });
             }
@@ -32,8 +32,7 @@ export const Controls = () => {
     },[play])
 
     useFrame((state,delta)=>{
-        const {forward, backward, leftward, rightward,jump} = get()
-        
+        const {forward, backward, leftward, rightward,jump,attack} = get()
         if(forward||backward||leftward||rightward){
             setPlay(true)
         }else{
