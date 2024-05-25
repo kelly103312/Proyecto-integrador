@@ -31,8 +31,8 @@ export default function Player1(props) {
             ref={rigidBodyPlayer1Ref}
             camInitDis={-2}
             camMaxDis={-2}
-            maxVelLimit={5}
-            jumpVel={4}
+            maxVelLimit={10.5}
+            jumpVel={5.5}
         >
             <group ref={player1Ref} name="Scene" position-y={-0.9}>
                 <group name="Armature">

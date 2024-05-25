@@ -8,8 +8,8 @@ export default function RedManCircle({ position }) {
     const redManCircleBodyRef = useRef(null)
     const { nodes, materials } = useGLTF('/assets/level2/models/red-mens/villano.glb')
 
-    const radius = 3.5
-    const speed = 1.5
+    const radius = 5
+    const speed = 4.1
 
     useFrame(({ clock }) => {
         const elapsedTime = clock.getElapsedTime()
@@ -20,7 +20,7 @@ export default function RedManCircle({ position }) {
         redManCircleRef.current.rotation.y = -angle
 
         redManCircleBodyRef.current?.setTranslation({
-            x: position[0] + x,
+            x: position[2,2],
             y: position[1],
             z: position[2] + z
         }, true)

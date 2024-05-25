@@ -11,24 +11,26 @@ export default function World(props) {
 
 
                 <RigidBody type="fixed" colliders="trimesh">
-                    <mesh onClick={(e) => e.stopPropagation()} receiveShadow={true} geometry={nodes.Floor.geometry} material={materials.floorMaterial}>
-                        <meshStandardMaterial opacity={0.001} transparent={true} />
-                    </mesh>
-                    <mesh geometry={nodes.Rock.geometry} material={materials.CaveRock_L_Base} />
-                    <mesh geometry={nodes.rejas.geometry} material={materials.Material} />
+
+                    <group>
+
+                        <mesh onClick={(e) => e.stopPropagation()} receiveShadow={true} geometry={nodes.Floor.geometry} material={materials.floorMaterial}>
+                            <meshStandardMaterial opacity={0.001} transparent={true} />
+                        </mesh>
+
+                        <mesh geometry={nodes.Rock.geometry} material={materials.CaveRock_L_Base} />
+                        <mesh geometry={nodes.Valla.geometry} material={materials.DefaultMaterial} />
+
+                        <group>
+                            <group>
+                                <mesh geometry={nodes.Laberinto_1.geometry} material={materials['suelo.005']} />
+                                <mesh geometry={nodes.Laberinto_2.geometry} material={materials['Default.005']} />
+                            </group>
+                        </group>
+
+                    </group>
+
                 </RigidBody>
-
-               
-                   
-
-
-             
-
-             
-
-             
-
-
 
             </group>
 
