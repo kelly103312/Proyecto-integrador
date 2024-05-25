@@ -1,28 +1,45 @@
-import React, { useRef } from 'react'
+import React, { useRef, useEffect } from 'react'
 import { useGLTF } from '@react-three/drei'
-import { RigidBody, CuboidCollider, CylinderCollider } from '@react-three/rapier'
+import { RigidBody } from '@react-three/rapier'
+import { useAnimations } from '@react-three/drei'
+import { useLifes } from '../../../context/ManagementLifes';
 
 export default function Model(props) {
-  const { nodes, materials } = useGLTF('/assets/level1/models/world/game.glb')
-
+  
+    const group = useRef()
+    const { nodes, materials, animations } = useGLTF('/assets/level1/models/world/game.glb')
+    const { actions } = useAnimations(animations, group)
+    const { restarLifes } = useLifes();
+  
+    const onCollisionExit = (e) => {
+      if (e.other && e.other.rigidBodyObject && e.other.rigidBodyObject.name === 'AVATAR') {
+      
+        window.location.reload();
+       
+      }
+    };
+  
+    useEffect(() => {
+      console.log("Nodes:", nodes);
+      console.log("Materials:", materials);
+    }, [nodes, materials]);
   return (
-    <group {...props} dispose={null}>
+    <group ref={group} {...props} dispose={null}>
       <group name="Scene">
         <RigidBody type="fixed" colliders="trimesh">
           <mesh
-           name="Floor"
-           geometry={nodes.Floor.geometry}
-           material={materials['floorMaterial.001']}
+            name="Floor"
+            geometry={nodes.Floor.geometry}
+            material={materials['floorMaterial.001']}
           />
         </RigidBody>
         <RigidBody type="fixed" colliders="trimesh">
-        <mesh
-          name="Walls"
-          geometry={nodes.Walls.geometry}
-          material={materials['wallMaterial.001']}
-        />
+          <mesh
+            name="Walls"
+            geometry={nodes.Walls.geometry}
+            material={materials['wallMaterial.001']}
+          />
         </RigidBody>
-        {/* Aquí está el código proporcionado */}
         <mesh
           name="tree"
           geometry={nodes.tree.geometry}
@@ -111,17 +128,89 @@ export default function Model(props) {
             material={materials['Material.002']}
           />
         </mesh>
-        <group name="group" position={[-0.005, 0.12, 0.014]} rotation={[3.123, 0, 0]} scale={0} />
         <mesh
           name="polySurface10"
           geometry={nodes.polySurface10.geometry}
           material={materials.lambert1}
-          position={[0.16, -1.001, -96.5]}
-          rotation={[Math.PI / 2, 0, 0]}
+          position={[0.133, -1.001, -96.5]}
+          rotation={[Math.PI / 2, 0, -3.084]}
           scale={0.248}
         />
+        <RigidBody type="fixed" colliders="trimesh" onCollisionExit={onCollisionExit}>
+          <mesh
+            name="Hueco1"
+            geometry={nodes.Hueco1.geometry}
+            material={nodes.Hueco1.material}
+            position={[2.585, 0, -12.878]}
+            scale={2.456}
+          >
+           <meshStandardMaterial transparent opacity={0} />
+           </mesh>
+
+        </RigidBody>
+        <RigidBody type="fixed" colliders="trimesh" onCollisionExit={onCollisionExit}>
+          <mesh
+            name="Hueco2"
+            geometry={nodes.Hueco2.geometry}
+            material={nodes.Hueco2.material}
+            position={[2.582, 0, -30.435]}
+            scale={[2.43, 0.739, 3.087]}
+          >
+           <meshStandardMaterial transparent opacity={0} />
+           </mesh>
+
+        </RigidBody>
+        <RigidBody type="fixed" colliders="trimesh" onCollisionExit={onCollisionExit}>
+          <mesh
+            name="Hueco3"
+            geometry={nodes.Hueco3.geometry}
+            material={nodes.Hueco3.material}
+            position={[2.761, 0, -37.389]}
+            scale={[2.583, 1, 3.775]}
+          >
+           <meshStandardMaterial transparent opacity={0} />
+           </mesh>
+
+        </RigidBody>
+        <RigidBody type="fixed" colliders="trimesh" onCollisionExit={onCollisionExit}>
+          <mesh
+            name="Hueco5"
+            geometry={nodes.Hueco5.geometry}
+            material={nodes.Hueco5.material}
+            position={[2.322, 0, -54.279]}
+            scale={[2.48, 1.172, 2.857]}
+          >
+           <meshStandardMaterial transparent opacity={0} />
+           </mesh>
+
+        </RigidBody>
+        <RigidBody type="fixed" colliders="trimesh" onCollisionExit={onCollisionExit}>
+          <mesh
+            name="Hueco4"
+            geometry={nodes.Hueco4.geometry}
+            material={nodes.Hueco4.material}
+            position={[-2.468, 0, -47.958]}
+            scale={[2.63, 1, 3.238]}
+          >
+           <meshStandardMaterial transparent opacity={0} />
+          </mesh>
+
+        </RigidBody>
+        <RigidBody type="fixed" colliders="trimesh" onCollisionExit={onCollisionExit}>
+          <mesh
+            name="Hueco6"
+            geometry={nodes.Hueco6.geometry}
+            material={nodes.Hueco6.material}
+            position={[2.229, 0, -77.092]}
+            scale={[2.578, 1, 3.573]}
+          >
+           <meshStandardMaterial transparent opacity={0} />
+           </mesh>
+
+        </RigidBody>
       </group>
-    </group> 
+    </group>
   );
 }
+
 useGLTF.preload("/assets/level1/models/world/game.glb");
