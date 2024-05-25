@@ -1,6 +1,6 @@
 import { BakeShadows, KeyboardControls, Loader } from '@react-three/drei'
 import { Canvas } from '@react-three/fiber'
-import React, { Suspense, useEffect } from 'react'
+import React, { Suspense, useEffect, useState } from 'react'
 import { World } from './World/World'
 import { Physics } from '@react-three/rapier'
 import { Ligths } from './Lights/Ligths'
@@ -28,7 +28,13 @@ export const Castillo = () => {
 
   const map = useMovements();
   const auth = useAuth()
+  const [coins, setCoins] = useState(0);
   const {checkpoints,obtained} = UseCheckpoints();
+
+  // Función para manejar la recolección de monedas
+  const handleCollectCoin = () => {
+    setCoins(prevCoins => prevCoins + 1); // Incrementar el contador de monedas
+  };
 
   /**
      * Save the user data in the DB.
@@ -95,17 +101,21 @@ export const Castillo = () => {
             <Box position={[0,2,-5]} />
             
             <Laberinto position={[-4.6, 2, -15]} />
-            <Coins position={[0, 2, -32]}/>
-            <Coins position={[0, 2, -38]} />
-            <Coins position={[0, 2, -42]}/>
-            <Coins position={[0, 2, -47]}/>
-            <Coins position={[0, 2, -55]}/>
+            <Coins position={[0, 2, -32]} onCollect={handleCollectCoin}/>
+            <Coins position={[0, 2, -38]} onCollect={handleCollectCoin}/>
+            <Coins position={[0, 2, -42]} onCollect={handleCollectCoin}/>
+            <Coins position={[0, 2, -47]} onCollect={handleCollectCoin}/>
+            <Coins position={[0, 2, -55]} onCollect={handleCollectCoin}/>
           </Physics>
           <WelcomeText position={[0, 4, -96]} />
         </Suspense>
         <Controls />
       </Canvas>
       <Loader />
+      {/* Mostrar el contador de monedas debajo del contador de vidas */}
+      <div style={{ position: 'absolute', top: 60, center: 10, backgroundColor: 'rgba(0, 0, 0, 0.5)', padding: 10, borderRadius: 5, color: 'white' }}>
+                Monedas: {coins}
+      </div>
     </KeyboardControls>
   )
 }
