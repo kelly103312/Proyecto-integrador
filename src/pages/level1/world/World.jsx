@@ -10,7 +10,7 @@ export default function Model(props) {
     // State to hold the current color
     const [color, setColor] = useState(new THREE.Color(0xffffff));
 
-    // Function to change color periodically
+    // Function to change color periodicall
     useEffect(() => {
         const interval = setInterval(() => {
             setColor(new THREE.Color(Math.random(), Math.random(), Math.random()));
