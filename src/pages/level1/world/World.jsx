@@ -28,7 +28,7 @@ export default function Model(props) {
 
     const handleCollisionExits = (e) => {
         if (e.other.rigidBodyObject.name === 'AVATAR') {
-            navigate('/castillo');
+            navigate('/cueva_encantada');
         }
     };
 
