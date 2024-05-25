@@ -1,18 +1,21 @@
-import React from 'react'
-import "./Styles.css";
+import React, { useEffect } from 'react';
+import './Styles.css';
 import { useLifes } from '../../../context/ManagementLifes';
 
 export const Pane = () => {
-  const { lifes, restarLifes } = useLifes();
+  const { lifes, resetGame } = useLifes();
 
-  var object = '';
-  for (let i = 0; i < lifes; i++) {
-    object+= ' ❤ '    
-  }  
+  useEffect(() => {
+    if (lifes <= 0) {
+      window.location.reload();
+    }
+  }, [lifes, resetGame]);
 
   return (
     <div className='container-lifes'>
-        {object}
+      {Array.from({ length: lifes }, (_, i) => (
+        <span key={i}>❤</span>
+      ))}
     </div>
-  )
-}
+  );
+};
