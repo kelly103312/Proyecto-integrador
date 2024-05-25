@@ -55,7 +55,7 @@ export const Charaters = () => {
             <Zombie3 position={[0, 0, -50]} />
             <Ecctrl 
                 jumpVel={4}
-                name="AVATAR" 
+                name='AVATAR'
                 autoBalance={true}
                 maxVelLimit={5}
                 camInitDis={-10}
