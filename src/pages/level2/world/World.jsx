@@ -25,6 +25,8 @@ export default function World(props) {
                             <group>
                                 <mesh geometry={nodes.Laberinto_1.geometry} material={materials['suelo.005']} />
                                 <mesh geometry={nodes.Laberinto_2.geometry} material={materials['Default.005']} />
+                                <mesh geometry={nodes.Tronco.geometry} material={materials.lambert1} />
+        <mesh geometry={nodes.Escalera.geometry} material={materials.Stairs} />
                             </group>
                         </group>
 
