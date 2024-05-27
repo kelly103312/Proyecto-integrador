@@ -1,4 +1,4 @@
-import React, { useRef, useState, useEffect } from 'react';
+import React, { useRef, useState, useEffect, forwardRef, useImperativeHandle } from 'react';
 import Ecctrl from 'ecctrl';
 import { useFrame } from '@react-three/fiber';
 import Avatar from './avatar/Avatar'; // Asegúrate de que esta es la ruta correcta
@@ -6,12 +6,20 @@ import Zombie1 from './zombies/Zombie1';
 import Zombie2 from './zombies/Zombie2';
 import Zombie3 from './zombies/Zombie3';
 
-export const Charaters = () => {
-    const [avatarPosition, setAvatarPosition] = useState([0, 10, 0]);
+// Modificar Charaters para exponer la referencia del avatar
+export const Charaters = forwardRef((props, ref) => {
+    const [avatarPosition, setAvatarPosition] = useState([0, 10, 95]);
     const [avatarPassedZombie1, setAvatarPassedZombie1] = useState(false);
     const [avatarPassedZombie2, setAvatarPassedZombie2] = useState(false);
     const [avatarPassedZombie3, setAvatarPassedZombie3] = useState(false);
     const avatarRef = useRef();
+
+    // Utiliza useImperativeHandle para exponer la referencia del avatar
+    useImperativeHandle(ref, () => ({
+        get position() {
+            return avatarPosition;
+        }
+    }));
 
     const handleAttack = () => {
         console.log("El avatar 1 está atacando al avatar 2");
@@ -20,22 +28,21 @@ export const Charaters = () => {
 
     // Verifica si el avatar ha pasado por las posiciones de los zombies
     useFrame(() => {
-        
         if (avatarRef.current) {
             const avatarPos = avatarRef.current.position;
 
             console.log("Avatar position in useFrame:", avatarPos); // Agrega este console.log para verificar la posición en cada frame
 
             // Comprueba si la posición del avatar coincide con la de los zombies
-            if (!avatarPassedZombie1 && avatarPos.z <= -10) {
+            if (!avatarPassedZombie1 && avatarPos[2] <= -10) {
                 setAvatarPassedZombie1(true);
                 console.log("Avatar pasó por Zombie1");
             }
-            if (!avatarPassedZombie2 && avatarPos.z <= -30) {
+            if (!avatarPassedZombie2 && avatarPos[2] <= -30) {
                 setAvatarPassedZombie2(true);
                 console.log("Avatar pasó por Zombie2");
             }
-            if (!avatarPassedZombie3 && avatarPos.z <= -50) {
+            if (!avatarPassedZombie3 && avatarPos[2] <= -50) {
                 setAvatarPassedZombie3(true);
                 console.log("Avatar pasó por Zombie3");
             }
@@ -44,7 +51,6 @@ export const Charaters = () => {
 
     // Verifica si la posición del avatar se actualiza correctamente
     useEffect(() => {
-        
         console.log("Avatar position updated:", avatarPosition); // Agrega este console.log para verificar la actualización de la posición del avatar
     }, [avatarPosition]);
 
@@ -70,4 +76,4 @@ export const Charaters = () => {
             </Ecctrl>
         </>
     );
-}
+});

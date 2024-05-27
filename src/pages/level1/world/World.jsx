@@ -1,16 +1,42 @@
-import React, { useRef, useEffect, useState } from 'react';
-import { useGLTF } from '@react-three/drei';
+import React, { useEffect, useState, useRef } from 'react';
+import { useGLTF,useTexture } from '@react-three/drei';
 import { RigidBody } from '@react-three/rapier';
 import * as THREE from 'three';
 import { useLifes } from '../../../context/ManagementLifes';
 import { useNavigate } from 'react-router-dom';
+import { RepeatWrapping } from "three";
 
 export default function Model(props) {
     const { nodes, materials } = useGLTF('/assets/level1/models/world/game.glb');
     const { restarLifes } = useLifes();
     const navigate = useNavigate();
+    const group = useRef();
     const [color, setColor] = useState(new THREE.Color(0xffffff));
+    const object1 = useRef(null);
+    const PATH = '/assets/level1/models/floor/';
 
+    const propsTexture = useTexture({
+        map: PATH + "aerial_rocks_02_diff_4k.jpg",
+        normalMap: PATH + "aerial_rocks_02_nor_dx_4k.jpg",
+        roughnessMap: PATH + "aerial_rocks_02_rough_4k.jpg",
+        displacementMap: PATH + "aerial_rocks_02_disp_4k.jpg",
+    });
+
+
+    propsTexture.map.repeat.set(4, 120);
+    propsTexture.map.wrapS = propsTexture.map.wrapT = RepeatWrapping;
+
+    propsTexture.normalMap.repeat.set(4, 120);
+    propsTexture.normalMap.wrapS = propsTexture.normalMap.wrapT = RepeatWrapping;
+
+    propsTexture.displacementMap.repeat.set(4, 120);
+    propsTexture.displacementMap.wrapS = propsTexture.displacementMap.wrapT = RepeatWrapping;
+
+    propsTexture.roughnessMap.repeat.set(4, 120);
+    propsTexture.roughnessMap.wrapS = propsTexture.roughnessMap.wrapT = RepeatWrapping;
+
+
+    
     useEffect(() => {
         const interval = setInterval(() => {
             setColor(new THREE.Color(Math.random(), Math.random(), Math.random()));
@@ -20,121 +46,210 @@ export default function Model(props) {
     }, []);
 
     const handleCollisionExit = (e) => {
-        if (e.other.rigidBodyObject.name === 'AVATAR') {
+        if (e.target && e.target.userData.name === 'AVATAR') {
             restarLifes();
             window.location.reload();
         }
     };
 
     const handleCollisionExits = (e) => {
-        if (e.other.rigidBodyObject.name === 'AVATAR') {
+        if (e.target && e.target.userData.name === 'AVATAR') {
             navigate('/level2');
         }
     };
 
     return (
-        <group {...props} dispose={null}>
+        <group ref={group} {...props} dispose={null}>
             <group name="Scene">
                 <RigidBody type="fixed" colliders="trimesh">
                     <mesh
-                        name="Floor"
-                        geometry={nodes.Floor.geometry}
-                        material={materials['floorMaterial.001']}
+                        name="walls"
+                        geometry={nodes.walls.geometry}
+                        
+                    >
+                <meshStandardMaterial {...propsTexture} opacity={1} transparent={true} />
+                </mesh>
+                </RigidBody>
+                <RigidBody type="fixed" colliders="trimesh">
+                <mesh name="floor" geometry={nodes.floor.geometry} position={[0, 0.857, 0]}>
+                <meshStandardMaterial {...propsTexture} opacity={1} transparent={false} />
+               </mesh>
+               </RigidBody>
+
+                <mesh
+                    name="tree1"
+                    geometry={nodes.tree1.geometry}
+                    material={materials['Material.003']}
+                    position={[-7.731, -0.053, 64.495]}>
+                    <mesh
+                        name="leaves001"
+                        geometry={nodes.leaves001.geometry}
+                        material={materials['Material.004']}
+                    />
+                </mesh>
+                <mesh
+                    name="tree2"
+                    geometry={nodes.tree2.geometry}
+                    material={materials['Material.005']}
+                    position={[8.137, -0.053, 75.199]}>
+                    <mesh
+                        name="leaves002"
+                        geometry={nodes.leaves002.geometry}
+                        material={materials['Material.006']}
+                    />
+                </mesh>
+                <mesh
+                    name="tree4"
+                    geometry={nodes.tree4.geometry}
+                    material={materials['Material.009']}
+                    position={[7.475, -0.053, 43.76]}>
+                    <mesh
+                        name="leaves005"
+                        geometry={nodes.leaves005.geometry}
+                        material={materials['Material.010']}
+                    />
+                </mesh>
+                <mesh
+                    name="tree3"
+                    geometry={nodes.tree3.geometry}
+                    material={materials['Material.013']}
+                    position={[7.692, -0.053, 57.852]}>
+                    <mesh
+                        name="leaves003"
+                        geometry={nodes.leaves003.geometry}
+                        material={materials['Material.014']}
+                        position={[-0.073, 0, 0]}
+                    />
+                </mesh>
+                <mesh
+                    name="tree5"
+                    geometry={nodes.tree5.geometry}
+                    material={materials['Material.015']}
+                    position={[-8.374, -0.053, 85.016]}>
+                    <mesh
+                        name="leaves004"
+                        geometry={nodes.leaves004.geometry}
+                        material={materials['Material.016']}
+                        position={[0.288, 0, 0.011]}
+                    />
+                </mesh>
+                <mesh
+                    name="tree6"
+                    geometry={nodes.tree6.geometry}
+                    material={materials['Material.018']}
+                    position={[-6.468, -0.053, 51.832]}>
+                    <mesh
+                        name="leaves006"
+                        geometry={nodes.leaves006.geometry}
+                        material={materials['Material.017']}
+                        position={[-0.073, 0, 0]}
+                    />
+                </mesh>
+                <mesh
+                    name="tree9"
+                    geometry={nodes.tree9.geometry}
+                    material={materials['Material.019']}
+                    position={[7.39, -0.053, 91.4]}>
+                    <mesh
+                        name="leaves007"
+                        geometry={nodes.leaves007.geometry}
+                        material={materials['Material.020']}
+                        position={[-0.073, 0, 0]}
+                    />
+                </mesh>
+                <RigidBody type="fixed" colliders="trimesh">
+                    <mesh
+                        name="Cylinder"
+                        geometry={nodes.Cylinder.geometry}
+                        material={materials['Material.041']}
+                        position={[0, 0.863, 0]}
+                        rotation={[0, 0, 1.587]}
+                        scale={[1, 10, 1]}
                     />
                 </RigidBody>
                 <RigidBody type="fixed" colliders="trimesh">
                     <mesh
-                        name="Walls"
-                        geometry={nodes.Walls.geometry}
-                        material={materials['wallMaterial.001']}
+                        name="Cylinder1"
+                        geometry={nodes.Cylinder1.geometry}
+                        material={materials['Material.040']}
+                        position={[0, 0.863, 16.088]}
+                        rotation={[0, 0, 1.587]}
+                        scale={[1, 10, 1]}
+                    />
+                </RigidBody>
+                <RigidBody type="fixed" colliders="trimesh">
+                    <mesh
+                        name="Cylinder2"
+                        geometry={nodes.Cylinder2.geometry}
+                        material={materials['Material.042']}
+                        position={[0, 1.004, -13.036]}
+                        rotation={[0, 0, 1.587]}
+                        scale={[1, 10, 1]}
+                    />
+                </RigidBody>
+                <RigidBody type="fixed" colliders="trimesh">
+                    <mesh
+                        name="Cylinder001"
+                        geometry={nodes.Cylinder001.geometry}
+                        material={materials['Material.043']}
+                        position={[0, 0.863, -24.082]}
+                        rotation={[0, 0, 1.587]}
+                        scale={[1, 10, 1]}
+                    />
+                </RigidBody>
+                <RigidBody type="fixed" colliders="trimesh">
+                    <mesh
+                        name="Cylinder3"
+                        geometry={nodes.Cylinder3.geometry}
+                        material={materials['Material.044']}
+                        position={[0, 0.863, -42.186]}
+                        rotation={[0, 0, 1.587]}
+                        scale={[1, 10, 1]}
                     />
                 </RigidBody>
                 <mesh
-                    name="tree"
-                    geometry={nodes.tree.geometry}
-                    material={materials['Material.001']}
-                    position={[-1.521, -0.019, -2.767]}>
+                    name="tree7"
+                    geometry={nodes.tree7.geometry}
+                    material={materials['Material.021']}
+                    position={[-7.37, -0.053, 93.101]}>
                     <mesh
-                        name="leaves"
-                        geometry={nodes.leaves.geometry}
-                        material={materials['Material.002']}
+                        name="leaves008"
+                        geometry={nodes.leaves008.geometry}
+                        material={materials['Material.022']}
+                        position={[-0.073, 0, 0]}
                     />
                 </mesh>
                 <mesh
-                    name="treef"
-                    geometry={nodes.treef.geometry}
-                    material={materials['Material.001']}
-                    position={[-1.555, -0.066, -46.839]}>
+                    name="tree10"
+                    geometry={nodes.tree10.geometry}
+                    material={materials['Material.025']}
+                    position={[-8.026, -0.053, 43.76]}>
                     <mesh
-                        name="leaves001"
-                        geometry={nodes.leaves001.geometry}
-                        material={materials['Material.002']}
+                        name="leaves009"
+                        geometry={nodes.leaves009.geometry}
+                        material={materials['Material.026']}
                     />
                 </mesh>
                 <mesh
-                    name="treeg"
-                    geometry={nodes.treeg.geometry}
-                    material={materials['Material.001']}
-                    position={[2.349, -0.164, -46.816]}>
+                    name="tree11"
+                    geometry={nodes.tree11.geometry}
+                    material={materials['Material.027']}
+                    position={[-8.276, -0.053, 26.481]}>
                     <mesh
-                        name="leaves002"
-                        geometry={nodes.leaves002.geometry}
-                        material={materials['Material.002']}
+                        name="leaves010"
+                        geometry={nodes.leaves010.geometry}
+                        material={materials['Material.028']}
                     />
                 </mesh>
                 <mesh
-                    name="treeh"
-                    geometry={nodes.treeh.geometry}
-                    material={materials['Material.001']}
-                    position={[2.012, -0.053, -3.405]}>
+                    name="tree12"
+                    geometry={nodes.tree12.geometry}
+                    material={materials['Material.029']}
+                    position={[7.561, -0.053, 26.481]}>
                     <mesh
-                        name="leaves003"
-                        geometry={nodes.leaves003.geometry}
-                        material={materials['Material.002']}
-                    />
-                </mesh>
-                <mesh
-                    name="treek"
-                    geometry={nodes.treek.geometry}
-                    material={materials['Material.001']}
-                    position={[2.41, 0.148, -85.336]}>
-                    <mesh
-                        name="leaves004"
-                        geometry={nodes.leaves004.geometry}
-                        material={materials['Material.002']}
-                    />
-                </mesh>
-                <mesh
-                    name="treel"
-                    geometry={nodes.treel.geometry}
-                    material={materials['Material.001']}
-                    position={[-2.111, 0.031, -83.528]}>
-                    <mesh
-                        name="leaves005"
-                        geometry={nodes.leaves005.geometry}
-                        material={materials['Material.002']}
-                    />
-                </mesh>
-                <mesh
-                    name="treem"
-                    geometry={nodes.treem.geometry}
-                    material={materials['Material.001']}
-                    position={[-3.452, 0.037, -59.067]}>
-                    <mesh
-                        name="leaves006"
-                        geometry={nodes.leaves006.geometry}
-                        material={materials['Material.002']}
-                    />
-                </mesh>
-                <mesh
-                    name="treen"
-                    geometry={nodes.treen.geometry}
-                    material={materials['Material.001']}
-                    position={[3.098, -0.005, -65.786]}>
-                    <mesh
-                        name="leaves007"
-                        geometry={nodes.leaves007.geometry}
-                        material={materials['Material.002']}
+                        name="leaves011"
+                        geometry={nodes.leaves011.geometry}
+                        material={materials['Material.030']}
                     />
                 </mesh>
                 <RigidBody type="fixed" onCollisionEnter={handleCollisionExits} colliders="trimesh">
@@ -142,80 +257,34 @@ export default function Model(props) {
                         name="polySurface10"
                         geometry={nodes.polySurface10.geometry}
                         material={materials.lambert1}
-                        position={[0.133, -1.001, -96.5]}
+                        position={[0.133, -1.001, -96.288]}
                         rotation={[Math.PI / 2, 0, -3.084]}
                         scale={0.248}
                     />
                 </RigidBody>
-                <RigidBody type="fixed" onCollisionEnter={handleCollisionExit} colliders="trimesh">
+                <RigidBody type="fixed" colliders="trimesh">
                     <mesh
-                        name="Hueco1"
-                        geometry={nodes.Hueco1.geometry}
-                        material={nodes.Hueco1.material}
-                        position={[2.585, 0, -12.878]}
-                        scale={2.456}
-                    >
-                        <meshStandardMaterial color={color} transparent opacity={1} />
-                    </mesh>
+                        name="Cylinder4"
+                        geometry={nodes.Cylinder4.geometry}
+                        material={materials['Material.045']}
+                        position={[0, 0.863, -65.509]}
+                        rotation={[0, 0, 1.587]}
+                        scale={[1, 10, 1]}
+                    />
                 </RigidBody>
                 <RigidBody type="fixed" onCollisionEnter={handleCollisionExit} colliders="trimesh">
                     <mesh
-                        name="Hueco2"
-                        geometry={nodes.Hueco2.geometry}
-                        material={nodes.Hueco2.material}
-                        position={[2.582, 0, -30.435]}
-                        scale={[2.43, 0.739, 3.087]}
-                    >
-                        <meshStandardMaterial color={color} transparent opacity={1} />
-                    </mesh>
-                </RigidBody>
-                <RigidBody type="fixed" onCollisionEnter={handleCollisionExit} colliders="trimesh">
-                    <mesh
-                        name="Hueco3"
-                        geometry={nodes.Hueco3.geometry}
-                        material={nodes.Hueco3.material}
-                        position={[2.761, 0, -37.389]}
-                        scale={[2.583, 1, 3.775]}
-                    >
-                        <meshStandardMaterial color={color} transparent opacity={1} />
-                    </mesh>
-                </RigidBody>
-                <RigidBody type="fixed" onCollisionEnter={handleCollisionExit} colliders="trimesh">
-                    <mesh
-                        name="Hueco5"
-                        geometry={nodes.Hueco5.geometry}
-                        material={nodes.Hueco5.material}
-                        position={[2.322, 0, -54.279]}
-                        scale={[2.48, 1.172, 2.857]}
-                    >
-                        <meshStandardMaterial color={color} transparent opacity={1} />
-                    </mesh>
-                </RigidBody>
-                <RigidBody type="fixed" onCollisionEnter={handleCollisionExit} colliders="trimesh">
-                    <mesh
-                        name="Hueco4"
-                        geometry={nodes.Hueco4.geometry}
-                        material={nodes.Hueco4.material}
-                        position={[-2.468, 0, -47.958]}
-                        scale={[2.63, 1, 3.238]}
-                    >
-                        <meshStandardMaterial color={color} transparent opacity={1} />
-                    </mesh>
-                </RigidBody>
-                <RigidBody type="fixed" onCollisionEnter={handleCollisionExit} colliders="trimesh">
-                    <mesh
-                        name="Hueco6"
-                        geometry={nodes.Hueco6.geometry}
-                        material={nodes.Hueco6.material}
-                        position={[2.229, 0, -77.092]}
-                        scale={[2.578, 1, 3.573]}
-                    >
-                        <meshStandardMaterial color={color} transparent opacity={1} />
-                    </mesh>
+                        name="Cylinder5"
+                        geometry={nodes.Cylinder5.geometry}
+                        material={materials['Material.046']}
+                        position={[0, 0.863, -85.014]}
+                        rotation={[0, 0, 1.587]}
+                        scale={[1, 10, 1]}
+                    />
                 </RigidBody>
             </group>
         </group>
     );
 }
 
-useGLTF.preload("/assets/level1/models/world/game.glb");
+useGLTF.preload('/assets/level1/models/world/game.glb');

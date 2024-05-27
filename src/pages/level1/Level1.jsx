@@ -60,6 +60,18 @@ export default function Level1() {
                         <Sphere position={[0, 0.4, -41]} velocity={5} onCollide={handleSphereCollision} />
                         <Sphere position={[0, 0.4, -51]} velocity={6} onCollide={handleSphereCollision} />
                         <Sphere position={[0, 0.4, -61]} velocity={7} onCollide={handleSphereCollision} />
+                        <Sphere position={[0, 0.4, 19]} velocity={7} onCollide={handleSphereCollision} />
+                        <Sphere position={[0, 0.4, 15]} velocity={7} onCollide={handleSphereCollision} />
+
+                        <Sphere position={[0, 0.4, 20]} velocity={7} onCollide={handleSphereCollision} />
+                        <Sphere position={[0, 0.4, 12]} velocity={7} onCollide={handleSphereCollision} />
+                        <Sphere position={[0, 0.4, 5]} velocity={7} onCollide={handleSphereCollision} />
+                        <Sphere position={[0, 0.4, 11]} velocity={7} onCollide={handleSphereCollision} />
+                        <Sphere position={[0, 0.4, 40]} velocity={7} onCollide={handleSphereCollision} />
+                        <Sphere position={[0, 0.4, 50]} velocity={7} onCollide={handleSphereCollision} />
+                        <Sphere position={[0, 0.4, 60]} velocity={7} onCollide={handleSphereCollision} />
+                        <Sphere position={[0, 0.4, 70]} velocity={7} onCollide={handleSphereCollision} />
+                        <Sphere position={[0, 0.4, 80]} velocity={7} onCollide={handleSphereCollision} />
 
                         <Charaters />
 
