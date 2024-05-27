@@ -8,11 +8,13 @@ import { RepeatWrapping } from "three";
 
 export default function Model(props) {
     const { nodes, materials } = useGLTF('/assets/level1/models/world/game.glb');
-    const { restarLifes } = useLifes();
+    
     const navigate = useNavigate();
     const group = useRef();
     const [color, setColor] = useState(new THREE.Color(0xffffff));
     const object1 = useRef(null);
+    const { restarLifes } = useLifes();
+    
     const PATH = '/assets/level1/models/floor/';
 
     const propsTexture = useTexture({
@@ -45,18 +47,22 @@ export default function Model(props) {
         return () => clearInterval(interval);
     }, []);
 
+    
+
     const handleCollisionExit = (e) => {
-        if (e.target && e.target.userData.name === 'AVATAR') {
+        if (e.other.rigidBodyObject.name === 'AVATAR') {
             restarLifes();
             window.location.reload();
         }
     };
 
     const handleCollisionExits = (e) => {
-        if (e.target && e.target.userData.name === 'AVATAR') {
+        if (e.other.rigidBodyObject.name === 'AVATAR') {
             navigate('/level2');
         }
     };
+
+
 
     return (
         <group ref={group} {...props} dispose={null}>
@@ -272,7 +278,7 @@ export default function Model(props) {
                         scale={[1, 10, 1]}
                     />
                 </RigidBody>
-                <RigidBody type="fixed" onCollisionEnter={handleCollisionExit} colliders="trimesh">
+                <RigidBody type="fixed"  colliders="trimesh">
                     <mesh
                         name="Cylinder5"
                         geometry={nodes.Cylinder5.geometry}
