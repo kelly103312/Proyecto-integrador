@@ -1,12 +1,12 @@
 .row {
     display: flex;
     justify-content: space-between;
-    align-items: flex-start; /* Alinea los items en la parte superior */
+    align-items: flex-start; 
     position: absolute;
     top: 0;
     width: 100%;
-    padding: 8px; /* Opcional: agrega padding si lo necesitas */
-    box-sizing: border-box; /* Asegura que el padding no afecta el ancho total */
+    padding: 8px; 
+    box-sizing: border-box; 
     z-index: 1;
 }
 .container-avatar-lifes{
