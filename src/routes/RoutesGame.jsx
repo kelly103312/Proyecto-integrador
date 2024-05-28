@@ -6,6 +6,7 @@ import Login from '../pages/login/Login'
 import Level2 from '../pages/level2/Level2'
 import { Castillo } from '../pages/castillo/Castillo'
 import {CaminoAlAtardecer} from '../pages/camino_al_atardecer/CaminoAlAtardecer'
+import { CuevaEncantada } from '../pages/cueva_encantada/CuevaEncantada'
 
 export const RoutesGame = () => {
   return (
@@ -17,6 +18,7 @@ export const RoutesGame = () => {
           <Route path="/castillo" element={<Castillo/>} />
           <Route path="/montanas_hielo" element={<MontanasHielo/>} />
           <Route path="/camino_al_atardecer" element={<CaminoAlAtardecer />} /> 
+          <Route path="/cueva_encantada" element={<CuevaEncantada/>} />
         </Routes>
     </BrowserRouter>
   )
