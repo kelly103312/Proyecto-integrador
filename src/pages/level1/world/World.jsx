@@ -58,7 +58,7 @@ export default function Model(props) {
 
     const handleCollisionExits = (e) => {
         if (e.other.rigidBodyObject.name === 'AVATAR') {
-            navigate('/level2');
+            navigate('/cueva_encantada');
         }
     };
 
@@ -73,7 +73,7 @@ export default function Model(props) {
                         geometry={nodes.walls.geometry}
                         
                     >
-                <meshStandardMaterial {...propsTexture} opacity={1} transparent={true} />
+                <meshStandardMaterial {...propsTexture} opacity={0} transparent={false} />
                 </mesh>
                 </RigidBody>
                 <RigidBody type="fixed" colliders="trimesh">
