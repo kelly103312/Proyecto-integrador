@@ -18,7 +18,7 @@ export const LifesEnemyProvider = ({ children }) => {
 
     const restarLifesEnemy = () => {
         setLifesEnemy(lifesEnemy - 1);
-      return lifes;
+        return lifesEnemy;
     };
 
     
