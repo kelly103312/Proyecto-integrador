@@ -6,7 +6,7 @@ const WelcomeText = (props) => {
         <>
             <Text
                 className="takeARest"
-                position={[0, 5, 4]}
+                position={[0, 8, -30]}
                 center
                 distanceFactor={5}
                 font="/assets/Camino_al_atardecer/fonts/caminoALAtardecerFont.otf"
