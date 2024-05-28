@@ -1,8 +1,28 @@
-.container-lifes{
+.row {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start; /* Alinea los items en la parte superior */
+    position: absolute;
+    top: 0;
+    width: 100%;
+    padding: 8px; /* Opcional: agrega padding si lo necesitas */
+    box-sizing: border-box; /* Asegura que el padding no afecta el ancho total */
+    z-index: 1;
+}
+.container-avatar-lifes{
     display: flex;
     justify-content: center;
     align-items: center;
-    position: absolute;
-    z-index: 1;
+    font-size: 3rem;
+    color: red;
+}
 
+.container-enemy-lifes{
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-end; 
+    background-color: rgba(0, 0, 0, 0.5);
+    padding: 10px; 
+    border-radius: 5px;
+    color: white;
 }
