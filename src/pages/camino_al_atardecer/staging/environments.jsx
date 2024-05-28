@@ -2,7 +2,7 @@ import React from 'react';
 import { Canvas } from '@react-three/fiber';
 import { Cloud, Environment, Sky, Sparkles, Stars } from '@react-three/drei';
 
-const Environments = () => {
+export const Environments = () => {
   return (
     <>
       {/* <Environment
@@ -61,12 +61,4 @@ const Environments = () => {
   );
 }
 
-const App = () => {
-  return (
-    <Canvas>
-      <Environments />
-    </Canvas>
-  );
-}
 
-export default App;

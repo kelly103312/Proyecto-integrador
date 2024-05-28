@@ -9,7 +9,7 @@ const WelcomeText = (props) => {
                 position={[0, 5, 4]}
                 center
                 distanceFactor={5}
-                font="public/assets/Camino_al_atardecer/fonts/caminoALAtardecerFont.otf"
+                font="/assets/Camino_al_atardecer/fonts/caminoALAtardecerFont.otf"
             >
                 Take a rest !!! you are safe now
             </Text>

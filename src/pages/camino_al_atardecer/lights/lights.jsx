@@ -3,7 +3,7 @@ import { Canvas } from '@react-three/fiber';
 import { useControls } from 'leva';
 import { Color } from 'three';
 
-const Lights = () => {
+export const Lights = () => {
     const spotLightRef1 = useRef(null);
     const spotLightRef2 = useRef(null);
     const hemisphereRef = useRef(null);
@@ -57,13 +57,3 @@ const Lights = () => {
         </>
     );
 };
-
-const App = () => {
-    return (
-        <Canvas>
-            <Lights />
-        </Canvas>
-    );
-};
-
-export default App;

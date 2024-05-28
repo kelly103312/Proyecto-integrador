@@ -1,10 +1,9 @@
 import { useGLTF, useTexture } from "@react-three/drei";
 import { RepeatWrapping } from "three";
 import React from "react";
-import { Canvas } from '@react-three/fiber';
 
 export default function World(props) {
-  const { nodes, materials } = useGLTF("public/assets/camino_al_atardecer/models/world/Proyecto-integrador-videojuego.glb");
+  const { nodes, materials } = useGLTF("/assets/camino_al_atardecer/models/world/Proyecto-integrador-videojuego.glb");
   const PATH = "/assets/camino_al_atardecer/textures/floor/";
 
   const propsTexture = useTexture({
@@ -122,12 +121,4 @@ export default function World(props) {
 }
 
 useGLTF.preload("/assets/camino_al_atardecer/models/world/Proyecto-integrador-videojuego.glb");
-
-const App = () => {
-  return (
-    <Canvas>
-      <World />
-    </Canvas>
-  );
-}
 

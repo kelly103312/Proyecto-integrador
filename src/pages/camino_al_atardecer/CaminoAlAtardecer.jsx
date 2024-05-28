@@ -1,26 +1,27 @@
-import { Environment, EnvironmentMap, OrbitControls } from "@react-three/drei";
+import { Environment, EnvironmentMap, Loader, OrbitControls } from "@react-three/drei";
 import World from "./world/World";
 import { Color } from "three";
-import Lights from "./lights/lights";
-import Environments from "./staging/environments";
-import { Suspense } from "react";
+import {Lights} from "./lights/lights";
+import {Environments} from "./staging/environments";
+import React, { Suspense } from "react";
 import WelcomeText from "./abstractions/WelcomeText";
+import { Canvas } from "@react-three/fiber";
 
+export const CaminoAlAtardecer = () => {
+  return (
+    <>
+        <Canvas>
+                <OrbitControls   />
+                {/* <Perf position="top-left" /> */}
+                <Suspense fallback={null}>
+                    <Lights />
+                    <Environments />
+                    <World />
 
-const Experience = () => {
-    return (
-        <>
-            {/* <Perf position="top-left" /> */}
-            <OrbitControls   />
-            <Suspense fallback={null}>
-                <Lights />
-                <Environments />
-                <World />
-
-                <WelcomeText position={[0, 4 , 160]} />
-            </Suspense>
-        </>
-    )
+                    <WelcomeText position={[0, 4 , 160]} />
+                </Suspense>
+        </Canvas>
+        <Loader />
+    </>
+  )
 }
-
-export default Experience;
