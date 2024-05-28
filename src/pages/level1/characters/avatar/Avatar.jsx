@@ -26,7 +26,7 @@ export default function Model() {
     return (
       <group ref={modelRef}> {/* Add dispose={null} */}
         <group name="Scene">
-        <group ref={modelRef} name="AVATAR" position={[0, -0.8, 0]} rotation={[Math.PI / 2, 0, 0]} scale={[0.002, 0.002, 0.002]} colliders={"hull"}>
+        <group ref={modelRef} name="AVATAR" position={[0, -0.668, 0]} rotation={[Math.PI / 2, 0, 0]} scale={[0.002, 0.002, 0.002]} colliders={"hull"}>
 
         <skinnedMesh
             name="MESH_CRASH001"
