@@ -1,11 +1,11 @@
 import React from 'react'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import { MontanasHielo } from '../pages/montanas_hielo/MontanasHielo'
-import { CuevaEncantada } from '../pages/cueva_encantada/CuevaEncantada'
 import Level1 from '../pages/level1/Level1'
 import Login from '../pages/login/Login'
 import Level2 from '../pages/level2/Level2'
 import { Castillo } from '../pages/castillo/Castillo'
+import CaminoAlAtardecer from '../pages/camino_al_atardecer/CaminoAlAtardecer'
 
 export const RoutesGame = () => {
   return (
@@ -16,7 +16,7 @@ export const RoutesGame = () => {
           <Route path="/level2" element={<Level2 />} />
           <Route path="/castillo" element={<Castillo/>} />
           <Route path="/montanas_hielo" element={<MontanasHielo/>} />
-          <Route path="/cueva_encantada" element={<CuevaEncantada/>} />
+          <Route path="/camino_al_atardecer" element={<CaminoAlAtardecer/>} /> 
         </Routes>
     </BrowserRouter>
   )
