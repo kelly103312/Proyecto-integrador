@@ -20,11 +20,17 @@ export const Charaters = () => {
         }
     },[]);
 
+    const onCollisionEnter = (e) =>{
+        console.log(e.rigidBodyObject.name)
+        console.log(e)
+        console.log(avatarRef)
+    }
     return (
         <>
             <Bear 
                 position={[-1, 0, -80]}/>
             <Ecctrl 
+                onCollisionExit={(e)=>{onCollisionEnter(e)}}
                 jumpVel={4}
                 name="AVATAR" 
                 autoBalance = {true}
