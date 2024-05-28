@@ -98,8 +98,6 @@ export const Castillo = () => {
             <Sphere position={[0,1,-45]} velocity={6} />
             <Sphere position={[0,1,-50]} velocity={7} />
             
-            <Box position={[0,2,-5]} />
-            
             <Laberinto position={[-4.6, 2, -15]} />
             <Coins position={[0, 2, -32]} onCollect={handleCollectCoin}/>
             <Coins position={[0, 2, -38]} onCollect={handleCollectCoin}/>

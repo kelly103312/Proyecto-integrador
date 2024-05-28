@@ -4,31 +4,34 @@ import { AvatarPrincipal } from './AvatarPrincipal'
 import Ecctrl from 'ecctrl'
 import { useFrame } from '@react-three/fiber'
 import { UseCheckpoints } from '../../../context/ManagementCheckpoints'
+import { useAvatar } from '../../../context/AvatarContext'
 
-export const Charaters = () => {
-    const [avatar, setAvatar] = useState([0,0.5,-3]);
-    const [bear, setBear] = useState([-1, 0, -80]);
+export const Charaters = (props) => {
+    const [avatarRef, setAvatarRef] = useState([0,0.5,-3]);
+    const [bear, setBear] = useState(3);
     const {checkpoints, pointAchieved} = UseCheckpoints();
-
-    const bearRef = useRef()
-    const avatarRef = useRef()
-
+    const {avatar,setAvatar} = useAvatar();
+    
     useEffect(() => {
         if(checkpoints){
             const position = JSON.parse(localStorage.getItem('position'));
-            setAvatar([position.x,position.y,position.z]);
+            setAvatarRef([position.x,position.y,position.z]);
         }
     },[]);
 
     const onCollisionEnter = (e) =>{
-        console.log(e.rigidBodyObject.name)
-        console.log(e)
-        console.log(avatarRef)
+        if(e.rigidBodyObject.name == "BEAR" && avatar.animation == "attack"){
+            setBear(bear-1);
+            console.log(bear)
+        }
+
     }
     return (
         <>
             <Bear 
-                position={[-1, 0, -80]}/>
+                position={[-1, 0, -80]}
+                lifes = {bear}
+                />
             <Ecctrl 
                 onCollisionExit={(e)=>{onCollisionEnter(e)}}
                 jumpVel={4}
@@ -36,12 +39,13 @@ export const Charaters = () => {
                 autoBalance = {true}
                 camInitDis = {-10}
                 camMaxDis = {-10}
-                position={avatar}
+                position={avatarRef}
                 maxVelLimit={5}
-                onChangePosition={setAvatar}
+                onChangePosition={setAvatarRef}
             >
-                <AvatarPrincipal ref={avatarRef} />
+                <AvatarPrincipal />
             </Ecctrl>
+            
         </>
     )
 }
