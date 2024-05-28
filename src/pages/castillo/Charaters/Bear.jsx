@@ -13,8 +13,12 @@ export const Bear = (props) => {
   useFrame((state,delta) => {
     const elapsedTime = state.clock.getElapsedTime();
     if(bearRef.current){
-      if(props.lifes == 0){
-        console.log("stop moving ")
+      if(lifesEnemy > 0){
+        bearRef.current.setTranslation({
+          x: props.position[0] + Math.cos(elapsedTime) * 2,
+          y: props.position[1] ,
+          z: props.position[2] ,
+        },true);
       }
         /*bearRef.current.setTranslation({
             x: props.position[0] ,
