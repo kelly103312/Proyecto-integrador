@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Perf } from "r3f-perf";
 import { KeyboardControls, BakeShadows, Loader } from "@react-three/drei";
 import { Physics } from "@react-three/rapier";
@@ -14,12 +14,14 @@ import { Coins } from '../level1/Figures/Coins';
 import useMovements from "../../utils/key-movements";
 import { Sphere } from './Figures/Sphere';
 import { useLifes } from '../../context/ManagementLifes';
+import CharacterHudcueva_encantada from "./hud/CharacterHud";
+import GameOver from "./world/GameOver";
 
 export default function Level1() {
     const map = useMovements();
     const { lifes } = useLifes();
     const [coins, setCoins] = useState(0); // Estado para mantener el número de monedas recogidas
-    const [sphereCollisions, setSphereCollisions] = useState(0); // Estado para contar las colisiones con esferas
+    const [gameOver, setGameOver] = useState(false); // Estado para controlar si el juego ha terminado
 
     // Función para manejar la recolección de monedas
     const handleCollectCoin = () => {
@@ -27,16 +29,20 @@ export default function Level1() {
     };
 
     // Función para manejar las colisiones con las esferas
-     const handleSphereCollision = () => {
-      
+    const handleSphereCollision = () => {
+        // Lógica para reducir vidas o lo que sea necesario
+        // Ejemplo: setLifes(prevLifes => prevLifes - 1);
 
-        // Reiniciar el juego si se han tocado las esferas tres veces
-        if (lifes === 0 ) {
-            window.location.reload();
+        if (lifes === 0) {
+            setGameOver(true); // Establecer el estado de fin de juego
         }
     };
 
-
+    useEffect(() => {
+        if (lifes === 0) {
+            setGameOver(true);
+        }
+    }, [lifes]);
 
     return (
         <KeyboardControls map={map}>
@@ -62,7 +68,6 @@ export default function Level1() {
                         <Sphere position={[0, 0.4, -61]} velocity={7} onCollide={handleSphereCollision} />
                         <Sphere position={[0, 0.4, 19]} velocity={7} onCollide={handleSphereCollision} />
                         <Sphere position={[0, 0.4, 15]} velocity={7} onCollide={handleSphereCollision} />
-
                         <Sphere position={[0, 0.4, 20]} velocity={7} onCollide={handleSphereCollision} />
                         <Sphere position={[0, 0.4, 12]} velocity={7} onCollide={handleSphereCollision} />
                         <Sphere position={[0, 0.4, 5]} velocity={7} onCollide={handleSphereCollision} />
@@ -106,9 +111,10 @@ export default function Level1() {
             </Canvas>
             <Loader />
             {/* Mostrar el contador de monedas debajo del contador de vidas */}
-            <div style={{ position: 'absolute', top: 60, center: 10, backgroundColor: 'rgba(0, 0, 0, 0.5)', padding: 10, borderRadius: 5, color: 'white' }}>
-                Monedas: {coins}
-            </div>
+            <CharacterHudcueva_encantada coins={coins} />
+            
+            {/* Mostrar el mensaje de "Perdiste" cuando el juego termine */}
+            {gameOver && <GameOver />}
         </KeyboardControls>
-    )
+    );
 }

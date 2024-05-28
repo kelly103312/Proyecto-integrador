@@ -14,7 +14,8 @@ export default function Model(props) {
     const [color, setColor] = useState(new THREE.Color(0xffffff));
     const object1 = useRef(null);
     const { restarLifes } = useLifes();
-    
+    const [gameOver, setGameOver] = useState(false);
+    const [gameOverShown, setGameOverShown] = useState(false);
     const PATH = '/assets/level1/models/floor/';
 
     const propsTexture = useTexture({
@@ -58,14 +59,24 @@ export default function Model(props) {
 
     const handleCollisionExits = (e) => {
         if (e.other.rigidBodyObject.name === 'AVATAR') {
+            
+           
             navigate('/cueva_encantada');
         }
+    };
+
+    const handleReset = () => {
+        // Aquí puedes agregar lógica adicional de reinicio si es necesario
+        // Por ejemplo, restablecer el estado de gameOver y gameOverShown
+        setGameOver(false);
+        setGameOverShown(false);
     };
 
 
 
     return (
         <group ref={group} {...props} dispose={null}>
+            
             <group name="Scene">
                 <RigidBody type="fixed" colliders="trimesh">
                     <mesh
@@ -258,7 +269,7 @@ export default function Model(props) {
                         material={materials['Material.030']}
                     />
                 </mesh>
-                <RigidBody type="fixed" onCollisionEnter={handleCollisionExits} colliders="trimesh">
+                <RigidBody  type="fixed" onCollisionEnter={handleCollisionExits} colliders="trimesh">
                     <mesh
                         name="polySurface10"
                         geometry={nodes.polySurface10.geometry}
@@ -267,6 +278,7 @@ export default function Model(props) {
                         rotation={[Math.PI / 2, 0, -3.084]}
                         scale={0.248}
                     />
+                    
                 </RigidBody>
                 <RigidBody type="fixed" colliders="trimesh">
                     <mesh
