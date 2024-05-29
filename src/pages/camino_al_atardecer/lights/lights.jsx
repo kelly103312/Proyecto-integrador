@@ -33,7 +33,7 @@ export const Lights = () => {
                 castShadow={true}
                 position={[0, 10, -165]}
                 color={new Color("#F95706")}
-                intensity={60}
+                intensity={50}
                 raycast={true}
                 length={100}    
                 shadow-mapSize={[4000, 4000]}
