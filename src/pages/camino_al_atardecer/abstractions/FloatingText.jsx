@@ -13,7 +13,7 @@ const FloatingText = (props) => {
             floatingRange={[0,1]}
         >
             <Text3D
-                position={[-5, 12, -30]}
+                position={[-7, 12, -25]}
                 font="/assets/camino_al_atardecer/fonts/caminoALAtardecerFont.json"
                 color={"black"}
                 bevelEnabled
@@ -21,6 +21,7 @@ const FloatingText = (props) => {
                 bevelThickness={0.08}
                 height={0.5}
                 letterSpacing={0.05}
+                size={1}
             >
                 <meshNormalMaterial />
                 {text}
@@ -33,12 +34,13 @@ const FloatingText = (props) => {
              floatIntensity={0.5}
              floatingRange={[0,1]}
         >
-        <Text
+         <Text
             className="Dontgiveup"
-            position={[-6, 8, 70]}
+            position={[-6, 10, 70]}
             color={"black"}
+            fontSize={2}
             center
-            distanceFactor={5}
+            distanceFactor={10}
             font="/assets/Camino_al_atardecer/fonts/caminoALAtardecerFont.otf"
           >
             {`!! Don't give up !!`}
@@ -46,6 +48,25 @@ const FloatingText = (props) => {
 
         </Float>
           
+        <Float
+             rotationIntensity={0.2}
+             speed={1}
+             floatIntensity={0.005}
+             floatingRange={[0,1]}
+        >
+         <Text
+            className="ClikOnTheChair"
+            position={[-7, 3, -37]}
+            color={"black"}
+            fontSize={1}
+            center
+            distanceFactor={10}
+            font="/assets/Camino_al_atardecer/fonts/caminoALAtardecerFont.otf"
+          >
+            {`Click on \nthe chair \nto rest`}
+          </Text>
+
+        </Float>
 
         <Html
           position={[0, 4, 150]}
