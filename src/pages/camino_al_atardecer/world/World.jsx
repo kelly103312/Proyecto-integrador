@@ -1,6 +1,7 @@
 import { useGLTF, useTexture } from "@react-three/drei";
 import { RepeatWrapping } from "three";
 import React from "react";
+import "../styles.css";
 
 export default function World(props) {
   const { nodes, materials } = useGLTF("/assets/camino_al_atardecer/models/world/Proyecto-integrador-videojuego.glb");
@@ -27,15 +28,15 @@ export default function World(props) {
       <group>
         {/* <mesh geometry={nodes.Walls.geometry} material={materials.Material} /> */}
         <mesh
-          castShadow
-          receiveShadow
+          castShadow = {true}
+          receiveShadow = {true}
           geometry={nodes.Floor.geometry}
         >
           <meshStandardMaterial {...propsTexture} displacementScale={1.5} />
         </mesh>
         <mesh
-          castShadow
-          receiveShadow
+          castShadow = {true}
+          receiveShadow = {true}
           geometry={nodes.silla.geometry}
           material={materials.Rockingchair_01}
           position={[0, 0.168, 0]}
@@ -67,7 +68,10 @@ export default function World(props) {
             material={materials.root_material}
           />
         </group> */}
-        <mesh castShadow geometry={nodes.WoodenFence.geometry}>
+        <mesh 
+          receiveShadow = {true}
+          castShadow = {true}
+          geometry={nodes.WoodenFence.geometry}>
           <meshStandardMaterial
             color={"#FF8E08"}
             metalness={0}
@@ -80,41 +84,46 @@ export default function World(props) {
           geometry={nodes.walls2.geometry}
           material={nodes.walls2.material}
         />
-        {/* <group>
+         <group>
           <mesh
             castShadow
             receiveShadow
-            geometry={nodes.realCap_Model_3001.geometry}
-            material={materials.rock_07}
-            lightMapIntensity={4}
+            geometry={nodes.tree_1.geometry}
+            material={nodes.tree_1.material}
           />
           <mesh
             castShadow
             receiveShadow
-            geometry={nodes.realCap_Model_3001_1.geometry}
-            material={materials.boulder_01}
+            geometry={nodes.tree_2.geometry}
+            material={materials.leaves_material}
           />
-        </group> */}
+          <mesh
+            castShadow
+            receiveShadow
+            geometry={nodes.tree_3.geometry}
+            material={materials.root_material}
+          />
+        </group>
         <mesh
-          castShadow
-          receiveShadow
+          castShadow = {true}
+          receiveShadow = {true}
           geometry={nodes.walls3.geometry}
           material={nodes.walls3.material}
         />
-        <group>
+        {/* <group>
           <mesh
-            castShadow
-            receiveShadow
+            castShadow = {true}
+            receiveShadow = {true}
             geometry={nodes.tree003.geometry}
             material={materials.Material_1}
           />
           <mesh
-            castShadow
-            receiveShadow
+            castShadow = {true}
+            receiveShadow = {true}
             geometry={nodes.tree003_1.geometry}
             material={materials.Material}
           />
-        </group>
+        </group> */}
       </group>
     </group>
   );

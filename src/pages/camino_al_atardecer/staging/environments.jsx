@@ -1,6 +1,7 @@
 import React from 'react';
 import { Canvas } from '@react-three/fiber';
 import { Cloud, Environment, Sky, Sparkles, Stars } from '@react-three/drei';
+import "../styles.css";
 
 export const Environments = () => {
   return (
@@ -38,9 +39,9 @@ export const Environments = () => {
       />
 
       <Cloud
-        opacity={0.3}
+        opacity={0.6}
         speed={0.5}
-        width={40}  // Corregido de 'widht' a 'width'
+        width={60}  
         height={70}
         depth={2}
         segments={10}
