@@ -2,16 +2,11 @@ import React, { useRef, useState, useEffect, forwardRef, useImperativeHandle } f
 import Ecctrl from 'ecctrl';
 import { useFrame } from '@react-three/fiber';
 import Avatar from './avatar/Avatar'; // Asegúrate de que esta es la ruta correcta
-import Zombie1 from './zombies/Zombie1';
-import Zombie2 from './zombies/Zombie2';
-import Zombie3 from './zombies/Zombie3';
 
 // Modificar Charaters para exponer la referencia del avatar
 export const Charaters = forwardRef((props, ref) => {
     const [avatarPosition, setAvatarPosition] = useState([0, 10, 95]);
-    const [avatarPassedZombie1, setAvatarPassedZombie1] = useState(false);
-    const [avatarPassedZombie2, setAvatarPassedZombie2] = useState(false);
-    const [avatarPassedZombie3, setAvatarPassedZombie3] = useState(false);
+   
     const avatarRef = useRef();
 
     // Utiliza useImperativeHandle para exponer la referencia del avatar
@@ -56,9 +51,7 @@ export const Charaters = forwardRef((props, ref) => {
 
     return (
         <>
-            <Zombie1 position={[0, 0, -10]} />
-            <Zombie2 position={[0, 0, -30]} />
-            <Zombie3 position={[0, 0, -50]} />
+          
             <Ecctrl 
                 jumpVel={4}
                 name='AVATAR'

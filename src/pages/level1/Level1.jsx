@@ -16,6 +16,7 @@ import { Sphere } from './Figures/Sphere';
 import { useLifes } from '../../context/ManagementLifes';
 import CharacterHudcueva_encantada from "./hud/CharacterHud";
 import GameOver from "./world/GameOver";
+import { Model } from './Figures/enemigo';
 
 export default function Level1() {
     const map = useMovements();
@@ -79,6 +80,7 @@ export default function Level1() {
                         <Sphere position={[0, 0.4, 80]} velocity={7} onCollide={handleSphereCollision} />
 
                         <Charaters />
+                        <Model/>
 
                         {/* Añadir las monedas y pasar la función handleCollectCoin como prop */}
                         <Coins position={[-2, 0.4, -3]} onCollect={handleCollectCoin} />
