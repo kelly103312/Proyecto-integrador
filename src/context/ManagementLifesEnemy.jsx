@@ -17,7 +17,9 @@ export const LifesEnemyProvider = ({ children }) => {
     const [lifesEnemy, setLifesEnemy] = useState();
 
     const restarLifesEnemy = () => {
-        setLifesEnemy(lifesEnemy - 1);
+        if(lifesEnemy != 0){
+          setLifesEnemy(lifesEnemy - 1);
+        }
         return lifesEnemy;
     };
 
