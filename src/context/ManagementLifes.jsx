@@ -21,6 +21,7 @@ export const LifesProvider = ({ children }) => {
       return lifes;
     };
 
+    
   return (
     <LifesContext.Provider value={({ lifes, restarLifes })}>
       {children}

@@ -1,11 +1,13 @@
 import React, { useRef, useEffect } from 'react';
 import { useGLTF, useAnimations } from '@react-three/drei';
 import * as THREE from 'three'; // Importa Three.js
+import { useLifes } from '../../../../context/ManagementLifes'; // Importa el contexto de las vidas
 
 export default function Zombie2(props) {
   const group = useRef();
   const { nodes, materials, animations } = useGLTF('/assets/level1/models/zombie/zombie2.glb');
   const { actions } = useAnimations(animations, group);
+  const { restarLifes } = useLifes(); // Obtiene la función para restar vidas del contexto
 
   useEffect(() => {
     // Inicia el movimiento del Zombie
@@ -15,12 +17,12 @@ export default function Zombie2(props) {
   // Función para mover al Zombie en direcciones aleatorias
   const moveRandom = () => {
     // Duración del movimiento en cada dirección (milisegundos)
-    const duration = 7000;
+    const duration = 2000;
 
     // Direcciones en las que el Zombie puede moverse
     const directions = [
-      { rotation: [0, -Math.PI / 2, 0] },   // Dirección hacia la derecha
-      { rotation: [0, Math.PI / 2, 0] }   // Dirección hacia la izquierda
+      { rotation: [0, Math.PI / 2, 0] },   // Dirección hacia la derecha
+      { rotation: [0, -Math.PI / 2, 0] }   // Dirección hacia la izquierda
     ];
 
     // Función para mover el Zombie en una dirección específica
@@ -44,8 +46,15 @@ export default function Zombie2(props) {
     moveDirection(0);
   };
 
+  // Función para manejar la salida de colisión con el avatar y restar vidas
+  const onCollisionExit = (e) => {
+    if (e.other.rigidBodyObject.name === "AVATAR") {
+      restarLifes(); // Resta una vida cuando el Zombie sale de colisión con el avatar
+    }
+  };
+
   return (
-    <group ref={group} {...props} dispose={null}>
+    <group ref={group} {...props} dispose={null} onCollisionExit={onCollisionExit}> {/* Agrega el manejador de colisión */}
       <group name="Scene">
         <group name="Armature" rotation={[Math.PI / 2, 0, 0]} scale={[0.01, 0.01, 0.01]}>
           <skinnedMesh
