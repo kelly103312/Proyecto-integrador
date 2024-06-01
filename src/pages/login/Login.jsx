@@ -13,7 +13,7 @@ export default function Login() {
     }
 
     return (
-        <div className="container">
+        <div className="container-login">
             <div className="logo-JEKH">
                 <img src="/assets/images/JEK.png" alt="Logo equipo JEKH" />
             </div>
