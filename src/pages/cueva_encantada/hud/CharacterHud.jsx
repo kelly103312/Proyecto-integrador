@@ -5,7 +5,7 @@ const CharacterHudcueva_encantada= ({ coins }) => {
   const [displayText, setDisplayText] = useState("");
 
   const textToShow =
-    "¡Bienvenidos a Cueva Encantada! <br><br> Recolecta todas las monedas  para conseguir llegar al siguinete nivel.";
+    "¡Bienvenidos a Cueva Encantada! <br><br> Recolecta todas las monedas  para conseguir llegar al siguiente nivel.";
   const currentIndexRef = useRef(0);
 
   useEffect(() => {
