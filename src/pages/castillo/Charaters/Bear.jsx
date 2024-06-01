@@ -18,14 +18,17 @@ export const Bear = (props) => {
           },true);*/
     }
   },[bearRef.current]);
-
+ 
+  const onCollisionExit = (e) =>{
+    //console.log(e.animations);
+    console.log("avatar attack")
+  }
 
   const onHandleAtack = (e)=>{
     console.log("attack")
-    console.log(e)
   }
   return (
-      <RigidBody ref={bearRef} colliders="trimesh" position={props.position}>
+      <RigidBody name="BEAR" ref={bearRef} colliders="trimesh" onCollisionExit={(e)=>{onCollisionExit(e)}} position={props.position}>
           <group  dispose={null}>
               <group>
                   <mesh
