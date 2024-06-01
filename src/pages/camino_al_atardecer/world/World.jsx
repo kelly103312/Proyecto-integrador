@@ -2,6 +2,7 @@ import { useGLTF, useTexture } from "@react-three/drei";
 import { RepeatWrapping } from "three";
 import React from "react";
 import "../styles.css";
+import { useEffect } from "react";
 
 export default function World(props) {
   const { nodes, materials } = useGLTF("/assets/camino_al_atardecer/models/world/Proyecto-integrador-videojuego.glb");
@@ -27,20 +28,22 @@ export default function World(props) {
     alert("Congratulations! You have finished the game. You are safe now. Take a rest");
   }
 
-
   return (
     <group {...props} dispose={null}>
-      <group>
+      <group>   
         {/* <mesh geometry={nodes.Walls.geometry} material={materials.Material} /> */}
-        <mesh onClick={(e)=>e.stopPropagation()}
+        <mesh 
           castShadow={true}
           receiveShadow={true}
           geometry={nodes.Floor.geometry}
-        >
-          <meshStandardMaterial {...propsTexture} displacementScale={1.5} />
+          material={nodes.Floor.material}
+
+          >
+          <meshStandardMaterial {...propsTexture} displacementScale={2} />
         </mesh>
+
         <group onClick={onHandleChairClick}>
-          <mesh onClick={(e)=>e.stopPropagation()}
+          <mesh 
             castShadow={true}
             receiveShadow={true}
             geometry={nodes.silla.geometry}
@@ -49,49 +52,12 @@ export default function World(props) {
           />
         </group>
 
-        {/* <mesh
+        <mesh
           castShadow
           receiveShadow
           geometry={nodes.ukelele.geometry}
           material={materials.Ukulele_01}
           position={[0, 0.168, 0]}
-        /> */}
-        {/* <group>
-          <mesh
-            castShadow
-            receiveShadow
-            geometry={nodes.tree_1.geometry}
-            material={nodes.tree_1.material}
-          />
-          <mesh
-            castShadow
-            receiveShadow
-            geometry={nodes.tree_2.geometry}
-            material={materials.leaves_material}
-          />
-          <mesh
-            castShadow
-            receiveShadow
-            geometry={nodes.tree_3.geometry}
-            material={materials.root_material}
-          />
-        </group> */}
-        <mesh onClick={(e)=>e.stopPropagation()}
-          receiveShadow={true}
-          castShadow={true}
-          geometry={nodes.WoodenFence.geometry}
-        >
-          <meshStandardMaterial
-            color={"#FF8E08"}
-            metalness={0}
-            roughness={0.5}
-          />
-        </mesh>
-        <mesh onClick={(e)=>e.stopPropagation()}
-          castShadow
-          receiveShadow
-          geometry={nodes.walls2.geometry}
-          material={nodes.walls2.material}
         />
         <group>
           <mesh onClick={(e)=>e.stopPropagation()}
@@ -114,25 +80,45 @@ export default function World(props) {
           />
         </group>
         <mesh onClick={(e)=>e.stopPropagation()}
-          castShadow={true}
           receiveShadow={true}
-          geometry={nodes.walls3.geometry}
-          material={nodes.walls3.material}
+          castShadow={true}
+          geometry={nodes.WoodenFence.geometry}
+          material={materials.woodenfenceMaterial}
+          
+        />
+        <mesh onClick={(e)=>e.stopPropagation()}
+          castShadow
+          receiveLight={false}
+          receiveShadow = {false}
+          geometry={nodes.startwall.geometry}
+          material={materials.startwallMaterial}
         />
         {/* <group>
-          <mesh
-            castShadow = {true}
-            receiveShadow = {true}
-            geometry={nodes.tree003.geometry}
-            material={materials.Material_1}
+          <mesh onClick={(e)=>e.stopPropagation()}
+            castShadow
+            receiveShadow
+            geometry={nodes.tree_1.geometry}
+            material={nodes.tree_1.material}
           />
-          <mesh
-            castShadow = {true}
-            receiveShadow = {true}
-            geometry={nodes.tree003_1.geometry}
-            material={materials.Material}
+          <mesh onClick={(e)=>e.stopPropagation()}
+            castShadow
+            receiveShadow
+            geometry={nodes.tree_2.geometry}
+            material={materials.leaves_material}
+          />
+          <mesh onClick={(e)=>e.stopPropagation()}
+            castShadow
+            receiveShadow
+            geometry={nodes.tree_3.geometry}
+            material={materials.root_material}
           />
         </group> */}
+        <mesh onClick={(e)=>e.stopPropagation()}
+          castShadow={true}
+          receiveShadow={true}
+          geometry={nodes.walls.geometry}
+          material={materials.wallsMaterial}
+          />
       </group>
     </group>
   );
