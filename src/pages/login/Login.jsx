@@ -24,6 +24,6 @@ export default function Login() {
                 <button>LOGIN</button>
             </div>
         </div>
-    );
+    ); 
 
 }
