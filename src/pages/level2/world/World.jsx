@@ -1,14 +1,29 @@
 import { useGLTF } from "@react-three/drei"
 import { CuboidCollider, CylinderCollider, RigidBody } from "@react-three/rapier"
+import { useNavigate } from "react-router-dom";
 
 export default function World(props) {
     const { nodes, materials } = useGLTF("/assets/level2/models/world/WorldSquidGames.glb")
+    const navigate = useNavigate();
+    
+    const handleCollisionExits = (e) => {
+        if (e.other.rigidBodyObject.name === 'AVATAR') {
+            
+           
+            navigate('/montanas_hielo');
+        }
+    };
 
     return (
         <group {...props} dispose={null}>
 
             <group>
 
+                <RigidBody type="fixed" onCollisionEnter={handleCollisionExits} colliders="trimesh">
+
+                <mesh geometry={nodes.Rock.geometry} material={materials.CaveRock_L_Base} />
+
+                </RigidBody>
 
                 <RigidBody type="fixed" colliders="trimesh">
 
@@ -18,7 +33,6 @@ export default function World(props) {
                             <meshStandardMaterial opacity={0.001} transparent={true} />
                         </mesh>
 
-                        <mesh geometry={nodes.Rock.geometry} material={materials.CaveRock_L_Base} />
                         <mesh geometry={nodes.Valla.geometry} material={materials.DefaultMaterial} />
 
                         <group>

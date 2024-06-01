@@ -32,7 +32,9 @@ export default function Player1(props) {
             camInitDis={-2}
             camMaxDis={-2}
             maxVelLimit={10.5}
-            jumpVel={5.5}
+            jumpVel={9}
+            position={[0, 10, 0]}
+            name='AVATAR'
         >
             <group ref={player1Ref} name="Scene" position-y={-0.9}>
                 <group name="Armature">
