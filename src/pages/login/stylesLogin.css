@@ -3,7 +3,7 @@
     src: url('../../../public/assets/cueva_encantada/fonts/FontGame.ttf') format('truetype');
 }
 
-.container{
+.container-login{
     display: flex;
     flex-direction: column;
     justify-content: center;
