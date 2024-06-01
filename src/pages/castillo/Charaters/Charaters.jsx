@@ -2,15 +2,16 @@ import React, { useEffect, useRef, useState } from 'react'
 import { Bear } from './Bear'
 import { AvatarPrincipal } from './AvatarPrincipal'
 import Ecctrl from 'ecctrl'
-import { useFrame } from '@react-three/fiber'
 import { UseCheckpoints } from '../../../context/ManagementCheckpoints'
 import { useAvatar } from '../../../context/AvatarContext'
+import { Html } from '@react-three/drei'
+import { useLifesEnemy } from '../../../context/ManagementLifesEnemy'
 
 export const Charaters = (props) => {
     const [avatarRef, setAvatarRef] = useState([0,0.5,-3]);
-    const [bear, setBear] = useState(3);
     const {checkpoints, pointAchieved} = UseCheckpoints();
     const {avatar,setAvatar} = useAvatar();
+    const { lifesEnemy, restarLifesEnemy } = useLifesEnemy();
     
     useEffect(() => {
         if(checkpoints){
@@ -21,8 +22,7 @@ export const Charaters = (props) => {
 
     const onCollisionEnter = (e) =>{
         if(e.rigidBodyObject.name == "BEAR" && avatar.animation == "attack"){
-            setBear(bear-1);
-            console.log(bear)
+            restarLifesEnemy();
         }
 
     }
@@ -30,7 +30,6 @@ export const Charaters = (props) => {
         <>
             <Bear 
                 position={[-1, 0, -80]}
-                lifes = {bear}
                 />
             <Ecctrl 
                 onCollisionExit={(e)=>{onCollisionEnter(e)}}
@@ -45,7 +44,6 @@ export const Charaters = (props) => {
             >
                 <AvatarPrincipal />
             </Ecctrl>
-            
         </>
     )
 }

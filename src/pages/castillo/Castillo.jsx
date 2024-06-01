@@ -22,6 +22,7 @@ import { useAuth } from '../../context/AuthContext'
 import { createUser, readUser } from '../../db/users-collection'
 import { readCheckpoint, pointValidated} from '../../db/checkpoints-collection'
 import { UseCheckpoints } from '../../context/ManagementCheckpoints'
+import { useLifesEnemy } from '../../context/ManagementLifesEnemy'
 
 
 export const Castillo = () => {
@@ -30,6 +31,7 @@ export const Castillo = () => {
   const auth = useAuth()
   const [coins, setCoins] = useState(0);
   const {checkpoints,obtained} = UseCheckpoints();
+  const { lifesEnemy, setLifesEnemy } = useLifesEnemy();
 
   // Función para manejar la recolección de monedas
   const handleCollectCoin = () => {
@@ -67,6 +69,7 @@ export const Castillo = () => {
               email: email,
           })
           readCheckpoints(email,"Castillo");
+          setLifesEnemy(3);
       }
   }, [auth.userLogged])
 
