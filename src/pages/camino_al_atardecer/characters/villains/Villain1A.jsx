@@ -4,35 +4,47 @@ import { useRef } from "react";
 import React from "react";
 
 export default function Villain1A(props) {
-    // const Villain1ARef = useRef(null);
+    const villain1ARef = useRef();
     const { nodes, materials } = useGLTF('/assets/camino_al_atardecer/models/villains/Villain1A.glb');
 
     // Verificar el contenido de nodes y materials
     console.log(nodes, materials);
 
-    // const radius = 3.5;
-    // const speed = 1.5;
+    const speed = 2; // velocidad de movimiento
+    const amplitude = 8; // distancia máxima de movimiento a cada lado
+    let direction = 1; // 1 para ir a la derecha, -1 para ir a la izquierda
+    let prevX = 0; // posición x anterior
 
-    // useFrame((state, delta) => {
-    //     const elapsedTime = state.clock.getElapsedTime();
-    //     const angle = elapsedTime * speed;
-    //     const x = Math.cos(angle) * radius;
-    //     const z = Math.sin(angle) * radius;
+    useFrame((state, delta) => {
+        if (villain1ARef.current) {
+            const elapsedTime = state.clock.getElapsedTime();
+            const x = Math.sin(elapsedTime * speed) * amplitude;
 
-    //     Villain1ARef.current.position.set(props.position[0] + x, props.position[1], props.position[2] + z);
-    //     Villain1ARef.current.rotation.y = -angle;
-    // });
+            // Determinar la dirección del movimiento y rotar el villano
+            if (x < prevX && direction === 1) {
+                direction = -1;
+                villain1ARef.current.rotation.y = Math.PI; // rotar 180° en el eje y
+            } else if (x > prevX && direction === -1) {
+                direction = 1;
+                villain1ARef.current.rotation.y = 0; // rotar de vuelta a 0°
+            }
+
+            // Actualizar la posición en x
+            villain1ARef.current.position.x = x;
+            prevX = x;
+        }
+    });
 
     return (
-        <group {...props} dispose={null}>
-          <mesh
-            castShadow
-            receiveShadow
-            geometry={nodes.villain1A.geometry}
-            material={materials.villainMaterial}
-          />
+        <group ref={villain1ARef} {...props} dispose={null}>
+            <mesh
+                castShadow
+                receiveShadow
+                geometry={nodes.villain1A.geometry}
+                material={materials.villainMaterial}
+            />
         </group>
-      )
+    );
 }
 
 useGLTF.preload('/assets/camino_al_atardecer/models/villains/Villain1A.glb');
