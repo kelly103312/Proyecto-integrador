@@ -8,7 +8,7 @@ import { Canvas } from "@react-three/fiber";
 import "./styles.css";
 import FloatingText from "./abstractions/FloatingText";
 import Pane from "./layout/pane";
-import Villians from "./characters/villains/Villians";
+import Villains from "./characters/villains/Villains";
 
 export const CaminoAlAtardecer = () => {
   return (
@@ -37,7 +37,7 @@ export const CaminoAlAtardecer = () => {
                     <Environments />
                     <World />
                     <FloatingText position={[0, 4 , 160]} />
-                    <Villians />
+                    <Villains />
                 </Suspense>
         </Canvas>
 
