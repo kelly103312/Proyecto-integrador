@@ -10,15 +10,15 @@ export default function Villain1A(props) {
     // Verificar el contenido de nodes y materials
     console.log(nodes, materials);
 
-    const speed = 2; // velocidad de movimiento
-    const amplitude = 8; // distancia máxima de movimiento a cada lado
+    const speed = 2; 
+    const amplitude = 10; 
     let direction = 1; // 1 para ir a la derecha, -1 para ir a la izquierda
     let prevX = 0; // posición x anterior
 
     useFrame((state, delta) => {
         if (villain1ARef.current) {
             const elapsedTime = state.clock.getElapsedTime();
-            const x = Math.sin(elapsedTime * speed) * amplitude;
+            const x = Math.cos(elapsedTime * speed) * amplitude;
 
             // Determinar la dirección del movimiento y rotar el villano
             if (x < prevX && direction === 1) {
@@ -35,16 +35,17 @@ export default function Villain1A(props) {
         }
     });
 
+
     return (
         <group ref={villain1ARef} {...props} dispose={null}>
-            <mesh
-                castShadow
-                receiveShadow
-                geometry={nodes.villain1A.geometry}
-                material={materials.villainMaterial}
-            />
+          <mesh
+            castShadow
+            receiveShadow
+            geometry={nodes.villain1A.geometry}
+            material={materials.villainMaterial}
+          />
         </group>
-    );
+      );
 }
 
 useGLTF.preload('/assets/camino_al_atardecer/models/villains/Villain1A.glb');
