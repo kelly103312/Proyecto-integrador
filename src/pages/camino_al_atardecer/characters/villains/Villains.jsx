@@ -5,9 +5,9 @@ import Villain1D from './Villain1D'
 
 export default function villains() {
     return <>
-        <Villain1A position = {[0,2.5,55]} />
-        <Villain1B position = {[0,2.5,40]} />
-        <Villain1C position = {[0,2.5,26]} />
-        <Villain1D position = {[0,2.5,13]} />
+        <Villain1A position = {[0,1.5,105]} />
+        <Villain1B position = {[0,1.5,90]} />
+        <Villain1C position = {[0,1.5,76]} />
+        <Villain1D position = {[0,1.5,63]} />
     </>
 }

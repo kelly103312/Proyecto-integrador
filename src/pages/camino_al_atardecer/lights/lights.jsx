@@ -40,7 +40,7 @@ export const Lights = () => {
             />
             <pointLight
                 ref={spotLightRef1}
-                position={[0,4,-98]}
+                position={[0,2,-121]}
                 color={'#FF0087'}
                 intensity={100}
                 decay={2}
@@ -48,7 +48,7 @@ export const Lights = () => {
             />
             <spotLight
                 ref={spotLightRef2}
-                position={[-3, 6, 160]}
+                position={[-3, 6, 150]}
                 color="pink"
                 intensity={300}
                 angle={Math.PI / 2}

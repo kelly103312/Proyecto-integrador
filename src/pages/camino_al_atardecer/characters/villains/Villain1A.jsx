@@ -1,5 +1,6 @@
 import { useGLTF } from "@react-three/drei";
 import { useFrame } from "@react-three/fiber";
+import { RigidBody } from "@react-three/rapier";
 import { useRef } from "react";
 import React from "react";
 
@@ -37,6 +38,7 @@ export default function Villain1A(props) {
 
 
     return (
+      <RigidBody type="kinematicVelocity" colliders="cuboid">
         <group ref={villain1ARef} {...props} dispose={null}>
           <mesh
             castShadow
@@ -45,7 +47,8 @@ export default function Villain1A(props) {
             material={materials.villainMaterial}
           />
         </group>
-      );
+      </RigidBody>
+    );
 }
 
 useGLTF.preload('/assets/camino_al_atardecer/models/villains/Villain1A.glb');

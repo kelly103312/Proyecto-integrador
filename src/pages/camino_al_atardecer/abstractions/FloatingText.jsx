@@ -13,7 +13,7 @@ const FloatingText = (props) => {
             floatingRange={[0,1]}
         >
             <Text3D
-                position={[-7, 12, -90]}
+                position={[-7, 8, -120]}
                 font="/assets/camino_al_atardecer/fonts/caminoALAtardecerFont.json"
                 color={"black"}
                 bevelEnabled
@@ -36,7 +36,7 @@ const FloatingText = (props) => {
         >
          <Text
             className="Dontgiveup"
-            position={[-6, 10, 10]}
+            position={[-6, 10, 60]}
             color={"black"}
             fontSize={2}
             center
@@ -56,7 +56,7 @@ const FloatingText = (props) => {
         >
          <Text
             className="ClikOnTheChair"
-            position={[-7, 3, -100]}
+            position={[-7, 3, -120]}
             color={"black"}
             fontSize={1}
             center
@@ -69,7 +69,7 @@ const FloatingText = (props) => {
         </Float>
 
         <Html
-          position={[0, 4, 90]}
+          position={[0, 4, 140]}
           color="white"
           center
           distanceFactor={12}
