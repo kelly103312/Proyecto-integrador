@@ -23,6 +23,7 @@ import { createUser, readUser } from '../../db/users-collection'
 import { readCheckpoint, pointValidated} from '../../db/checkpoints-collection'
 import { UseCheckpoints } from '../../context/ManagementCheckpoints'
 import { useLifesEnemy } from '../../context/ManagementLifesEnemy'
+import { Object } from './Figures/Object'
 
 
 export const Castillo = () => {
@@ -100,7 +101,7 @@ export const Castillo = () => {
             <Sphere position={[0,1,-40]} velocity={5} />
             <Sphere position={[0,1,-45]} velocity={6} />
             <Sphere position={[0,1,-50]} velocity={7} />
-            
+            <Object/>
             <Laberinto position={[-4.6, 2, -15]} />
             <Coins position={[0, 2, -32]} onCollect={handleCollectCoin}/>
             <Coins position={[0, 2, -38]} onCollect={handleCollectCoin}/>
