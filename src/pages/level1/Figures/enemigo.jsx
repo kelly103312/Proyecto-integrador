@@ -2,7 +2,7 @@ import React, { useRef, useEffect, useState } from 'react';
 import { useGLTF, useAnimations } from '@react-three/drei';
 import { useFrame } from '@react-three/fiber';
 import { Vector3, Quaternion, Euler } from 'three';
-import { useLifes } from '../../../context/ManagementLifes';
+import { useLifes } from '../../../pages/level1/ManagementLifes';
 import { useAvatar } from '../../../context/AvatarContext';
 
 export function Model(props) {

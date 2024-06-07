@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import './Styles.css';
-import { useLifes } from '../../../context/ManagementLifes';
+import { useLifes } from '../../../pages/level1/ManagementLifes';
 
 export const Pane = () => {
   const { lifes, resetGame } = useLifes();
