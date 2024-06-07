@@ -3,6 +3,7 @@ import { useFrame, useThree } from '@react-three/fiber';
 import React, { useEffect, useRef, useState } from 'react'
 import { useAvatar } from '../../../context/AvatarContext';
 import * as THREE from 'three';
+import { RigidBody } from '@react-three/rapier';
 
 export const Object = () => {
     const meshRef = useRef();
@@ -35,19 +36,18 @@ export const Object = () => {
             setVelocity([0,-0,direction.z*0.5]); 
           }
         }
-      },[avatar.animation])
+    },[avatar.animation])
   
-  
+      const onCollisionExit = (e) =>{
+       console.log(e);
+      }
+
     return (
-      <>
-        <Box
-          ref={meshRef}
-          position={position}
-          visible={isVisible}
-          args={[1, 1, 1]}
-        >
-          <meshStandardMaterial attach="material" color="orange" />
-        </Box>
-      </>
+      <RigidBody visible={isVisible} onCollisionExit={(e)=>{onCollisionExit(e)}}  type="fixed" ref={meshRef} name="Object" position={position} colliders="cuboid">
+        <mesh  >
+            <boxGeometry  args={[1, 1, 1]}/>
+            <meshBasicMaterial color={"hotpink"} wireframe/>
+        </mesh>
+      </RigidBody>
     );
 }
