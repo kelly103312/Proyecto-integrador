@@ -1,5 +1,5 @@
 import { Perf } from "r3f-perf";
-import {KeyboardControls, Loader } from "@react-three/drei";
+import { KeyboardControls, Loader } from "@react-three/drei";
 import { Physics } from "@react-three/rapier";
 import { Suspense, useEffect, useState } from "react";
 import WelcomeText from "./abstractions/WelcomeText";
@@ -22,37 +22,22 @@ import CharacterHudcueva_encantada from "./hud/CharacterHud";
 import Coins from "./Figures/Coins";
 import Coins2 from "./Figures/Coins";
 import Coins3 from "./Figures/Coins";
-import { Cone } from "./Figures/Cone";
-import { useLifes } from '../../context/ManagementLifes';
-import GameOver from "./world/GameOver";
-import { Gat} from "./layout/Gat";
-
 
 export default function Cueva_Encantada() {
   const [coins, setCoins] = useState(0);
   const map = useMovements();
   const auth = useAuth();
   const [players] = useAtom(playersAtom);
-  const { lifes } = useLifes();
-  const [gameOver, setGameOver] = useState(false);
+  const [vida, setVida] = useState(3);
 
+  const resetPoint = () => {
+    setVida(3);
+  };
 
-  const handleConeCollision = () => {
-    
+  const loseLife = () => {
+    setVida((prevVida) => prevVida - 1);
+  };
 
-    if (lifes === 0) {
-        setGameOver(true); 
-    }
-};
-
-useEffect(() => {
-    if (lifes === 0) {
-        setGameOver(true);
-    }
-}, [lifes]);
-
-
- 
   const handleCoins = () => {
     setCoins((coins) => coins + 1);
   };
@@ -91,7 +76,6 @@ useEffect(() => {
   return (
     <Suspense fallback={<Loader />}>
       <KeyboardControls map={map}>
-        <Gat/>
         <Players />
         <Logout />
         <EcctrlJoystick />
@@ -104,14 +88,8 @@ useEffect(() => {
           <Environments />
           <Physics debug={false}>
             <World />
-            <Player1 />
-            <MouseMen  />
-
-            <Cone position={[0,1,-43]} velocity={3} onCollide={handleConeCollision}/>
-            <Cone position={[0,1,-45]} velocity={4} onCollide={handleConeCollision}/>
-            <Cone position={[0,1,-47]} velocity={5} onCollide={handleConeCollision}/>
-            <Cone position={[0,1,-49]} velocity={6} onCollide={handleConeCollision}/>
-            <Cone position={[0,1,-51]} velocity={7} onCollide={handleConeCollision}/>
+            <Player1 vida={vida} resetPoint={resetPoint} />
+            <MouseMen loseLife={loseLife} />
 
             <Coins position={[-1, 3, -41]} catchCoin={handleCoins} />
             <Coins2 position={[1, 4, -42]} catchCoin={handleCoins} />
@@ -121,7 +99,6 @@ useEffect(() => {
           <Controls />
         </Canvas>
         <CharacterHudcueva_encantada coins={coins} />
-        {gameOver && <GameOver />}
       </KeyboardControls>
     </Suspense>
   );

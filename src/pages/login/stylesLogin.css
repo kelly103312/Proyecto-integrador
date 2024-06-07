@@ -1,35 +1,36 @@
 @font-face {
-    font-family: 'FontGame';
-    src: url('../../../public/assets/cueva_encantada/fonts/FontGame.ttf') format('truetype');
+    font-family: 'FontSquidGames';
+    src: url('../../../public/assets/level2/fonts/FontSquidGames.ttf') format('truetype');
 }
 
-.container-login{
+.container{
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     width: 100vw;
     height: 100vh;
-    background-color: rgba(0, 0, 0, 0.9);
+    background-color: rgba(255, 255, 255, 0.9);
     user-select: none;
 }
 
-.logo-JEKH img{
-    width: 500spx;
-    height: 300px;
+.logo-univalle img{
+    width: 114px;
+    height: 159px;
+    margin-bottom: 4rem;
 }
 
-.title-cueva-encantada{
-    font-size: 50px;
+.title-squid-games{
+    font-size: 28px;
     font-weight: bold;
-    color: rgb(198, 20, 204);
-    font-family: 'FontGame', Arial, sans-serif;
+    color: red;
+    font-family: 'FontSquidGames', Arial, sans-serif;
     text-align: center;
 }
 
 .button-start > button {
     color: white;
-    background-color: rgb(67, 23, 124);
+    background-color: red;
     font-weight: bold;
     width: 96px;
     height: 32px;
@@ -41,11 +42,11 @@
 }
 
 .button-start > button:hover {
-    background-color: #1d0224;
+    background-color: #FF5757;
 }
 
 .button-start > button:active {
-    background-color: #b761e9; 
+    background-color: #920A0A; 
 }
 
 .button-start > button:disabled {

@@ -51,7 +51,6 @@ export default function Player({ vida }) {
   return (
     <Ecctrl
       ref={rigidBodyPlayerRef}
-      name='AVATAR'
       camInitDis={-2}
       camMaxDis={-2}
       maxVelLimit={6}

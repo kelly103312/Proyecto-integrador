@@ -1,7 +1,7 @@
 import { Center, Float, Text3D } from "@react-three/drei";
 
 const WelcomeText = (props) => {
-    const text = "Cueva de hielo";
+    const text = "Squid Games";
 
     return (
         <Float
@@ -21,7 +21,7 @@ const WelcomeText = (props) => {
                 bevelThickness={0.01}
                 height={0.1}
                 letterSpacing={0.05}
-                size={2}
+                size={0.2}
             >
                 <meshNormalMaterial />
                 {text}

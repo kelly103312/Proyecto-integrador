@@ -1,7 +1,7 @@
 import { RigidBody } from '@react-three/rapier';
 import React, { useRef } from 'react';
 import { useFrame } from '@react-three/fiber';
-import { useLifes } from '../../../pages/level1/ManagementLifes';
+import { useLifes } from '../../../context/ManagementLifes';
 
 export const Sphere = (props) => {
   const sphereBody = useRef();

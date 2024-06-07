@@ -1,24 +1,25 @@
 import React, { useEffect, useRef } from 'react'
 import { useAnimations, useGLTF } from '@react-three/drei'
+import { RigidBody } from '@react-three/rapier'
 import { useAvatar } from '../../../context/AvatarContext'
-import * as THREE from 'three';
-import { UseCheckpoints } from '../../../context/ManagementCheckpoints';
-import { useAuth } from '../../../context/AuthContext';
-import { createCheckpoint, readCheckpoint } from '../../../db/checkpoints-collection';
 
 export const AvatarPrincipal = (props) => {
   const avatarBodyRef = useRef()
   const avatarRef = useRef()
   const {avatar,setAvatar} = useAvatar();
-  const {checkpoints, pointAchieved} = UseCheckpoints();
-  const { nodes, materials, animations } = useGLTF('/assets/castillo/avatars/ardilla.glb')
+  const { nodes, materials, animations } = useGLTF('/assets/castillo/avatars/avatar.glb')
 
   const {actions} = useAnimations(animations,avatarRef)
-  const auth = useAuth()
+
+  useEffect(()=>{
+    setAvatar({
+      ref: avatarRef.current,
+      body: avatarBodyRef.current
+    })
+  },[avatarBodyRef.current, avatarRef.current])
   
   useEffect(()=>{
     actions["idle"].play();
-    
   },[])
 
   useEffect(()=>{
@@ -32,69 +33,82 @@ export const AvatarPrincipal = (props) => {
     }
   },[avatar.animation,actions])
 
-  useEffect(()=>{
-    let vec= new THREE.Vector3();
-    avatarRef.current.getWorldPosition(vec)
-    let distance =vec.distanceTo(new THREE.Vector3(0,1,-60));
-    const { displayName, email } = auth.userLogged
-    console.log(distance)
-    if(distance < 2.2 && !checkpoints){
-      pointAchieved(vec,"Castillo",email,"Ardilla")
-    }
-
-  })
-
-
   return (
-    //<RigidBody  ref={avatarBodyRef} position={[0,1.5,-3]} colliders={"hull"}> 
-      <group ref={avatarRef}  rotation={[Math.PI / 2, 0, 0]} position-y={-0.8}>
-       <group name="Armature" scale={0.336}>
+    <RigidBody  ref={avatarBodyRef} position={[0,1.5,-3]} colliders={"hull"}>
+       <group  ref={avatarRef} name="Scene">
+        <group name="Armature">
           <skinnedMesh
-            name="Body"
-            geometry={nodes.Body.geometry}
-            material={materials['CartoonSquirelMat.002']}
-            skeleton={nodes.Body.skeleton}
+            name="EyeLeft"
+            geometry={nodes.EyeLeft.geometry}
+            material={materials.Wolf3D_Eye}
+            skeleton={nodes.EyeLeft.skeleton}
+            morphTargetDictionary={nodes.EyeLeft.morphTargetDictionary}
+            morphTargetInfluences={nodes.EyeLeft.morphTargetInfluences}
           />
           <skinnedMesh
-            name="eye_L"
-            geometry={nodes.eye_L.geometry}
-            material={materials['EyeSquirel.002']}
-            skeleton={nodes.eye_L.skeleton}
+            name="EyeRight"
+            geometry={nodes.EyeRight.geometry}
+            material={materials.Wolf3D_Eye}
+            skeleton={nodes.EyeRight.skeleton}
+            morphTargetDictionary={nodes.EyeRight.morphTargetDictionary}
+            morphTargetInfluences={nodes.EyeRight.morphTargetInfluences}
           />
           <skinnedMesh
-            name="eye_R"
-            geometry={nodes.eye_R.geometry}
-            material={materials['EyeSquirel.002']}
-            skeleton={nodes.eye_R.skeleton}
+            name="Wolf3D_Body"
+            geometry={nodes.Wolf3D_Body.geometry}
+            material={materials.Wolf3D_Body}
+            skeleton={nodes.Wolf3D_Body.skeleton}
           />
           <skinnedMesh
-            name="lower_teeh"
-            geometry={nodes.lower_teeh.geometry}
-            material={materials['TeethMat.002']}
-            skeleton={nodes.lower_teeh.skeleton}
+            name="Wolf3D_Glasses"
+            geometry={nodes.Wolf3D_Glasses.geometry}
+            material={materials.Wolf3D_Glasses}
+            skeleton={nodes.Wolf3D_Glasses.skeleton}
           />
           <skinnedMesh
-            name="middle_teeth"
-            geometry={nodes.middle_teeth.geometry}
-            material={materials['TeethMat.002']}
-            skeleton={nodes.middle_teeth.skeleton}
+            name="Wolf3D_Hair"
+            geometry={nodes.Wolf3D_Hair.geometry}
+            material={materials.Wolf3D_Hair}
+            skeleton={nodes.Wolf3D_Hair.skeleton}
           />
           <skinnedMesh
-            name="tongue"
-            geometry={nodes.tongue.geometry}
-            material={materials['TongueMat.002']}
-            skeleton={nodes.tongue.skeleton}
+            name="Wolf3D_Head"
+            geometry={nodes.Wolf3D_Head.geometry}
+            material={materials.Wolf3D_Hair}
+            skeleton={nodes.Wolf3D_Head.skeleton}
+            morphTargetDictionary={nodes.Wolf3D_Head.morphTargetDictionary}
+            morphTargetInfluences={nodes.Wolf3D_Head.morphTargetInfluences}
           />
           <skinnedMesh
-            name="upper_teeth"
-            geometry={nodes.upper_teeth.geometry}
-            material={materials['TeethMat.002']}
-            skeleton={nodes.upper_teeth.skeleton}
+            name="Wolf3D_Outfit_Bottom"
+            geometry={nodes.Wolf3D_Outfit_Bottom.geometry}
+            material={materials.Wolf3D_Outfit_Bottom}
+            skeleton={nodes.Wolf3D_Outfit_Bottom.skeleton}
           />
-          <primitive object={nodes.mixamorigHips} />
+          <skinnedMesh
+            name="Wolf3D_Outfit_Footwear"
+            geometry={nodes.Wolf3D_Outfit_Footwear.geometry}
+            material={materials.Wolf3D_Outfit_Footwear}
+            skeleton={nodes.Wolf3D_Outfit_Footwear.skeleton}
+          />
+          <skinnedMesh
+            name="Wolf3D_Outfit_Top"
+            geometry={nodes.Wolf3D_Outfit_Top.geometry}
+            material={materials.Wolf3D_Outfit_Top}
+            skeleton={nodes.Wolf3D_Outfit_Top.skeleton}
+          />
+          <skinnedMesh
+            name="Wolf3D_Teeth"
+            geometry={nodes.Wolf3D_Teeth.geometry}
+            material={materials.Wolf3D_Teeth}
+            skeleton={nodes.Wolf3D_Teeth.skeleton}
+            morphTargetDictionary={nodes.Wolf3D_Teeth.morphTargetDictionary}
+            morphTargetInfluences={nodes.Wolf3D_Teeth.morphTargetInfluences}
+          />
+          <primitive object={nodes.Hips} />
         </group>
       </group>
-    //</RigidBody>
+    </RigidBody>
   )
 }
-useGLTF.preload('/assets/castillo/avatars/ardilla.glb')
+useGLTF.preload('/assets/castillo/avatars/avatar.glb')

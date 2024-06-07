@@ -8,7 +8,6 @@ export default function useMovements(){
         rightward: "rightward",
         jump: "jump",
         exit: "exit",
-        attack : "attack",
         run: "run"
     }
 
@@ -18,7 +17,6 @@ export default function useMovements(){
             {name: MOVEMENTS.backward, keys: ["KeyS", "ArrowDown"]},
             {name: MOVEMENTS.leftward, keys: ["KeyA", "ArrowLeft"]},
             {name: MOVEMENTS.rightward, keys: ["KeyD", "ArrowRight"]},
-            {name: MOVEMENTS.attack, keys: ["KeyQ"]},
             {name: MOVEMENTS.jump, keys: ["Space"]},
             {name: MOVEMENTS.exit, keys: ["Escape"]},
             {name: MOVEMENTS.run, keys: ["Shift"]}

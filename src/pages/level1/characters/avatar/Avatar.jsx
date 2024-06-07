@@ -1,7 +1,7 @@
 import React, { useRef, useEffect, useState } from 'react';
 import { useGLTF, useAnimations } from '@react-three/drei';
 import { useAvatar } from '../../../../context/AvatarContext';
-import { useLifes } from '../../../../pages/level1/ManagementLifes';
+import { useLifes } from '../../../../context/ManagementLifes';
 
 export default function Avatar() {
   const modelRef = useRef();

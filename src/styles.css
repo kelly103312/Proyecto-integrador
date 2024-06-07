@@ -13,19 +13,3 @@ body,
 canvas{
     touch-action: none;
 }
-
-.welcome-text{
-    color: white;
-    padding: 1rem;
-    user-select: none;
-    
-}
-
-.container{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    position: absolute;
-    z-index: 1;
-
-}
