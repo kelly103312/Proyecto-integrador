@@ -1,0 +1,11 @@
+Model Information:
+* title:	TREE
+* source:	https://sketchfab.com/3d-models/tree-3710c96359004544bcf965ed8855a32e
+* author:	anwarhusain7021 (https://sketchfab.com/anwarhusain7021)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "TREE" (https://sketchfab.com/3d-models/tree-3710c96359004544bcf965ed8855a32e) by anwarhusain7021 (https://sketchfab.com/anwarhusain7021) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)

@@ -1,27 +1,27 @@
 "use strict";
 
+// Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
-/**
- * Web app's Firebase configuration
- */
+// TODO: Add SDKs for Firebase products that you want to use
+// https://firebase.google.com/docs/web/setup#available-libraries
+
+// Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: process.env.REACT_APP_API_KEY,
-  authDomain: process.env.REACT_APP_AUTH_DOMAIN,
-  projectId: process.env.REACT_APP_PROJECT_ID,
-  storageBucket: process.env.REACT_APP_STORAGE_BUCKET,
-  messagingSenderId: process.env.REACT_APP_MESSAGING_SENDER_ID,
-  appId: process.env.REACT_APP_APP_ID
+  apiKey: "AIzaSyC9Ma3fOSb_D-k21TU0uotWhEbsNgXM6Xs",
+  authDomain: "game-a4e35.firebaseapp.com",
+  projectId: "game-a4e35",
+  storageBucket: "game-a4e35.appspot.com",
+  messagingSenderId: "501566743396",
+  appId: "1:501566743396:web:49a8a351be6a2c69445071"
 };
-/**
- * Initialize Firebase
- */
+
+// Initialize Firebase
 const app = initializeApp(firebaseConfig);
-/**
- * return auth and db
- */
+
 const auth = getAuth(app);
 const db = getFirestore(app);
 
-export { auth, db };
+
+export { auth, db }; 

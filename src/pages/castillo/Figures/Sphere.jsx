@@ -1,22 +1,39 @@
 import { RigidBody } from '@react-three/rapier'
-import React, { useRef } from 'react'
+import React, { useEffect, useRef } from 'react'
 import { useFrame } from "@react-three/fiber"
+import { useLifes } from '../../../context/ManagementLifes'
 
 export const Sphere = (props) => {
+
   const sphereBody = useRef()
+  const sphere = useRef()
+
+  const { lifes, restarLifes } = useLifes();
+
   useFrame((state,delta)=>{
-    const elapsedTime = state.clock.getElapsedTime();
-    console.log(sphereBody.current)
-    sphereBody.current.position.x = props.position[0] + Math.cos(elapsedTime);
-    sphereBody.current.position.z = props.position[2] + Math.cos(elapsedTime);
-},[sphereBody.current])
+    const elapsedTime = state.clock.getElapsedTime() * props.velocity;
+
+    if(sphere.current){
+      sphere.current.setTranslation({
+          x: props.position[0] + Math.cos(elapsedTime) * 4,
+          y: props.position[1],
+          z: props.position[2],
+        },true);
+    }
+  },)
+
+  const onCollisionExit = (e) =>{
+    if(e.other.rigidBodyObject.name === "AVATAR"){
+      restarLifes();
+    }
+  }
+
   return (
-    <>  
-            <mesh  ref={sphereBody}
-            position={props.position}>
-                <sphereGeometry args={[0.4, 6, 6]} />
-                <meshStandardMaterial color={"grey"} />
-            </mesh>
-    </>
+    <RigidBody ref={sphere} onCollisionExit={(e)=>{onCollisionExit(e)}} position={props.position} type="fixed" colliders="ball">  
+      <mesh  ref={sphereBody}>
+          <sphereGeometry args={[0.4, 6, 6]} />
+          <meshStandardMaterial color={"grey"} />
+      </mesh>
+    </RigidBody>
   )
 }

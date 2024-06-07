@@ -2,15 +2,18 @@ import React from 'react'
 import { RoutesGame } from "./routes/RoutesGame";
 import { AvatarProvider } from './context/AvatarContext';
 import { AuthProvider } from './context/AuthContext';
-import { LifesProvider } from './pages/level1/ManagementLifes';
+import { LifesProvider } from './context/ManagementLifes';
+import { CheckpointsProvider } from './context/ManagementCheckpoints';
 
 const Experience = () => {
   return (
       <AuthProvider>
           <LifesProvider>
-            <AvatarProvider>
-                <RoutesGame />
-            </AvatarProvider>
+            <CheckpointsProvider>
+              <AvatarProvider>
+                  <RoutesGame />
+              </AvatarProvider>
+            </CheckpointsProvider>
           </LifesProvider>
       </AuthProvider>
   );
