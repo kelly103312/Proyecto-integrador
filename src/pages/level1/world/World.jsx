@@ -2,7 +2,8 @@ import React, { useEffect, useState, useRef } from 'react';
 import { useGLTF,useTexture } from '@react-three/drei';
 import { RigidBody } from '@react-three/rapier';
 import * as THREE from 'three';
-import { useLifes } from '../../../context/ManagementLifes';
+import { useLifes } from '../../../pages/level1/ManagementLifes';
+
 import { useNavigate } from 'react-router-dom';
 import { RepeatWrapping } from "three";
 

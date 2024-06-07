@@ -28,4 +28,3 @@ export const LifesProvider = ({ children }) => {
     </LifesContext.Provider>
   );
 };
-
