@@ -1,11 +1,11 @@
 import { Perf } from "r3f-perf";
-import {KeyboardControls, Loader } from "@react-three/drei";
+import { KeyboardControls, Loader } from "@react-three/drei";
 import { Physics } from "@react-three/rapier";
 import { Suspense, useEffect, useState } from "react";
 import WelcomeText from "./abstractions/WelcomeText";
 import Lights from "./lights/Lights";
 import Environments from "./staging/Environments";
-import Player1 from "./characters/players/Player1";
+import Avatar from "./characters/avatar/Avatar";
 import { Canvas } from "@react-three/fiber";
 import World from "./world/World";
 import Controls from "./controls/Controls";
@@ -17,7 +17,6 @@ import Logout from "../../components/logout/Logout";
 import { createUser, readUser } from "../../db/users-collection";
 import { useAtom } from "jotai";
 import { EcctrlJoystick } from "ecctrl";
-import MouseMen from "./characters/mouseMen/MouseMen";
 import CharacterHudcueva_encantada from "./hud/CharacterHud";
 import Coins from "./Figures/Coins";
 import Coins2 from "./Figures/Coins";
@@ -26,6 +25,12 @@ import { Cone } from "./Figures/Cone";
 import { useLifes } from '../../context/ManagementLifes';
 import GameOver from "./world/GameOver";
 import { Gat} from "./layout/Gat";
+import { readCheckpoint, pointValidated} from '../../db/checkpoints-collection'
+import { UseCheckpoints } from "../../context/ManagementCheckpoints";
+import { Checkpoint } from "./checkpoints/Checkpoint";
+import { Characters } from "./characters/Characters";
+import { Model } from "./Figures/Enemigo";
+
 
 
 export default function Cueva_Encantada() {
@@ -35,7 +40,7 @@ export default function Cueva_Encantada() {
   const [players] = useAtom(playersAtom);
   const { lifes } = useLifes();
   const [gameOver, setGameOver] = useState(false);
-
+  const {checkpoints,obtained} = UseCheckpoints();
 
   const handleConeCollision = () => {
     
@@ -57,29 +62,26 @@ useEffect(() => {
     setCoins((coins) => coins + 1);
   };
 
-  useEffect(() => {
-    /**
-     * Save the user data in the DB.
-     * @param {*} valuesUser
-     */
-    const saveDataUser = async (valuesUser) => {
-      const { success } = await readUser(valuesUser.email);
-      if (!success) await createUser(valuesUser);
-    };
+  
 
-    /**
-     * When userLogged is changed call saveDataUser to save the user in the DB.
-     * @see saveDataUser
-     */
-    if (auth.userLogged) {
-      const { displayName, email } = auth.userLogged;
-
-      saveDataUser({
-        displayName: displayName,
-        email: email,
-      });
+  const readCheckpoints = async (email,nameLevel) => {
+    const {success,checkpointData} = await readCheckpoint(email,nameLevel)
+    if(success){
+      await obtained();
+      localStorage.setItem('position', JSON.stringify(checkpointData[0].position));
     }
-  }, [auth.userLogged]);
+  }
+
+   /**
+     * Save the user data in the DB.
+     * @param {*} valuesUser 
+     */
+   const saveDataUser = async (valuesUser) => {
+    const {success} = await readUser(valuesUser.email)
+    
+    if (!success)
+        await createUser(valuesUser)
+  }
 
   /**
    * Emit to the server that the player is connected.
@@ -87,6 +89,19 @@ useEffect(() => {
   useEffect(() => {
     socket.emit("player-connected");
   }, []);
+
+  useEffect(() => {
+    if (auth.userLogged) {
+        const { displayName, email } = auth.userLogged
+        saveDataUser({
+            displayName: displayName,
+            email: email,
+        })
+        readCheckpoints(email,"cueva_encantada");
+    }
+}, [auth.userLogged])
+
+
 
   return (
     <Suspense fallback={<Loader />}>
@@ -104,8 +119,12 @@ useEffect(() => {
           <Environments />
           <Physics debug={false}>
             <World />
-            <Player1 />
-            <MouseMen  />
+            <Avatar />
+            <Characters/>
+            <Model position={[0, 0, -90]}/> 
+            
+            
+            <Checkpoint position={[0,1,-70]}/>
 
             <Cone position={[0,1,-43]} velocity={3} onCollide={handleConeCollision}/>
             <Cone position={[0,1,-45]} velocity={4} onCollide={handleConeCollision}/>
