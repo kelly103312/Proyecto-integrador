@@ -2,16 +2,22 @@ import React, { useRef, useEffect, useState } from 'react';
 import { useGLTF, useAnimations } from '@react-three/drei';
 import { useAvatar } from '../../../../context/AvatarContext';
 import { useLifes } from '../../../../context/ManagementLifes';
+import { Html } from '@react-three/drei';
+import './styles.css';
 
 export default function Avatar() {
   const modelRef = useRef();
   const { avatar, setAvatar } = useAvatar();
   const { nodes, materials, animations } = useGLTF('/assets/level1/models/avatar/fox.glb');
   const { actions } = useAnimations(animations, modelRef);
+  const { mantenerVidas } = useLifes();
   const [protegerDisponible, setProtegerDisponible] = useState(true);
-  const protectionRadius = 1.2; // Radio de la esfera de protección
   const [protegido, setProtegido] = useState(false);
-  const { mantenerVidas } = useLifes(); // Obtener la función para mantener vidas
+  const [elapsedTime, setElapsedTime] = useState(0);
+  const [showModal, setShowModal] = useState(false);
+  const [modalColor, setModalColor] = useState('');
+  const [colorList] = useState(['#FF5733', '#33FF57', '#337AFF', '#FF33E9', '#FFE933']);
+  const [protectionClicked, setProtectionClicked] = useState(false); // Estado para controlar si se ha hecho clic en la protección
 
   useEffect(() => {
     actions[avatar.animation]?.reset().fadeIn(0.5).play();
@@ -29,7 +35,7 @@ export default function Avatar() {
 
   useEffect(() => {
     const handleKeyDown = (event) => {
-      if (event.key === 't') {
+      if (event.key === 't' && !protectionClicked) {
         activarProteccion();
       }
     };
@@ -39,27 +45,42 @@ export default function Avatar() {
     return () => {
       window.removeEventListener('keydown', handleKeyDown);
     };
-  }, []);
+  }, [protectionClicked]);
 
   const activarProteccion = () => {
-    if (protegerDisponible) {
-      setProtegido(true);
-      setProtegerDisponible(false);
-      mantenerVidas(); // Activar la protección
+    console.log('Protección activada a las:', new Date().toLocaleTimeString());
+    setProtegido(true);
+    setProtegerDisponible(false);
+    mantenerVidas();
+    setElapsedTime(0);
+    setShowModal(true);
+    setModalColor(getRandomColor());
+    setProtectionClicked(true);
 
-      setTimeout(() => {
-        setProtegido(false);
-        setProtegerDisponible(true);
-      }, 60000); // 60000 ms = 60 segundos
-    }
+    const timer = setInterval(() => {
+      setElapsedTime((prevTime) => {
+        const newTime = prevTime + 1;
+        if (newTime >= 60) {
+          clearInterval(timer);
+          setProtegido(false);
+          setProtegerDisponible(true);
+          console.log('Protección desactivada a las:', new Date().toLocaleTimeString());
+          setShowModal(false);
+          setProtectionClicked(false); // Reiniciar el estado para permitir otra activación
+        }
+        return newTime;
+      });
+    }, 1000);
+  };
+
+  const getRandomColor = () => {
+    return colorList[Math.floor(Math.random() * colorList.length)];
   };
 
   return (
     <group ref={modelRef} dispose={null}>
       <group name="Scene">
         <group name="AVATAR" position={[0, -0.668, 0]} rotation={[Math.PI / 2, 0, 0]} scale={[0.002, 0.002, 0.002]}>
-
-          {/* Renderizado del modelo del avatar */}
           <skinnedMesh
             name="MESH_CRASH001"
             geometry={nodes.MESH_CRASH001.geometry}
@@ -71,14 +92,19 @@ export default function Avatar() {
           <primitive object={nodes.mixamorigHips} />
         </group>
 
-        {/* Efecto de protección */}
         {protegido && (
           <mesh position={[0, 0.5, 0]}>
-            <sphereGeometry args={[protectionRadius, 32, 32]} />
+            <sphereGeometry args={[1.2, 32, 32]} />
             <meshBasicMaterial color="cyan" transparent opacity={0.5} />
           </mesh>
         )}
       </group>
+
+      {showModal && (
+        <Html position={[0, 2, 0]} style={{ color: modalColor }}>
+          <div className="modal-message">{elapsedTime} </div>
+        </Html>
+      )}
     </group>
   );
 }

@@ -1,0 +1,11 @@
+/* styles.css */
+
+.timer {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    color: white;
+    font-size: 18px;
+    font-weight: bold;
+  }
+  
