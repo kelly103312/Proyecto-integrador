@@ -23,11 +23,10 @@ export const AvatarPrincipal = (props) => {
 
   useEffect(()=>{
     if(avatar.animation !== ""){
-      if(avatar.animation === "attack"){
-          
-      } 
-      console.log(avatar.animation)
       actions[avatar.animation]?.reset().fadeIn(0.5).play();
+      if(avatar.animation == "attack"){
+        setAvatar({...avatar,"ref":avatarRef})
+      }
       return()=>{
         if(actions[avatar.animation]){
             actions[avatar.animation].fadeOut(0.5);
