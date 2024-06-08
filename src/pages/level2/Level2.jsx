@@ -139,7 +139,7 @@ export default function Level2() {
                         <Obs position={[-14, 1, -73]} velocity={3} onCollide={handleObsCollision} />
                         <Obs position={[-14, 6, -77]} velocity={12} onCollide={handleObsCollision} />
                         <Charaters/>
-                        <Model/>
+                        <Model position={[20,0,-20]}/>
                     </Physics>
                     <WelcomeText position={[1, 15, -93]} />
                     <Controls />
