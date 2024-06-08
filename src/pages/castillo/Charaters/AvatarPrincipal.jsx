@@ -1,10 +1,12 @@
-import React, { useEffect, useRef } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { useAnimations, useGLTF } from '@react-three/drei'
 import { useAvatar } from '../../../context/AvatarContext'
 import * as THREE from 'three';
 import { UseCheckpoints } from '../../../context/ManagementCheckpoints';
 import { useAuth } from '../../../context/AuthContext';
 import { createCheckpoint, readCheckpoint } from '../../../db/checkpoints-collection';
+import './AvatarStyless.css';
+import { useLifes } from '../../../context/ManagementLifes';
 
 export const AvatarPrincipal = (props) => {
   const avatarBodyRef = useRef()
@@ -12,10 +14,17 @@ export const AvatarPrincipal = (props) => {
   const {avatar,setAvatar} = useAvatar();
   const {checkpoints, pointAchieved} = UseCheckpoints();
   const { nodes, materials, animations } = useGLTF('/assets/castillo/avatars/ardilla.glb')
-
+  const { mantenerVidas } = useLifes();
   const {actions} = useAnimations(animations,avatarRef)
   const auth = useAuth()
-  
+  const [protegido, setProtegido] = useState(false);
+  const [protegerDisponible, setProtegerDisponible] = useState(true);
+  const [elapsedTime, setElapsedTime] = useState(0);
+  const [showModal, setShowModal] = useState(false);
+  const [modalColor, setModalColor] = useState('');
+  const [colorList] = useState(['#FF5733', '#33FF57', '#337AFF', '#FF33E9', '#FFE933']);
+  const [protectionClicked, setProtectionClicked] = useState(false); // Estado para controlar si se ha hecho clic en la protección
+
   useEffect(()=>{
     actions["idle"].play();
     
@@ -35,6 +44,7 @@ export const AvatarPrincipal = (props) => {
     }
   },[avatar.animation,actions])
 
+  
   useEffect(()=>{
     let vec= new THREE.Vector3();
     avatarRef.current.getWorldPosition(vec)
@@ -47,6 +57,55 @@ export const AvatarPrincipal = (props) => {
 
   })
 
+  useEffect(() => {
+    setAvatar({
+      ...avatar,
+      modelRef: avatarRef.current,
+    });
+  }, [avatarRef.current]);
+
+  useEffect(() => {
+   console.log("Clicked t")
+    const handleKeyDown = (event) => {
+      if (event.key === 't' && !protectionClicked) {
+        activarProteccion();
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [protectionClicked]);
+
+  const activarProteccion = () => {
+    console.log('Protección activada a las:', new Date().toLocaleTimeString());
+    setProtegido(true);
+    setProtegerDisponible(false);
+    mantenerVidas();
+    setElapsedTime(0);
+    setShowModal(true);
+    setModalColor(getRandomColor());
+    setProtectionClicked(true);
+
+    const timer = setInterval(() => {
+      setElapsedTime((prevTime) => {
+        const newTime = prevTime + 1;
+        if (newTime >= 60) {
+          clearInterval(timer);
+          setProtegido(false);
+          setProtegerDisponible(true);
+          console.log('Protección desactivada a las:', new Date().toLocaleTimeString());
+          setShowModal(false);
+          setProtectionClicked(false); // Reiniciar el estado para permitir otra activación
+        }
+        return newTime;
+      });
+    }, 1000);
+  };
+
+  const getRandomColor = () => {
+    return colorList[Math.floor(Math.random() * colorList.length)];
+  };
 
   return (
     //<RigidBody  ref={avatarBodyRef} position={[0,1.5,-3]} colliders={"hull"}> 
@@ -96,6 +155,12 @@ export const AvatarPrincipal = (props) => {
           />
           <primitive object={nodes.mixamorigHips} />
         </group>
+        {protegido && (
+          <mesh position={[0, 0.5, 0]}>
+            <sphereGeometry args={[2.2, 32, 32]} />
+            <meshBasicMaterial color="cyan" transparent opacity={0.5} />
+          </mesh>
+        )}
       </group>
     //</RigidBody>
   )
