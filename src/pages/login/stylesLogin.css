@@ -1,36 +1,36 @@
 @font-face {
-    font-family: 'FontSquidGames';
-    src: url('../../../public/assets/level2/fonts/FontSquidGames.ttf') format('truetype');
+    font-family: 'FontGame';
+    src: url('../../../public/assets/cueva_encantada/fonts/FontGame.ttf') format('truetype');
 }
 
-.container{
+.container-login{
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     width: 100vw;
-    height: 100vh;
-    background-color: rgba(255, 255, 255, 0.9);
+    height: 100vh; 
+    background: url('../../../public/assets/images/Juego-de-Tronos.jpg') no-repeat center center fixed; /* Añade la imagen de fondo */
+    background-color: rgba(0, 0, 0, 0.9);
     user-select: none;
 }
 
-.logo-univalle img{
-    width: 114px;
-    height: 159px;
-    margin-bottom: 4rem;
+.logo-JEKH img{
+    width: 500spx;
+    height: 300px;
 }
 
-.title-squid-games{
-    font-size: 28px;
+.title-cueva-encantada{
+    font-size: 50px;
     font-weight: bold;
-    color: red;
-    font-family: 'FontSquidGames', Arial, sans-serif;
+    color: rgb(198, 20, 204);
+    font-family: 'FontGame', Arial, sans-serif;
     text-align: center;
 }
 
 .button-start > button {
     color: white;
-    background-color: red;
+    background-color: rgb(67, 23, 124);
     font-weight: bold;
     width: 96px;
     height: 32px;
@@ -42,14 +42,15 @@
 }
 
 .button-start > button:hover {
-    background-color: #FF5757;
-}
+    background-color: #1d0224;
+} 
 
 .button-start > button:active {
-    background-color: #920A0A; 
+    background-color: #b761e9; 
 }
 
 .button-start > button:disabled {
     background-color: #fde6e7;
     cursor: not-allowed;
 }
+ 
