@@ -10,7 +10,7 @@ export default function World(props) {
         if (e.other.rigidBodyObject.name === 'AVATAR') {
             
            
-            navigate('/montanas_hielo');
+            navigate('/camino_al_atardecer');
         }
     };
 

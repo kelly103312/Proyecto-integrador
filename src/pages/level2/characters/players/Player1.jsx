@@ -8,6 +8,7 @@ import { UseCheckpoints } from "../../../../context/ManagementCheckpoints";
 
 export default function Player1(props) {
   const player1Ref = useRef();
+  const rigidBodyPlayer1Ref = useRef();
   const { avatar, setAvatar } = useAvatar();
   const { nodes, materials, animations } = useGLTF("/assets/level2/models/players/avatar.glb");
   const { actions } = useAnimations(animations, player1Ref)
@@ -23,7 +24,7 @@ export default function Player1(props) {
         let distance = vec.distanceTo(new THREE.Vector3(0, 1, -60));
         const { displayName, email } = auth.userLogged;
         console.log(distance);
-        if (distance < 10 && !checkpoints) {
+        if (distance < 80 && !checkpoints) {
           pointAchieved(vec, "level2", email, "AVATAR");
         }
       }
@@ -41,6 +42,15 @@ export default function Player1(props) {
 
   return (
 
+    <Ecctrl
+            ref={rigidBodyPlayer1Ref}
+            camInitDis={-2}
+            camMaxDis={-2}
+            maxVelLimit={10.5}
+            jumpVel={9}
+            position={[10, 17,0]}
+            name='AVATAR'
+        >
 
   
       <group ref={player1Ref} name="Scene" position-y={-0.9}>
@@ -124,6 +134,8 @@ export default function Player1(props) {
           <primitive object={nodes.Hips} />
         </group>
       </group>
+
+      </Ecctrl>
 
   );
 }
