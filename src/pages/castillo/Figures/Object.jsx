@@ -19,9 +19,9 @@ export const Object = () => {
     });
   
     const handleThrow = () => {
-      setPosition([0, 2, -32]); // Posición inicial
+      setPosition([0, 2, -32]); 
       setIsVisible(true);
-      setVelocity([0, -0, -0.5]); // Velocidad inicial
+      setVelocity([0, -0, -0.5]);
     };
   
     return (
