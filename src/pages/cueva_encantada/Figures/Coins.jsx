@@ -13,7 +13,8 @@ export default function Coins({ props, catchCoin, position }) {
       console.log("Chocó");
       setCollected(true);
       catchCoin();
-      refRigidBody.current.type = "kinematic"; // Cambia a tipo kinemático al ser recogida
+      refRigidBody.current.setTranslation({ x: 9999, y: 9999, z: 9999 }, true); // Move the coin far away
+      refRigidBody.current.setCollisionGroups(0); // Disable collisions
     }
   };
 

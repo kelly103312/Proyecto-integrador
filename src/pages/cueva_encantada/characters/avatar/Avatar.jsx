@@ -19,19 +19,16 @@ export default function Model({ props }) {
   const { mantenerVidas } = useLifes(); // Obtener la función para mantener vidas
   const auth = useAuth();
 
-  useEffect(()=>{
+  if(auth.userLogged != null){
     let vec= new THREE.Vector3();
     avatarRef.current.getWorldPosition(vec)
     let distance =vec.distanceTo(new THREE.Vector3(0,1,-60));
     const { displayName, email } = auth.userLogged
     console.log(distance)
-    if(distance < 2.2 && !checkpoints){
+    if(distance < 10 && !checkpoints){
       pointAchieved(vec,"cueva_encantada",email,"AVATAR")
     }
-
-  })
-
- 
+  }
 
   useEffect(() => {
     const handleKeyDown = (event) => {

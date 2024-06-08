@@ -121,7 +121,7 @@ useEffect(() => {
             <World />
             <Avatar />
             <Characters/>
-            <Model position={[0, 0, -90]}/> 
+            {/* <Model position={[0, 0, -90]}/>   */}
             
             
             <Checkpoint position={[0,1,-70]}/>
@@ -131,10 +131,34 @@ useEffect(() => {
             <Cone position={[0,1,-47]} velocity={5} onCollide={handleConeCollision}/>
             <Cone position={[0,1,-49]} velocity={6} onCollide={handleConeCollision}/>
             <Cone position={[0,1,-51]} velocity={7} onCollide={handleConeCollision}/>
+            <Cone position={[0,1,-53]} velocity={8} onCollide={handleConeCollision}/>
+            <Cone position={[0,1,-55]} velocity={9} onCollide={handleConeCollision}/>
+            <Cone position={[0,1,-57]} velocity={10} onCollide={handleConeCollision}/>
+            <Cone position={[0,1,-12]} velocity={6} onCollide={handleConeCollision}/>
+            <Cone position={[0,1,-16]} velocity={6} onCollide={handleConeCollision}/>
+            <Cone position={[0,1,-20]} velocity={6} onCollide={handleConeCollision}/>
+            <Cone position={[0,1,-24]} velocity={6} onCollide={handleConeCollision}/>
+            <Cone position={[0,1,-80]} velocity={6} onCollide={handleConeCollision}/>
 
             <Coins position={[-1, 3, -41]} catchCoin={handleCoins} />
+            <Coins position={[0, 2, -12]} catchCoin={handleCoins} />
+            <Coins position={[0, 2, -14]} catchCoin={handleCoins} />
+            <Coins position={[0, 2, -16]} catchCoin={handleCoins} />
+            <Coins position={[0, 2, -18]} catchCoin={handleCoins} />
+            <Coins position={[0, 2, -20]} catchCoin={handleCoins} />
+            <Coins position={[0, 2, -25]} catchCoin={handleCoins} />
             <Coins2 position={[1, 4, -42]} catchCoin={handleCoins} />
             <Coins3 position={[1, 6, -45]} catchCoin={handleCoins} />
+            <Coins3 position={[-1, 6, -47]} catchCoin={handleCoins} />
+            <Coins3 position={[1, 6, -49]} catchCoin={handleCoins} />
+            <Coins3 position={[-1, 6, -51]} catchCoin={handleCoins} />
+            <Coins3 position={[1, 6, -53]} catchCoin={handleCoins} />
+            <Coins3 position={[-1, 6, -55]} catchCoin={handleCoins} />
+            <Coins3 position={[1, 6, -57]} catchCoin={handleCoins} />
+            <Coins3 position={[-1, 6, -59]} catchCoin={handleCoins} />
+            <Coins3 position={[1, 4, -60]} catchCoin={handleCoins} />
+            <Coins3 position={[-1, 3, -63]} catchCoin={handleCoins} />
+            <Coins3 position={[0, 2, -87]} catchCoin={handleCoins} />
           </Physics>
           <WelcomeText position={[0, 0, -95]} />
           <Controls />
