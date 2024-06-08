@@ -5,7 +5,7 @@ const CharacterHudcueva_encantada= ({ coins }) => {
   const [displayText, setDisplayText] = useState("");
 
   const textToShow =
-    "¡Bienvenidos a Cueva Encantada! <br><br> Recolecta todas las monedas  para conseguir llegar al siguiente nivel.";
+    "¡Bienvenidos a Cueva Encantada! <br><br> Recolecta todas las monedas  para conseguir llegar al siguiente nivel. <br> Con la tecla T obtienes un escudo usalo cuando sea necesario";
   const currentIndexRef = useRef(0);
 
   useEffect(() => {
@@ -41,7 +41,7 @@ const CharacterHudcueva_encantada= ({ coins }) => {
             className="hud-icon"
           />
           <span className="hud-text">
-            {coins}/{3}
+            {coins}/{19}
           </span>
         </div>
       </div>
