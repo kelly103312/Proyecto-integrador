@@ -121,7 +121,7 @@ useEffect(() => {
             <World />
             <Avatar />
             <Characters/>
-            {/* <Model position={[0, 0, -90]}/>   */}
+            <Model position={[0, 0, -90]}/>   
             
             
             <Checkpoint position={[0,1,-70]}/>
