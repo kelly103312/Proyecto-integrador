@@ -13,10 +13,11 @@ import { Pane } from '../level1/layout/Pane';
 import { Coins } from '../level1/Figures/Coins';
 import useMovements from "../../utils/key-movements";
 import { Sphere } from './Figures/Sphere';
-import { useLifes } from '../../pages/level1/ManagementLifes';
+import { useLifes } from '../../context/ManagementLifes';
 import CharacterHudcueva_encantada from "./hud/CharacterHud";
 import GameOver from "./world/GameOver";
 import { Model } from './Figures/enemigo';
+import { Model1 } from './Figures/enemigo2';
 
 export default function Level1() {
     const map = useMovements();
@@ -80,7 +81,9 @@ export default function Level1() {
                         <Sphere position={[0, 0.4, 80]} velocity={7} onCollide={handleSphereCollision} />
 
                         <Charaters />
-                        <Model/>
+                        
+                        <Model1 position={[0.133, -1.001, -96.288]}/>
+                        <Model position={[-2, 0.4, -3]}/>
 
                         {/* Añadir las monedas y pasar la función handleCollectCoin como prop */}
                         <Coins position={[-2, 0.4, -3]} onCollect={handleCollectCoin} />
