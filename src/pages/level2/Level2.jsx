@@ -26,6 +26,9 @@ import { Vid } from "./layout/Vid";
 import { useLifes } from '../../context/ManagementLifes';
 import GameOver from "./world/GameOver";
 import { Obs } from "./figures/Obs";
+import { UseCheckpoints } from "../../context/ManagementCheckpoints";
+import { Checkpoint } from "./checkpoints/Checkpoint";
+import { readCheckpoint, pointValidated} from '../../db/checkpoints-collection'
 
 
 export default function Level2() {
@@ -36,6 +39,26 @@ export default function Level2() {
     const [coin, setCoin] = useState(0);
     const { lifes } = useLifes();
     const [gameOver, setGameOver] = useState(false);
+    const { checkpoints, obtained } = UseCheckpoints();
+
+    const readCheckpoints = async (email, nameLevel) => {
+        const { success, checkpointData } = await readCheckpoint(email, nameLevel)
+        if (success) {
+            await obtained();
+            localStorage.setItem('position', JSON.stringify(checkpointData[0].position));
+        }
+    }
+
+    useEffect(() => {
+        if (auth.userLogged) {
+            const { displayName, email } = auth.userLogged
+            saveDataUser({
+                displayName: displayName,
+                email: email,
+            })
+            readCheckpoints(email, "level2");
+        }
+    }, [auth.userLogged])
 
 
     /**
@@ -97,7 +120,7 @@ export default function Level2() {
                 <EcctrlJoystick />
                 <Canvas shadows={true} camera={{
                     position: [0, 1, 0],
-                    rotation: [0,0,0],
+                    rotation: [0, 0, 0],
                 }} >
                     {/* <Perf position="top-left" /> */}
                     <Lights />
@@ -106,6 +129,7 @@ export default function Level2() {
                         <World />
                         <RedMen />
                         <Player1 />
+                        <Checkpoint position={[20.2,1,-88]}/>
                         <Coin position={[22.5, 1, -59]} catchCoin={handleCoin} />
                         <Coin2 position={[-18, 2, -41]} catchCoin={handleCoin} />
                         <Coin3 position={[22.5, 1, -41]} catchCoin={handleCoin} />

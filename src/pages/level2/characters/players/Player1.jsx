@@ -1,44 +1,65 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useAvatar } from "../../../../context/AvatarContext";
 import { useAnimations, useGLTF } from "@react-three/drei";
 import Ecctrl from "ecctrl";
+import * as THREE from 'three';
+import { useAuth } from '../../../../context/AuthContext';
+import { UseCheckpoints } from "../../../../context/ManagementCheckpoints";
 
 export default function Player1(props) {
-    const player1Ref = useRef();
-    const rigidBodyPlayer1Ref = useRef();
-    const { avatar, setAvatar } = useAvatar();
-    const { nodes, materials, animations } = useGLTF("/assets/level2/models/players/avatar.glb");
-    const { actions } = useAnimations(animations, player1Ref)
+  const player1Ref = useRef();
+  const rigidBodyPlayer1Ref = useRef();
+  const { avatar, setAvatar } = useAvatar();
+  const { nodes, materials, animations } = useGLTF("/assets/level2/models/players/avatar.glb");
+  const { actions } = useAnimations(animations, player1Ref)
+  const avatarRef = useRef();
+  const { checkpoints, pointAchieved } = UseCheckpoints();
+  const auth = useAuth();
 
-    useEffect(() => {
-        actions[avatar.animation]?.reset().fadeIn(0.5).play();
-        return () => {
-            if (actions[avatar.animation])
-                actions[avatar.animation].fadeOut(0.5);
+  useEffect(() => {
+    if (auth.userLogged != null) {
+      if (avatarRef.current) {
+        let vec = new THREE.Vector3();
+        avatarRef.current.getWorldPosition(vec)
+        let distance = vec.distanceTo(new THREE.Vector3(0, 1, -60));
+        const { displayName, email } = auth.userLogged;
+        console.log(distance);
+        if (distance < 10 && !checkpoints) {
+          pointAchieved(vec, "level2", email, "AVATAR");
         }
-    }, [actions, avatar.animation]);
+      }
+    }
+  }, [auth.userLogged, checkpoints, pointAchieved]);
 
-    useEffect(() => {
-        setAvatar({
-            ...avatar,
-            player1Ref: player1Ref?.current,
-            rigidBodyPlayer1Ref: rigidBodyPlayer1Ref?.current
-        })
-    }, [player1Ref?.current, rigidBodyPlayer1Ref?.current])
+  useEffect(() => {
+    actions[avatar.animation]?.reset().fadeIn(0.5).play();
+    return () => {
+      if (actions[avatar.animation])
+        actions[avatar.animation].fadeOut(0.5);
+    };
+  }, [actions, avatar.animation]);
 
-    return (
-        <Ecctrl
-            ref={rigidBodyPlayer1Ref}
-            camInitDis={-2}
-            camMaxDis={-2}
-            maxVelLimit={10.5}
-            jumpVel={9}
-            position={[0, 10, 0]}
-            name='AVATAR'
-        >
-            <group ref={player1Ref} name="Scene" position-y={-0.9}>
-                <group name="Armature">
-                <skinnedMesh
+  useEffect(() => {
+    setAvatar({
+      ...avatar,
+      player1Ref: player1Ref?.current,
+      rigidBodyPlayer1Ref: rigidBodyPlayer1Ref?.current
+    });
+  }, [player1Ref?.current, rigidBodyPlayer1Ref?.current]);
+
+  return (
+    <Ecctrl
+      ref={rigidBodyPlayer1Ref}
+      camInitDis={-2}
+      camMaxDis={-2}
+      maxVelLimit={10.5}
+      jumpVel={9}
+      position={[0, 10, 0]}
+      name='AVATAR'
+    >
+      <group ref={player1Ref} name="Scene" position-y={-0.9}>
+        <group ref={avatarRef} name="Armature">
+          <skinnedMesh
             name="EyeLeft"
             geometry={nodes.EyeLeft.geometry}
             material={materials.Wolf3D_Eye}
@@ -115,10 +136,10 @@ export default function Player1(props) {
             morphTargetInfluences={nodes.Wolf3D_Teeth.morphTargetInfluences}
           />
           <primitive object={nodes.Hips} />
-                </group>
-            </group>
-        </Ecctrl>
-    )
+        </group>
+      </group>
+    </Ecctrl>
+  );
 }
 
 useGLTF.preload("/assets/level2/models/players/avatar.glb");
