@@ -127,7 +127,7 @@ export default function Level2() {
                     <Physics debug={false}>
                         <World />
                         <Player1 />
-                        <Checkpoint position={[20.2,1,-88]}/>
+                        <Checkpoint position={[20.2,1.5,-88.5]}/>
                         <Coin position={[22.5, 1, -59]} catchCoin={handleCoin} />
                         <Coin2 position={[-18, 2, -41]} catchCoin={handleCoin} />
                         <Coin3 position={[22.5, 1, -41]} catchCoin={handleCoin} />
