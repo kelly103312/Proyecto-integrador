@@ -5,7 +5,7 @@ import { Suspense, useEffect, useState } from "react";
 import WelcomeText from "./abstractions/WelcomeText";
 import Lights from "./lights/Lights";
 import Environments from "./staging/Environments";
-import Player1 from "./characters/players/Player1";
+import Avatar from "./characters/avatar/Avatar";
 import { Canvas } from "@react-three/fiber";
 import World from "./world/World";
 import Controls from "./controls/Controls";
@@ -28,6 +28,8 @@ import { Obs } from "./figures/Obs";
 import { UseCheckpoints } from "../../context/ManagementCheckpoints";
 import { Checkpoint } from "./checkpoints/Checkpoint";
 import { readCheckpoint, pointValidated} from '../../db/checkpoints-collection'
+import { Characters } from "./characters/Characters";
+import { Model } from "./figures/Enemigo";
 
 
 export default function Level2() {
@@ -126,7 +128,7 @@ export default function Level2() {
                     <Environments />
                     <Physics debug={false}>
                         <World />
-                        <Player1 />
+                        <Avatar />
                         <Checkpoint position={[20.2,1.5,-88.5]}/>
                         <Coin position={[22.5, 1, -59]} catchCoin={handleCoin} />
                         <Coin2 position={[-18, 2, -41]} catchCoin={handleCoin} />
@@ -136,6 +138,8 @@ export default function Level2() {
                         <Obs position={[-14, 1, -68]} velocity={7} onCollide={handleObsCollision} />
                         <Obs position={[-14, 1, -73]} velocity={3} onCollide={handleObsCollision} />
                         <Obs position={[-14, 6, -77]} velocity={12} onCollide={handleObsCollision} />
+                        <Characters/>
+                        <Model position={[0, 0, -90]}/>
 
                     </Physics>
                     <WelcomeText position={[1, 15, -93]} />

@@ -6,15 +6,17 @@ import * as THREE from 'three';
 import { useAuth } from '../../../../context/AuthContext';
 import { UseCheckpoints } from "../../../../context/ManagementCheckpoints";
 
-export default function Player1(props) {
-  const player1Ref = useRef();
-  const rigidBodyPlayer1Ref = useRef();
+export default function Model(props) {
+  const modelRef = useRef();
   const { avatar, setAvatar } = useAvatar();
   const { nodes, materials, animations } = useGLTF("/assets/level2/models/players/avatar.glb");
-  const { actions } = useAnimations(animations, player1Ref)
+  const { actions } = useAnimations(animations, modelRef);
   const avatarRef = useRef();
   const { checkpoints, pointAchieved } = UseCheckpoints();
+  const rigidBodyavatarRef = useRef();
   const auth = useAuth();
+
+
 
   useEffect(() => {
     if (auth.userLogged != null) {
@@ -39,22 +41,19 @@ export default function Player1(props) {
     };
   }, [actions, avatar.animation]);
 
+  useEffect(() => {
+    setAvatar({
+      ...avatar,
+      modelRef: modelRef?.current,
+    });
+  }, [modelRef.current, setAvatar]);
+
 
   return (
 
-    <Ecctrl
-            ref={rigidBodyPlayer1Ref}
-            camInitDis={-2}
-            camMaxDis={-2}
-            maxVelLimit={10.5}
-            jumpVel={9}
-            position={[10, 17,0]}
-            name='AVATAR'
-        >
-
   
-      <group ref={player1Ref} name="Scene" position-y={-0.9}>
-        <group ref={avatarRef} name="Armature">
+      <group ref={modelRef} name="Scene" position-y={-0.9}>
+        <group ref={avatarRef} name="AVATAR">
           <skinnedMesh
             name="EyeLeft"
             geometry={nodes.EyeLeft.geometry}
@@ -134,8 +133,6 @@ export default function Player1(props) {
           <primitive object={nodes.Hips} />
         </group>
       </group>
-
-      </Ecctrl>
 
   );
 }
