@@ -28,6 +28,8 @@ import { Obs } from "./figures/Obs";
 import { UseCheckpoints } from "../../context/ManagementCheckpoints";
 import { Checkpoint } from "./checkpoints/Checkpoint";
 import { readCheckpoint, pointValidated} from '../../db/checkpoints-collection'
+import { Charaters } from "./characters/Charaters";
+import {Model} from "./figures/Enemigo";
 
 
 export default function Level2() {
@@ -136,6 +138,8 @@ export default function Level2() {
                         <Obs position={[-14, 1, -68]} velocity={7} onCollide={handleObsCollision} />
                         <Obs position={[-14, 1, -73]} velocity={3} onCollide={handleObsCollision} />
                         <Obs position={[-14, 6, -77]} velocity={12} onCollide={handleObsCollision} />
+                        <Charaters/>
+                        <Model/>
                     </Physics>
                     <WelcomeText position={[1, 15, -93]} />
                     <Controls />

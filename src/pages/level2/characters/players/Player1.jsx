@@ -8,7 +8,6 @@ import { UseCheckpoints } from "../../../../context/ManagementCheckpoints";
 
 export default function Player1(props) {
   const player1Ref = useRef();
-  const rigidBodyPlayer1Ref = useRef();
   const { avatar, setAvatar } = useAvatar();
   const { nodes, materials, animations } = useGLTF("/assets/level2/models/players/avatar.glb");
   const { actions } = useAnimations(animations, player1Ref)
@@ -39,24 +38,11 @@ export default function Player1(props) {
     };
   }, [actions, avatar.animation]);
 
-  useEffect(() => {
-    setAvatar({
-      ...avatar,
-      player1Ref: player1Ref?.current,
-      rigidBodyPlayer1Ref: rigidBodyPlayer1Ref?.current
-    });
-  }, [player1Ref?.current, rigidBodyPlayer1Ref?.current]);
 
   return (
-    <Ecctrl
-      ref={rigidBodyPlayer1Ref}
-      camInitDis={-2}
-      camMaxDis={-2}
-      maxVelLimit={10.5}
-      jumpVel={9}
-      position={[0, 10, 0]}
-      name='AVATAR'
-    >
+
+
+  
       <group ref={player1Ref} name="Scene" position-y={-0.9}>
         <group ref={avatarRef} name="Armature">
           <skinnedMesh
@@ -138,7 +124,7 @@ export default function Player1(props) {
           <primitive object={nodes.Hips} />
         </group>
       </group>
-    </Ecctrl>
+
   );
 }
 
