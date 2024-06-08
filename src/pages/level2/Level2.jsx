@@ -3,7 +3,6 @@ import { KeyboardControls, Loader } from "@react-three/drei";
 import { Physics } from "@react-three/rapier";
 import { Suspense, useEffect, useState } from "react";
 import WelcomeText from "./abstractions/WelcomeText";
-import RedMen from "./characters/redMen/RedMen";
 import Lights from "./lights/Lights";
 import Environments from "./staging/Environments";
 import Player1 from "./characters/players/Player1";
@@ -127,7 +126,6 @@ export default function Level2() {
                     <Environments />
                     <Physics debug={false}>
                         <World />
-                        <RedMen />
                         <Player1 />
                         <Checkpoint position={[20.2,1,-88]}/>
                         <Coin position={[22.5, 1, -59]} catchCoin={handleCoin} />
