@@ -5,6 +5,7 @@ import { UseCheckpoints } from "../../../../context/ManagementCheckpoints";
 import { useLifes } from "../../../../context/ManagementLifes";
 import * as THREE from 'three';
 import { useAuth } from '../../../../context/AuthContext';
+import './Styles.css'
 
 export default function Model({ props }) {
   const modelRef = useRef();
@@ -46,7 +47,7 @@ export default function Model({ props }) {
         setTimeout(() => {
           setProtegido(false);
           setProtegerDisponible(true);
-        }, 60000); // 60000 ms = 60 segundos
+        }, 30000); // 30000 ms = 30 segundos
       }
     };
 
