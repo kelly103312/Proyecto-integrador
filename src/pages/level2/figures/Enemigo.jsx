@@ -60,146 +60,27 @@ export function Model(props) {
 
   return (
     <group ref={group} {...props} dispose={null}>
-      <group name="Scene">
-        <group name="Empty001" />
-        <group name="rig">
-          <group name="base_BODY_low001">
-            <skinnedMesh
-              name="lowman_shoes001"
-              geometry={nodes.lowman_shoes001.geometry}
-              material={materials.rock}
-              skeleton={nodes.lowman_shoes001.skeleton}
-            />
-            <skinnedMesh
-              name="lowman_shoes001_1"
-              geometry={nodes.lowman_shoes001_1.geometry}
-              material={materials.LEATHER}
-              skeleton={nodes.lowman_shoes001_1.skeleton}
-            />
-            <skinnedMesh
-              name="lowman_shoes001_2"
-              geometry={nodes.lowman_shoes001_2.geometry}
-              material={materials['LIGHT EYE']}
-              skeleton={nodes.lowman_shoes001_2.skeleton}
-            />
-            <skinnedMesh
-              name="lowman_shoes001_3"
-              geometry={nodes.lowman_shoes001_3.geometry}
-              material={materials.light2}
-              skeleton={nodes.lowman_shoes001_3.skeleton}
-            />
+    <group name="Scene">
+      <group name="Sketchfab_model" rotation={[-Math.PI / 2, 0, 0]} scale={0.122}>
+        <group name="root">
+          <group name="GLTF_SceneRootNode" rotation={[Math.PI / 2, 0, 0]}>
+            <group name="Object_5_232">
+              <group name="GLTF_created_0">
+                <skinnedMesh
+                  name="Object_7"
+                  geometry={nodes.Object_7.geometry}
+                  material={materials.fei_long}
+                  skeleton={nodes.Object_7.skeleton}
+                />
+                <group name="Object_8_229" />
+                <primitive object={nodes.GLTF_created_0_rootJoint} />
+              </group>
+            </group>
           </group>
-          <skinnedMesh
-            name="bone_mini_extra002"
-            geometry={nodes.bone_mini_extra002.geometry}
-            material={materials.Metal}
-            skeleton={nodes.bone_mini_extra002.skeleton}
-          />
-          <skinnedMesh
-            name="bone_mini_extra003"
-            geometry={nodes.bone_mini_extra003.geometry}
-            material={materials.Metal}
-            skeleton={nodes.bone_mini_extra003.skeleton}
-          />
-          <skinnedMesh
-            name="claws_head001"
-            geometry={nodes.claws_head001.geometry}
-            material={materials.Metal}
-            skeleton={nodes.claws_head001.skeleton}
-          />
-          <skinnedMesh
-            name="claws_hip001"
-            geometry={nodes.claws_hip001.geometry}
-            material={materials.Metal}
-            skeleton={nodes.claws_hip001.skeleton}
-          />
-          <skinnedMesh
-            name="claws_mini_001"
-            geometry={nodes.claws_mini_001.geometry}
-            material={materials.Metal}
-            skeleton={nodes.claws_mini_001.skeleton}
-          />
-          <skinnedMesh
-            name="claws_mini001"
-            geometry={nodes.claws_mini001.geometry}
-            material={materials.Metal}
-            skeleton={nodes.claws_mini001.skeleton}
-          />
-          <skinnedMesh
-            name="CLAWS001"
-            geometry={nodes.CLAWS001.geometry}
-            material={materials.Metal}
-            skeleton={nodes.CLAWS001.skeleton}
-          />
-          <skinnedMesh
-            name="foot_bones001"
-            geometry={nodes.foot_bones001.geometry}
-            material={materials.Metal}
-            skeleton={nodes.foot_bones001.skeleton}
-          />
-          <skinnedMesh
-            name="hmb001"
-            geometry={nodes.hmb001.geometry}
-            material={materials.Metal}
-            skeleton={nodes.hmb001.skeleton}
-          />
-          <skinnedMesh
-            name="LEATHER002"
-            geometry={nodes.LEATHER002.geometry}
-            material={materials.LEATHER}
-            skeleton={nodes.LEATHER002.skeleton}
-          />
-          <skinnedMesh
-            name="LEATHER003"
-            geometry={nodes.LEATHER003.geometry}
-            material={materials.LEATHER}
-            skeleton={nodes.LEATHER003.skeleton}
-          />
-          <skinnedMesh
-            name="Mask003"
-            geometry={nodes.Mask003.geometry}
-            material={materials.Metal}
-            skeleton={nodes.Mask003.skeleton}
-          />
-          <group name="Mask004">
-            <skinnedMesh
-              name="Cube014"
-              geometry={nodes.Cube014.geometry}
-              material={materials.Metal}
-              skeleton={nodes.Cube014.skeleton}
-            />
-            <skinnedMesh
-              name="Cube014_1"
-              geometry={nodes.Cube014_1.geometry}
-              material={materials['LIGHT EYE']}
-              skeleton={nodes.Cube014_1.skeleton}
-            />
-            <skinnedMesh
-              name="Cube014_2"
-              geometry={nodes.Cube014_2.geometry}
-              material={materials.light2}
-              skeleton={nodes.Cube014_2.skeleton}
-            />
-          </group>
-          <skinnedMesh
-            name="rigth_bones001"
-            geometry={nodes.rigth_bones001.geometry}
-            material={materials.Metal}
-            skeleton={nodes.rigth_bones001.skeleton}
-          />
-          <primitive object={nodes.root} />
-          <primitive object={nodes['MCH-torsoparent']} />
-          <primitive object={nodes['MCH-hand_ikparentL']} />
-          <primitive object={nodes['MCH-upper_arm_ik_targetparentL']} />
-          <primitive object={nodes['MCH-hand_ikparentR']} />
-          <primitive object={nodes['MCH-upper_arm_ik_targetparentR']} />
-          <primitive object={nodes['MCH-foot_ikparentL']} />
-          <primitive object={nodes['MCH-thigh_ik_targetparentL']} />
-          <primitive object={nodes['MCH-foot_ikparentR']} />
-          <primitive object={nodes['MCH-thigh_ik_targetparentR']} />
         </group>
       </group>
     </group>
+  </group>
   );
 }
 
