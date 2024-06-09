@@ -8,7 +8,7 @@ import Environments from "./staging/Environments";
 import { Canvas } from "@react-three/fiber";
 import World from "./world/World";
 import Controls from "./controls/Controls";
-import { Charaters } from "./characters/Charaters";
+import {Charaters} from "./characters/Charaters";
 import { Pane } from '../level1/layout/Pane';
 import { Coins } from '../level1/Figures/Coins';
 import useMovements from "../../utils/key-movements";
@@ -18,25 +18,31 @@ import CharacterHudcueva_encantada from "./hud/CharacterHud";
 import GameOver from "./world/GameOver";
 import { Model } from './Figures/enemigo';
 import { Model1 } from './Figures/enemigo2';
+import { UseCheckpoints } from "../../context/ManagementCheckpoints";
+import { Checkpoint } from "./checkpoints/Checkpoint";
+import { useAuth } from "../../context/AuthContext";
+import { createUser, readUser } from "../../db/users-collection";
+import { socket } from "../../socket/socket-manager";
+import { readCheckpoint, pointValidated} from '../../db/checkpoints-collection'
+import { EcctrlJoystick } from "ecctrl";
+
+
 
 export default function Level1() {
     const map = useMovements();
     const { lifes } = useLifes();
-    const [coins, setCoins] = useState(0); // Estado para mantener el número de monedas recogidas
-    const [gameOver, setGameOver] = useState(false); // Estado para controlar si el juego ha terminado
+    const [coins, setCoins] = useState(0);
+    const [gameOver, setGameOver] = useState(false);
+    const { checkpoints, obtained } = UseCheckpoints();
+    const auth = useAuth();
 
-    // Función para manejar la recolección de monedas
     const handleCollectCoin = () => {
-        setCoins(prevCoins => prevCoins + 1); // Incrementar el contador de monedas
+        setCoins(prevCoins => prevCoins + 1);
     };
 
-    // Función para manejar las colisiones con las esferas
     const handleSphereCollision = () => {
-        // Lógica para reducir vidas o lo que sea necesario
-        // Ejemplo: setLifes(prevLifes => prevLifes - 1);
-
         if (lifes === 0) {
-            setGameOver(true); // Establecer el estado de fin de juego
+            setGameOver(true);
         }
     };
 
@@ -46,9 +52,42 @@ export default function Level1() {
         }
     }, [lifes]);
 
+    const readCheckpoints = async (email, nameLevel) => {
+        const { success, checkpointData } = await readCheckpoint(email, nameLevel)
+        if (success) {
+            await obtained();
+            localStorage.setItem('position', JSON.stringify(checkpointData[0].position));
+        }
+    }
+
+    useEffect(() => {
+        if (auth.userLogged) {
+            const { displayName, email } = auth.userLogged;
+            saveDataUser({
+                displayName: displayName,
+                email: email,
+            });
+            readCheckpoints(email, "level1");
+        }
+    }, [auth.userLogged]);
+
+    useEffect(() => {
+        socket.emit("player-connected");
+    }, []);
+
+    const saveDataUser = async (valuesUser) => {
+        const { success } = await readUser(valuesUser.email)
+        if (!success)
+            await createUser(valuesUser)
+    }
+
+
+    
     return (
         <KeyboardControls map={map}>
             <Pane />
+           
+            <EcctrlJoystick />
             <Canvas
                 shadows={true}
                 camera={{
@@ -81,9 +120,11 @@ export default function Level1() {
                         <Sphere position={[0, 0.4, 80]} velocity={7} onCollide={handleSphereCollision} />
 
                         <Charaters />
-                        
-                        <Model1 position={[0.133, -1.001, -96.288]}/>
-                        <Model position={[-2, 0.4, -3]}/>
+
+                      <Model1 position={[0.133, -1.001, -96.288]} />
+                        <Model position={[-2, 0.4, -3]} /> 
+
+                        <Checkpoint position={[0, 3, -92]} />
 
                         {/* Añadir las monedas y pasar la función handleCollectCoin como prop */}
                         <Coins position={[-2, 0.4, -3]} onCollect={handleCollectCoin} />
@@ -110,14 +151,13 @@ export default function Level1() {
                         <Coins position={[-2, 0.4, -56]} onCollect={handleCollectCoin} />
                         <Coins position={[-2, 0.4, -59]} onCollect={handleCollectCoin} />
                     </Physics>
-
                 </Suspense>
                 <Controls />
             </Canvas>
             <Loader />
             {/* Mostrar el contador de monedas debajo del contador de vidas */}
             <CharacterHudcueva_encantada coins={coins} />
-            
+
             {/* Mostrar el mensaje de "Perdiste" cuando el juego termine */}
             {gameOver && <GameOver />}
         </KeyboardControls>

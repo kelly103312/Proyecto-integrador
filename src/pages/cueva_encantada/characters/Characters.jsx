@@ -2,11 +2,21 @@ import { forwardRef, useRef, useState, useEffect, useImperativeHandle } from "re
 import Ecctrl from "ecctrl";
 import Avatar from './avatar/Avatar';
 import { useFrame } from '@react-three/fiber';
+import { UseCheckpoints } from "../../../context/ManagementCheckpoints";
 
 export const Characters = forwardRef((props, ref) => {
-    const [avatarPosition, setAvatarPosition] = useState([0, 10, 95]);
+    const [avatarPosition, setAvatarPosition] = useState([0, 10, 92]);
+    const {checkpoints, pointAchieved} = UseCheckpoints();
+    const [avatar, setAvatar] = useState([0,0.5,-3]);
 
     const avatarRef = useRef();
+
+    useEffect(() => {
+        if(checkpoints){
+            const position = JSON.parse(localStorage.getItem('position'));
+            setAvatar([position.x,position.y,position.z]);
+        }
+    },[]);
 
      // Utiliza useImperativeHandle para exponer la referencia del avatar
      useImperativeHandle(ref, () => ({
@@ -37,8 +47,8 @@ export const Characters = forwardRef((props, ref) => {
                 camInitDis={-2}
                 camMaxDis={-2}
                 maxVelLimit={6}
-                jumpVel={5}
                 position={[0, 7, 0]}
+                jumpVel={5}
                 onChangePosition={(newPosition) => {
                     console.log("New avatar position:", newPosition);
                     setAvatarPosition(newPosition);
