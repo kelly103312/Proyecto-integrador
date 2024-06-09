@@ -5,6 +5,9 @@ import Ecctrl from "ecctrl";
 import * as THREE from 'three';
 import { useAuth } from '../../../../context/AuthContext';
 import { UseCheckpoints } from "../../../../context/ManagementCheckpoints";
+import './Styles.css'
+import { useLifes } from "../../../../context/ManagementLifes";
+import { Html } from '@react-three/drei';
 
 export default function Model(props) {
   const modelRef = useRef();
@@ -15,6 +18,17 @@ export default function Model(props) {
   const { checkpoints, pointAchieved } = UseCheckpoints();
   const rigidBodyavatarRef = useRef();
   const auth = useAuth();
+  const protectionRadius = 1.2;
+  const [protegerDisponible, setProtegerDisponible] = useState(true);
+  const [protegido, setProtegido] = useState(false);
+  const { mantenerVidas } = useLifes();
+  const [showModal, setShowModal] = useState(false);
+  const [modalColor, setModalColor] = useState('');
+  const [colorList] = useState(['#FF5733', '#33FF57', '#337AFF', '#FF33E9', '#FFE933']);
+  const [elapsedTime, setElapsedTime] = useState(0);
+  const [protectionClicked, setProtectionClicked] = useState(false);
+
+  
 
 
 
@@ -32,6 +46,59 @@ export default function Model(props) {
       }
     }
   }, [auth.userLogged, checkpoints, pointAchieved]);
+
+  useEffect(() => {
+    const handleKeyDown = (event) => {
+      if (event.key === 't') {
+        activarProteccion();
+      }
+    };
+
+    const activarProteccion = () => {
+      if (protegerDisponible) {
+        setProtegido(true);
+        setProtegerDisponible(false);
+        mantenerVidas(); // Activar la protección
+        setElapsedTime(0);
+        setShowModal(true);
+        setModalColor(getRandomColor());
+        setProtectionClicked(true);
+
+        
+    const timer = setInterval(() => {
+      setElapsedTime((prevTime) => {
+        const newTime = prevTime + 1;
+        if (newTime >= 60) {
+          clearInterval(timer);
+          setProtegido(false);
+          setProtegerDisponible(true);
+          console.log('Protección desactivada a las:', new Date().toLocaleTimeString());
+          setShowModal(false);
+          setProtectionClicked(false); // Reiniciar el estado para permitir otra activación
+        }
+        return newTime;
+      });
+    }, 1000);
+
+        setTimeout(() => {
+          setProtegido(false);
+          setProtegerDisponible(true);
+        }, 15000); // 15000 ms = 35 segundos
+      }
+    };
+
+    const getRandomColor = () => {
+      return colorList[Math.floor(Math.random() * colorList.length)];
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [protegerDisponible, mantenerVidas]);
+
+
 
   useEffect(() => {
     actions[avatar.animation]?.reset().fadeIn(0.5).play();
@@ -131,7 +198,21 @@ export default function Model(props) {
             morphTargetInfluences={nodes.Wolf3D_Teeth.morphTargetInfluences}
           />
           <primitive object={nodes.Hips} />
+
+          {protegido && (
+        <mesh position={[0, 1, 0]}>
+          <sphereGeometry args={[protectionRadius, 50,50]} />
+          <meshBasicMaterial color="#ffdd00" transparent opacity={0.455555} />
+        </mesh>
+      )}
         </group>
+
+        {showModal && (
+        <Html position={[0, 2, 0]} style={{ color: modalColor }}>
+          <div className="modal-message">{elapsedTime} </div>
+        </Html>
+      )}
+   
       </group>
 
   );

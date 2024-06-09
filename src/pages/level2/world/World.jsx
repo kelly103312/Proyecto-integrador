@@ -1,6 +1,8 @@
 import { useGLTF } from "@react-three/drei"
 import { CuboidCollider, CylinderCollider, RigidBody } from "@react-three/rapier"
 import { useNavigate } from "react-router-dom";
+import { useLifes } from "../../../context/ManagementLifes";
+
 
 export default function World(props) {
     const { nodes, materials } = useGLTF("/assets/level2/models/world/WorldSquidGames.glb")
