@@ -68,7 +68,7 @@ export default function Model(props) {
     const timer = setInterval(() => {
       setElapsedTime((prevTime) => {
         const newTime = prevTime + 1;
-        if (newTime >= 60) {
+        if (newTime >= 15) {
           clearInterval(timer);
           setProtegido(false);
           setProtegerDisponible(true);
