@@ -8,11 +8,7 @@ import { Html } from '@react-three/drei'
 import { useLifesEnemy } from '../../../context/ManagementLifesEnemy'
 
 export const Charaters = (props) => {
-<<<<<<< HEAD
     const [avatarRef, setAvatarRef] = useState([0,2,-3]);
-=======
-    const [avatarRef, setAvatarRef] = useState([0,1.5,-3]);
->>>>>>> fb17c32a5f6f2795483f2a9c1d589bf040e6862a
     const {checkpoints, pointAchieved} = UseCheckpoints();
     const {avatar,setAvatar} = useAvatar();
     const { lifesEnemy, restarLifesEnemy } = useLifesEnemy();
