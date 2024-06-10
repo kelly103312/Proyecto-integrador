@@ -7,8 +7,8 @@ import { useAvatar } from '../../../context/AvatarContext';
 
 export function Model1(props) {
   const group = useRef();
-  const { avatar } = useAvatar(); // Acceso al contexto del avatar
-  const { lifes, restarLifes } = useLifes(); // Acceso al contexto de vidas
+  const { avatar } = useAvatar();
+  const { lifes, restarLifes } = useLifes();
   const { nodes, materials, animations } = useGLTF('./assets/level1/models/avatar/s.glb');
   const { actions } = useAnimations(animations, group);
 
@@ -23,25 +23,27 @@ export function Model1(props) {
     if (!group.current || !avatar.modelRef) return;
 
     const avatarPosition = new Vector3();
-    avatar.modelRef.getWorldPosition(avatarPosition); // Obtener la posición del avatar
+    avatar.modelRef.getWorldPosition(avatarPosition);
 
     const modelPosition = group.current.position.clone();
-    const direction = avatarPosition.clone().sub(modelPosition).normalize(); // Dirección hacia el avatar
 
-    // Actualizar la posición del modelo
-    const speed = 0.05; // Velocidad de movimiento
+    // Definir una dirección aleatoria
+    const randomDirection = new Vector3(Math.random() * 2 - 1, 0, Math.random() * 2 - 1).normalize();
+
+    // Calcular la dirección hacia el avatar con una mezcla de la dirección aleatoria
+    const direction = avatarPosition.clone().sub(modelPosition).normalize().multiplyScalar(0.5).add(randomDirection.multiplyScalar(0.5));
+
+    const speed = 0.05;
     const movement = direction.clone().multiplyScalar(speed);
     modelPosition.add(movement);
     group.current.position.copy(modelPosition);
 
-    // Calcular y aplicar la rotación hacia el avatar
     const targetQuaternion = new Quaternion();
     const euler = new Euler();
-    euler.setFromVector3(new Vector3(0, Math.atan2(direction.x, direction.z), 0)); // Calcular la rotación en el eje Y
+    euler.setFromVector3(new Vector3(0, Math.atan2(direction.x, direction.z), 0));
     targetQuaternion.setFromEuler(euler);
-    group.current.quaternion.slerp(targetQuaternion, 0.1); // Interpolar suavemente hacia la nueva rotación
+    group.current.quaternion.slerp(targetQuaternion, 0.1);
 
-    // Restar vidas si está cerca del avatar
     if (modelPosition.distanceTo(avatarPosition) < 1) {
       if (lifes > 0) {
         restarLifes();
@@ -68,4 +70,4 @@ export function Model1(props) {
   );
 }
 
-useGLTF.preload('./assets/level1/models/avatar/s.glb'); 
+useGLTF.preload('./assets/level1/models/avatar/s.glb');
