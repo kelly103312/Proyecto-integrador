@@ -133,7 +133,7 @@ export default function Level1() {
                         <Charaters />
                         
                         <Model1 position={[0.133, -1.001, -96.288]}/>
-                       
+                        <Model position={[-2, 0.4, 80]}/> 
                         <Checkpoint position={[0,1,-90]}/>
 
                         { /*<Model position={[-2, 0.4, 80]}/> Añadir las monedas y pasar la función handleCollectCoin como prop */}
