@@ -29,7 +29,7 @@ export const Charaters = (props) => {
     return (
         <>
             <Bear 
-                position={[-1, 0, -80]}
+                position={[0, 0, -80]}
                 />
             <Ecctrl 
                 onCollisionExit={(e)=>{onCollisionEnter(e)}}
