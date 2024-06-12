@@ -5,7 +5,7 @@ const CharacterHudlevel2= ({ coin }) => {
   const [displayText, setDisplayText] = useState("");
 
   const textToShow =
-    "Bienvenidos a Cueva de Hielo. Recolecta las monedas y llega al final de la pista atravesando los obstaculos ¿Listos? Iniciemos";
+    "Bienvenidos a Cueva de Hielo recolecta las monedas y llega al final de la pista atravesando los obstaculos. En nuestro juego, puedes mover a tu personaje con las teclas W para avanzar, A para ir a la izquierda, D para moverte a la derecha, S para retroceder, y SHIFT para correr más rápido. Además, presiona la tecla T para activar un escudo protector que te resguardará del enemigo durante 15 segundos. ¿listos? ¡Buena suerte!";
   const currentIndexRef = useRef(0);
 
   useEffect(() => {

@@ -3,10 +3,9 @@ import { KeyboardControls, Loader } from "@react-three/drei";
 import { Physics } from "@react-three/rapier";
 import { Suspense, useEffect, useState } from "react";
 import WelcomeText from "./abstractions/WelcomeText";
-import RedMen from "./characters/redMen/RedMen";
 import Lights from "./lights/Lights";
 import Environments from "./staging/Environments";
-import Player1 from "./characters/players/Player1";
+import Avatar from "./characters/avatar/Avatar";
 import { Canvas } from "@react-three/fiber";
 import World from "./world/World";
 import Controls from "./controls/Controls";
@@ -26,6 +25,11 @@ import { Vid } from "./layout/Vid";
 import { useLifes } from '../../context/ManagementLifes';
 import GameOver from "./world/GameOver";
 import { Obs } from "./figures/Obs";
+import { UseCheckpoints } from "../../context/ManagementCheckpoints";
+import { Checkpoint } from "./checkpoints/Checkpoint";
+import { readCheckpoint, pointValidated} from '../../db/checkpoints-collection'
+import { Characters } from "./characters/Characters";
+import { Model } from "./figures/Enemigo";
 
 
 export default function Level2() {
@@ -36,6 +40,26 @@ export default function Level2() {
     const [coin, setCoin] = useState(0);
     const { lifes } = useLifes();
     const [gameOver, setGameOver] = useState(false);
+    const { checkpoints, obtained } = UseCheckpoints();
+
+    const readCheckpoints = async (email, nameLevel) => {
+        const { success, checkpointData } = await readCheckpoint(email, nameLevel)
+        if (success) {
+            await obtained();
+            localStorage.setItem('position', JSON.stringify(checkpointData[0].position));
+        }
+    }
+
+    useEffect(() => {
+        if (auth.userLogged) {
+            const { displayName, email } = auth.userLogged
+            saveDataUser({
+                displayName: displayName,
+                email: email,
+            })
+            readCheckpoints(email, "level2");
+        }
+    }, [auth.userLogged])
 
 
     /**
@@ -97,15 +121,15 @@ export default function Level2() {
                 <EcctrlJoystick />
                 <Canvas shadows={true} camera={{
                     position: [0, 1, 0],
-                    rotation: [0,0,0],
+                    rotation: [0, 0, 0],
                 }} >
                     {/* <Perf position="top-left" /> */}
                     <Lights />
                     <Environments />
                     <Physics debug={false}>
                         <World />
-                        <RedMen />
-                        <Player1 />
+                        <Avatar />
+                        <Checkpoint position={[20.2,1.5,-88.5]}/>
                         <Coin position={[22.5, 1, -59]} catchCoin={handleCoin} />
                         <Coin2 position={[-18, 2, -41]} catchCoin={handleCoin} />
                         <Coin3 position={[22.5, 1, -41]} catchCoin={handleCoin} />
@@ -114,6 +138,9 @@ export default function Level2() {
                         <Obs position={[-14, 1, -68]} velocity={7} onCollide={handleObsCollision} />
                         <Obs position={[-14, 1, -73]} velocity={3} onCollide={handleObsCollision} />
                         <Obs position={[-14, 6, -77]} velocity={12} onCollide={handleObsCollision} />
+                        <Characters/>
+                        <Model position={[0, 0, -90]}/>
+
                     </Physics>
                     <WelcomeText position={[1, 15, -93]} />
                     <Controls />

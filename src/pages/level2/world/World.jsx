@@ -1,6 +1,8 @@
 import { useGLTF } from "@react-three/drei"
 import { CuboidCollider, CylinderCollider, RigidBody } from "@react-three/rapier"
 import { useNavigate } from "react-router-dom";
+import { useLifes } from "../../../context/ManagementLifes";
+
 
 export default function World(props) {
     const { nodes, materials } = useGLTF("/assets/level2/models/world/WorldSquidGames.glb")
@@ -10,7 +12,7 @@ export default function World(props) {
         if (e.other.rigidBodyObject.name === 'AVATAR') {
             
            
-            navigate('/montanas_hielo');
+            navigate('/camino_al_atardecer');
         }
     };
 
