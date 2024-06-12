@@ -30,7 +30,7 @@ export const Bear = (props) => {
     groupbody.current.getWorldPosition(bearPosition); // Obtener la posición del avatar
 
     const distanceToAvatar = bearPosition.distanceTo(avatarPosition)
-    console.log(distanceToAvatar)
+    //console.log(distanceToAvatar)
     if (distanceToAvatar < 4) {
       setIsFollowing(false)
     } else {
@@ -39,7 +39,7 @@ export const Bear = (props) => {
 
     if (isFollowing) {
   
-      console.log(modelPosition)
+      //console.log(modelPosition)
       const direction = avatarPosition.clone().sub(modelPosition); // Dirección hacia el avatar
       direction.z = -direction.z 
       //direction.y = -direction.y 

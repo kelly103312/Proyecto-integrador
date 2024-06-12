@@ -24,6 +24,7 @@ import { readCheckpoint, pointValidated} from '../../db/checkpoints-collection'
 import { UseCheckpoints } from '../../context/ManagementCheckpoints'
 import { useLifesEnemy } from '../../context/ManagementLifesEnemy'
 import { Object } from './Figures/Object'
+import CharacterHudCastillo from './hub/CharacterHud'
 
 
 export const Castillo = () => {
@@ -115,9 +116,7 @@ export const Castillo = () => {
       </Canvas>
       <Loader />
       {/* Mostrar el contador de monedas debajo del contador de vidas */}
-      <div style={{ position: 'absolute', top: 60, center: 10, backgroundColor: 'rgba(0, 0, 0, 0.5)', padding: 10, borderRadius: 5, color: 'white' }}>
-                Monedas: {coins}
-      </div>
+      <CharacterHudCastillo coins={coins} />
     </KeyboardControls>
   )
 }
