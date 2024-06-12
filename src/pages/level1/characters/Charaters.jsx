@@ -1,15 +1,24 @@
-import React, { useRef, useState, useEffect, forwardRef, useImperativeHandle } from 'react';
-import Ecctrl from 'ecctrl';
+import React, { forwardRef, useRef, useState, useEffect, useImperativeHandle } from "react";
+import Ecctrl from "ecctrl";
+import Avatar from './avatar/Avatar';
 import { useFrame } from '@react-three/fiber';
-import Avatar from './avatar/Avatar'; // Asegúrate de que esta es la ruta correcta
+import { UseCheckpoints  } from "../../../context/ManagementCheckpoints"; // Corrección en el nombre de la función
 
-// Modificar Charaters para exponer la referencia del avatar
 export const Charaters = forwardRef((props, ref) => {
     const [avatarPosition, setAvatarPosition] = useState([0, 10, 95]);
-   
+    const { checkpoints ,pointAchieved} = UseCheckpoints (); // Corrección en el nombre de la función
     const avatarRef = useRef();
 
-    // Utiliza useImperativeHandle para exponer la referencia del avatar
+    useEffect(() => {
+        if(checkpoints){
+            const position = JSON.parse(localStorage.getItem('position'));
+            if(position) { // Verificar si la posición es válida antes de setearla
+                setAvatarPosition([position.x, position.y, position.z]);
+            }
+        }
+    }, [checkpoints]); // Agregar checkpoints al array de dependencias
+
+    // Utilize useImperativeHandle to expose the avatar reference
     useImperativeHandle(ref, () => ({
         get position() {
             return avatarPosition;
@@ -21,38 +30,14 @@ export const Charaters = forwardRef((props, ref) => {
         // Lógica de ataque
     };
 
-    // Verifica si el avatar ha pasado por las posiciones de los zombies
-    useFrame(() => {
-        if (avatarRef.current) {
-            const avatarPos = avatarRef.current.position;
-
-            console.log("Avatar position in useFrame:", avatarPos); // Agrega este console.log para verificar la posición en cada frame
-
-            // Comprueba si la posición del avatar coincide con la de los zombies
-            if (!avatarPassedZombie1 && avatarPos[2] <= -10) {
-                setAvatarPassedZombie1(true);
-                console.log("Avatar pasó por Zombie1");
-            }
-            if (!avatarPassedZombie2 && avatarPos[2] <= -30) {
-                setAvatarPassedZombie2(true);
-                console.log("Avatar pasó por Zombie2");
-            }
-            if (!avatarPassedZombie3 && avatarPos[2] <= -50) {
-                setAvatarPassedZombie3(true);
-                console.log("Avatar pasó por Zombie3");
-            }
-        }
-    });
-
-    // Verifica si la posición del avatar se actualiza correctamente
+    // Verificar si la posición del avatar se actualiza correctamente
     useEffect(() => {
-        console.log("Avatar position updated:", avatarPosition); // Agrega este console.log para verificar la actualización de la posición del avatar
+        console.log("Avatar position updated:", avatarPosition);
     }, [avatarPosition]);
 
     return (
         <>
-          
-            <Ecctrl 
+            <Ecctrl
                 jumpVel={4}
                 name='AVATAR'
                 autoBalance={true}
@@ -61,7 +46,7 @@ export const Charaters = forwardRef((props, ref) => {
                 position={avatarPosition}
                 camMaxDis={-9}
                 onChangePosition={(newPosition) => {
-                    console.log("New avatar position:", newPosition); // Agrega este console.log para vrificar la nueva posición enviada por el Ecctrl
+                    console.log("New avatar position:", newPosition);
                     setAvatarPosition(newPosition);
                 }}
             >

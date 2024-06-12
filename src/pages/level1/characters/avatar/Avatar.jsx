@@ -1,15 +1,19 @@
 import React, { useRef, useEffect, useState } from 'react';
-import { useGLTF, useAnimations } from '@react-three/drei';
+import { useGLTF, useAnimations, Html } from '@react-three/drei';
 import { useAvatar } from '../../../../context/AvatarContext';
 import { useLifes } from '../../../../context/ManagementLifes';
-import { Html } from '@react-three/drei';
 import './styles.css';
+
+import { UseCheckpoints } from "../../../../context/ManagementCheckpoints";
+import * as THREE from 'three';
+import { useAuth } from '../../../../context/AuthContext';
 
 export default function Avatar() {
   const modelRef = useRef();
+  const avatarRef = useRef(); // Ref for the avatar
   const { avatar, setAvatar } = useAvatar();
   const { nodes, materials, animations } = useGLTF('/assets/level1/models/avatar/fox.glb');
-  const { actions } = useAnimations(animations, modelRef);
+  const { actions } = useAnimations(animations, avatarRef);
   const { mantenerVidas } = useLifes();
   const [protegerDisponible, setProtegerDisponible] = useState(true);
   const [protegido, setProtegido] = useState(false);
@@ -18,6 +22,29 @@ export default function Avatar() {
   const [modalColor, setModalColor] = useState('');
   const [colorList] = useState(['#FF5733', '#33FF57', '#337AFF', '#FF33E9', '#FFE933']);
   const [protectionClicked, setProtectionClicked] = useState(false); // Estado para controlar si se ha hecho clic en la protección
+  const { checkpoints, pointAchieved } = UseCheckpoints();
+  const auth = useAuth();
+
+  // Checkpoint logic
+  useEffect(() => {
+    if (avatarRef.current) {
+      const vec = new THREE.Vector3();
+      avatarRef.current.getWorldPosition(vec);
+      const targetPosition = new THREE.Vector3(0, 3, -92);
+      const distance = vec.distanceTo(targetPosition);
+
+      // Debugging logs
+      console.log(`Avatar Position: ${vec.x}, ${vec.y}, ${vec.z}`);
+      console.log(`Distance to checkpoint: ${distance}`);
+
+      const { displayName, email } = auth.userLogged || {};
+
+      if (distance < 70 && !checkpoints) {
+        console.log('Checkpoint reached, sending data...');
+        pointAchieved(vec, "level1", email, "AVATAR");
+      }
+    }
+  }, [auth.userLogged, checkpoints, pointAchieved]);
 
   useEffect(() => {
     actions[avatar.animation]?.reset().fadeIn(0.5).play();
@@ -31,7 +58,7 @@ export default function Avatar() {
       ...avatar,
       modelRef: modelRef.current,
     });
-  }, [modelRef.current]);
+  }, [modelRef, setAvatar]);
 
   useEffect(() => {
     const handleKeyDown = (event) => {
@@ -80,7 +107,7 @@ export default function Avatar() {
   return (
     <group ref={modelRef} dispose={null}>
       <group name="Scene">
-        <group name="AVATAR" position={[0, -0.668, 0]} rotation={[Math.PI / 2, 0, 0]} scale={[0.002, 0.002, 0.002]}>
+        <group ref={avatarRef} name="AVATAR" position={[0, -0.668, 0]} rotation={[Math.PI / 2, 0, 0]} scale={[0.002, 0.002, 0.002]}>
           <skinnedMesh
             name="MESH_CRASH001"
             geometry={nodes.MESH_CRASH001.geometry}

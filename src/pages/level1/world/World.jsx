@@ -76,6 +76,8 @@ export default function Model(props) {
 
     return (
         <group ref={group} {...props} dispose={null}>
+
+             
             
             <group name="Scene">
                 <RigidBody type="fixed" colliders="trimesh">
@@ -92,6 +94,8 @@ export default function Model(props) {
                 <meshStandardMaterial {...propsTexture} opacity={1} transparent={false} />
                </mesh>
                </RigidBody>
+
+                
 
                 <mesh
                     name="tree1"

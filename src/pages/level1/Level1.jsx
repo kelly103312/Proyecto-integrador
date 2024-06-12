@@ -18,12 +18,24 @@ import CharacterHudcueva_encantada from "./hud/CharacterHud";
 import GameOver from "./world/GameOver";
 import { Model } from './Figures/enemigo';
 import { Model1 } from './Figures/enemigo2';
+import { readCheckpoint, pointValidated} from '../../db/checkpoints-collection'
+import { UseCheckpoints } from "../../context/ManagementCheckpoints";
+import { Checkpoint } from "./checkpoints/Checkpoint";
+import { useAuth } from "../../context/AuthContext";
+import { socket } from "../../socket/socket-manager";
+import WelcomeText from "./abstractions/WelcomeText";
+import { createUser, readUser } from "../../db/users-collection";
+import { EcctrlJoystick } from "ecctrl";
+import { Sphere2 } from './Figures/Sphere2';
+
 
 export default function Level1() {
     const map = useMovements();
     const { lifes } = useLifes();
     const [coins, setCoins] = useState(0); // Estado para mantener el número de monedas recogidas
     const [gameOver, setGameOver] = useState(false); // Estado para controlar si el juego ha terminado
+    const auth = useAuth();
+    const {checkpoints,obtained} = UseCheckpoints();
 
     // Función para manejar la recolección de monedas
     const handleCollectCoin = () => {
@@ -46,9 +58,47 @@ export default function Level1() {
         }
     }, [lifes]);
 
+    const readCheckpoints = async (email,nameLevel) => {
+        const {success,checkpointData} = await readCheckpoint(email,nameLevel)
+        if(success){
+          await obtained();
+          localStorage.setItem('position', JSON.stringify(checkpointData[0].position));
+        }
+      }
+    
+       /**
+         * Save the user data in the DB.
+         * @param {*} valuesUser 
+         */
+       const saveDataUser = async (valuesUser) => {
+        const {success} = await readUser(valuesUser.email)
+        
+        if (!success)
+            await createUser(valuesUser)
+      }
+    
+      /**
+       * Emit to the server that the player is connected.
+       */
+      useEffect(() => {
+        socket.emit("player-connected");
+      }, []);
+    
+      useEffect(() => {
+        if (auth.userLogged) {
+            const { displayName, email } = auth.userLogged
+            saveDataUser({
+                displayName: displayName,
+                email: email,
+            })
+            readCheckpoints(email,"cueva_encantada");
+        }
+    }, [auth.userLogged])
+
     return (
         <KeyboardControls map={map}>
             <Pane />
+            <EcctrlJoystick />
             <Canvas
                 shadows={true}
                 camera={{
@@ -63,29 +113,30 @@ export default function Level1() {
                     <Environments />
                     <Physics debug={false}>
                         <World />
-                        <Sphere position={[0, 0.4, -21]} velocity={3} onCollide={handleSphereCollision} />
+                        <Sphere2 position={[0, 0.4, -21]} velocity={3} onCollide={handleSphereCollision} />
                         <Sphere position={[0, 0.4, -31]} velocity={4} onCollide={handleSphereCollision} />
                         <Sphere position={[0, 0.4, -41]} velocity={5} onCollide={handleSphereCollision} />
                         <Sphere position={[0, 0.4, -51]} velocity={6} onCollide={handleSphereCollision} />
                         <Sphere position={[0, 0.4, -61]} velocity={7} onCollide={handleSphereCollision} />
                         <Sphere position={[0, 0.4, 19]} velocity={7} onCollide={handleSphereCollision} />
-                        <Sphere position={[0, 0.4, 15]} velocity={7} onCollide={handleSphereCollision} />
-                        <Sphere position={[0, 0.4, 20]} velocity={7} onCollide={handleSphereCollision} />
+                        <Sphere2 position={[0, 0.4, 15]} velocity={7} onCollide={handleSphereCollision} />
+                        <Sphere2 position={[0, 0.4, 20]} velocity={7} onCollide={handleSphereCollision} />
                         <Sphere position={[0, 0.4, 12]} velocity={7} onCollide={handleSphereCollision} />
                         <Sphere position={[0, 0.4, 5]} velocity={7} onCollide={handleSphereCollision} />
                         <Sphere position={[0, 0.4, 11]} velocity={7} onCollide={handleSphereCollision} />
                         <Sphere position={[0, 0.4, 40]} velocity={7} onCollide={handleSphereCollision} />
                         <Sphere position={[0, 0.4, 50]} velocity={7} onCollide={handleSphereCollision} />
                         <Sphere position={[0, 0.4, 60]} velocity={7} onCollide={handleSphereCollision} />
-                        <Sphere position={[0, 0.4, 70]} velocity={7} onCollide={handleSphereCollision} />
+                        <Sphere2 position={[0, 0.4, 70]} velocity={7} onCollide={handleSphereCollision} />
                         <Sphere position={[0, 0.4, 80]} velocity={7} onCollide={handleSphereCollision} />
 
                         <Charaters />
                         
                         <Model1 position={[0.133, -1.001, -96.288]}/>
-                        <Model position={[-2, 0.4, -3]}/>
+                        <Model position={[-2, 0.4, 80]}/> 
+                        <Checkpoint position={[0,1,-90]}/>
 
-                        {/* Añadir las monedas y pasar la función handleCollectCoin como prop */}
+                        { /*<Model position={[-2, 0.4, 80]}/> Añadir las monedas y pasar la función handleCollectCoin como prop */}
                         <Coins position={[-2, 0.4, -3]} onCollect={handleCollectCoin} />
                         <Coins position={[-2, 0.4, -4]} onCollect={handleCollectCoin} />
                         <Coins position={[-2, 0.4, -5]} onCollect={handleCollectCoin} />
@@ -109,6 +160,8 @@ export default function Level1() {
                         <Coins position={[-2, 0.4, -53]} onCollect={handleCollectCoin} />
                         <Coins position={[-2, 0.4, -56]} onCollect={handleCollectCoin} />
                         <Coins position={[-2, 0.4, -59]} onCollect={handleCollectCoin} />
+                       
+
                     </Physics>
 
                 </Suspense>
