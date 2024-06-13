@@ -6,6 +6,7 @@ import { UseCheckpoints } from '../../../context/ManagementCheckpoints'
 import { useAvatar } from '../../../context/AvatarContext'
 import { Html } from '@react-three/drei'
 import { useLifesEnemy } from '../../../context/ManagementLifesEnemy'
+import { Enemy1 } from './Enemy1'
 
 export const Charaters = (props) => {
     const [avatarRef, setAvatarRef] = useState([0,2,-3]);
@@ -21,15 +22,15 @@ export const Charaters = (props) => {
     },[]);
 
     const onCollisionEnter = (e) =>{
-        if(e.rigidBodyObject.name == "BEAR" && avatar.animation == "attack"){
+        if(e.rigidBodyObject.name == "Object" && avatar.animation == "attack"){
             restarLifesEnemy();
         }
 
     }
     return (
         <>
-            <Bear 
-                position={[-1, 0, -80]}
+            <Enemy1 
+                position={[0, 0, -80]}
                 />
             <Ecctrl 
                 onCollisionExit={(e)=>{onCollisionEnter(e)}}

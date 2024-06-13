@@ -108,61 +108,62 @@ export const AvatarPrincipal = (props) => {
   };
 
   return (
-    //<RigidBody  ref={avatarBodyRef} position={[0,1.5,-3]} colliders={"hull"}> 
-      <group ref={avatarRef}  rotation={[Math.PI / 2, 0, 0]} position-y={-0.8}>
-       <group name="Armature" scale={0.336}>
+    <group ref={avatarRef}  rotation={[Math.PI / 2, 0, 0]} position-y={-0.8}>
+      <group name="Scene">
+        <group name="Armature" scale={0.008}>
           <skinnedMesh
             name="Body"
             geometry={nodes.Body.geometry}
-            material={materials['CartoonSquirelMat.002']}
+            material={materials.cuerpo}
             skeleton={nodes.Body.skeleton}
           />
           <skinnedMesh
             name="eye_L"
             geometry={nodes.eye_L.geometry}
-            material={materials['EyeSquirel.002']}
+            material={materials['body.001']}
             skeleton={nodes.eye_L.skeleton}
           />
           <skinnedMesh
             name="eye_R"
             geometry={nodes.eye_R.geometry}
-            material={materials['EyeSquirel.002']}
+            material={materials['body.001']}
             skeleton={nodes.eye_R.skeleton}
           />
           <skinnedMesh
             name="lower_teeh"
             geometry={nodes.lower_teeh.geometry}
-            material={materials['TeethMat.002']}
+            material={materials['TeethMat.001']}
             skeleton={nodes.lower_teeh.skeleton}
           />
           <skinnedMesh
             name="middle_teeth"
             geometry={nodes.middle_teeth.geometry}
-            material={materials['TeethMat.002']}
+            material={materials['TeethMat.001']}
             skeleton={nodes.middle_teeth.skeleton}
           />
           <skinnedMesh
             name="tongue"
             geometry={nodes.tongue.geometry}
-            material={materials['TongueMat.002']}
+            material={materials['TongueMat.001']}
             skeleton={nodes.tongue.skeleton}
           />
           <skinnedMesh
             name="upper_teeth"
             geometry={nodes.upper_teeth.geometry}
-            material={materials['TeethMat.002']}
+            material={materials['TeethMat.001']}
             skeleton={nodes.upper_teeth.skeleton}
           />
           <primitive object={nodes.mixamorigHips} />
         </group>
-        {protegido && (
-          <mesh position={[0, 0.5, 0]}>
-            <sphereGeometry args={[2.2, 32, 32]} />
+      </group>
+      {protegido && (
+          <mesh position={[0, 0.2, -0.5]}>
+            <sphereGeometry args={[2, 32, 32]} />
             <meshBasicMaterial color="cyan" transparent opacity={0.5} />
           </mesh>
         )}
-      </group>
-    //</RigidBody>
+    </group>
+    
   )
 }
 useGLTF.preload('/assets/castillo/avatars/ardilla.glb')
