@@ -29,7 +29,9 @@ export const Charaters = (props) => {
     }
     return (
         <>
-            <Enemy1 
+            <Enemy1 position={[0, 0, -80]}
+                />
+            <Bear 
                 position={[0, 0, -80]}
                 />
             <Ecctrl 
