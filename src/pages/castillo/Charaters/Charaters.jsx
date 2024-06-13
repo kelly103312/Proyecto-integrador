@@ -31,9 +31,9 @@ export const Charaters = (props) => {
         <>
             <Enemy1 position={[0, 0, -80]}
                 />
-            <Bear 
+            {/* <Bear 
                 position={[0, 0, -80]}
-                />
+                /> */}
             <Ecctrl 
                 onCollisionExit={(e)=>{onCollisionEnter(e)}}
                 jumpVel={4}

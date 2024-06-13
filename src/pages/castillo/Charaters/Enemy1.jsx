@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { useGLTF, useAnimations } from '@react-three/drei'
 import { RigidBody } from '@react-three/rapier'
 import { useLifesEnemy } from '../../../context/ManagementLifesEnemy'
@@ -15,6 +15,17 @@ export function Enemy1(props) {
   const { actions } = useAnimations(animations, group)
   const { lifesEnemy, setLifesEnemy } = useLifesEnemy();
   const {avatar,setAvatar} = useAvatar();
+  const [isFollowing, setIsFollowing] = useState(true)
+  const [startAnimation, setStartAnimation] = useState(false);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setStartAnimation(true);
+    }, 3000);
+
+    // Limpiar el temporizador si el componente se desmonta
+    return () => clearTimeout(timer);
+  }, []);
 
   useEffect(()=>{
     if(lifesEnemy > 0){
@@ -25,34 +36,53 @@ export function Enemy1(props) {
     }
   },[group.current,avatar])
   
-  useFrame(() => {
-    if (!group.current || !avatar.modelRef) return;
+  useFrame((state,delta) => {
+    if(startAnimation){
 
+      if (!group.current || !avatar.modelRef) return;
+      
+      let modelPosition = group.current.position.clone();
       const avatarPosition = new Vector3();
       avatar.modelRef.getWorldPosition(avatarPosition); // Obtener la posición del avatar
-
-      const modelPosition = group.current.position.clone();
-      const direction = avatarPosition.clone().sub(modelPosition).normalize(); // Dirección hacia el avatar
-
-      // Actualizar la posición del modelo
-      const speed = 0.05; // Velocidad de movimiento
-      const movement = direction.clone().multiplyScalar(speed);
-      modelPosition.add(movement);
-      group.current.position.copy(modelPosition);
-
-      // Calcular y aplicar la rotación hacia el avatar
-      const targetQuaternion = new Quaternion();
-      const euler = new Euler();
-      euler.setFromVector3(new Vector3(0, Math.atan2(direction.x, direction.z), 0)); // Calcular la rotación en el eje Y
-      targetQuaternion.setFromEuler(euler);
-      group.current.quaternion.slerp(targetQuaternion, 0.1); // Interpolar suavemente hacia la nueva rotación
-
-      // Restar vidas si está cerca del avatar
-      if (modelPosition.distanceTo(avatarPosition) < 1) {
-        if (lifes > 0) {
-          restarLifes();
+  
+      const bearPosition = new Vector3();
+      group.current.getWorldPosition(bearPosition); // Obtener la posición del avatar
+  
+      const distanceToAvatar = bearPosition.distanceTo(avatarPosition)
+      //console.log(distanceToAvatar)
+      if (distanceToAvatar < 3) {
+        setIsFollowing(false)
+      } else {
+        setIsFollowing(true)
+      }
+  
+      if (isFollowing) {
+    
+        //console.log(modelPosition)
+        const direction = avatarPosition.clone().sub(modelPosition); // Dirección hacia el avatar
+        direction.z = -direction.z 
+        //direction.y = -direction.y 
+        direction.normalize()
+    
+        // Actualizar la posición del modelo
+        const speed = 0.05; // Velocidad de movimiento
+        const movement = direction.clone().multiplyScalar(speed);
+        modelPosition.add(movement); 
+        group.current.position.copy(modelPosition);
+    
+        // Calcular y aplicar la rotación hacia el avatar
+        const targetQuaternion = new Quaternion();
+        const euler = new Euler();
+        euler.setFromVector3(new Vector3(0, Math.atan2(direction.x, direction.z), 0)); // Calcular la rotación en el eje Y
+        targetQuaternion.setFromEuler(euler);
+        group.current.quaternion.slerp(targetQuaternion, 0.01); // Interpolar suavemente hacia la nueva rotación
+        if (distanceToAvatar < 1) {
+          if (lifes > 0) {
+            restarLifes();
+          }
         }
       }
+    }
   });
 
   return (

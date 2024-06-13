@@ -59,7 +59,7 @@ export const Bear = (props) => {
       groupbody.current.quaternion.slerp(targetQuaternion, 0.01); // Interpolar suavemente hacia la nueva rotación
       if (modelPosition.distanceTo(avatarPosition) < 1) {
         if (lifes > 0) {
-          restarLifes();
+          //restarLifes();
         }
       }
     }
