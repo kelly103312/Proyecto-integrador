@@ -21,7 +21,7 @@ export function Enemy1(props) {
   useEffect(() => {
     const timer = setTimeout(() => {
       setStartAnimation(true);
-    }, 3000);
+    }, 5000);
 
     // Limpiar el temporizador si el componente se desmonta
     return () => clearTimeout(timer);
@@ -48,16 +48,27 @@ export function Enemy1(props) {
       const bearPosition = new Vector3();
       group.current.getWorldPosition(bearPosition); // Obtener la posición del avatar
   
-      const distanceToAvatar = bearPosition.distanceTo(avatarPosition)
+      
       //console.log(distanceToAvatar)
-      if (distanceToAvatar < 3) {
-        setIsFollowing(false)
-      } else {
-        setIsFollowing(true)
+      // if (distanceToAvatar <2) {
+      //   setIsFollowing(false)
+      // } else {
+      //   setIsFollowing(true)
+      // }
+      
+      const direction = new Vector3().subVectors(avatarPosition, bearPosition).normalize();
+      bearPosition.add(direction.multiplyScalar(0.1));
+      const speed = 0.5;
+      const movement = direction.clone().multiplyScalar(speed);
+      group.current.position.add(movement);
+      const distanceToAvatar = bearPosition.distanceTo(avatarPosition)
+      if (distanceToAvatar < 2) {
+        if (lifes > 0) {
+          restarLifes();
+        }
       }
-  
-      if (isFollowing) {
-    
+
+      /*if (isFollowing) {
         //console.log(modelPosition)
         const direction = avatarPosition.clone().sub(modelPosition); // Dirección hacia el avatar
         direction.z = -direction.z 
@@ -67,21 +78,21 @@ export function Enemy1(props) {
         // Actualizar la posición del modelo
         const speed = 0.05; // Velocidad de movimiento
         const movement = direction.clone().multiplyScalar(speed);
-        modelPosition.add(movement); 
-        group.current.position.copy(modelPosition);
+        group.current.position.add(movement); 
     
         // Calcular y aplicar la rotación hacia el avatar
         const targetQuaternion = new Quaternion();
         const euler = new Euler();
         euler.setFromVector3(new Vector3(0, Math.atan2(direction.x, direction.z), 0)); // Calcular la rotación en el eje Y
         targetQuaternion.setFromEuler(euler);
-        group.current.quaternion.slerp(targetQuaternion, 0.01); // Interpolar suavemente hacia la nueva rotación
+        group.current.quaternion.slerp(targetQuaternion, 0.1); // Interpolar suavemente hacia la nueva rotación
         if (distanceToAvatar < 1) {
           if (lifes > 0) {
             restarLifes();
           }
         }
-      }
+      }*/
+    
     }
   });
 
