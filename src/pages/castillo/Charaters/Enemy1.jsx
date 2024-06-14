@@ -60,11 +60,20 @@ export function Enemy1(props) {
       bearPosition.add(direction.multiplyScalar(0.1));
       const speed = 0.5;
       const movement = direction.clone().multiplyScalar(speed);
+      //console.log(movement)
       group.current.position.add(movement);
       const distanceToAvatar = bearPosition.distanceTo(avatarPosition)
-      if (distanceToAvatar < 1) {
+      if (distanceToAvatar < 2) {
         if (lifes > 0) {
+          console.log(group.current.position)
           restarLifes();
+          const retroceso = 0.000000001; // Ajusta este valor para controlar cuánto retrocede
+          const positiontmp = new Vector3(
+              group.current.position.x, 
+              group.current.position.y, 
+              -group.current.position.z + retroceso 
+          ).multiplyScalar(speed);
+          group.current.position.add(positiontmp);
         }
       }
 
