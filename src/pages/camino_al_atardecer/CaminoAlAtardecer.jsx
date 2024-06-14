@@ -39,10 +39,10 @@ export const CaminoAlAtardecer = () => {
           <Environments />
           <FloatingText position={[0, 4, 160]} />
 
-          <Physics debug = {false} gravity={[0,1,0]}>
+          <Physics debug = {false} gravity={[1,0,0]}>
             <World />
             <Villains />
-            <Shape position={[0,6,80]} />
+            <Shape position={[0,2,40]} />
           </Physics>
 
         </Suspense>

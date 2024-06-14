@@ -38,7 +38,7 @@ export default function Villain1A(props) {
 
 
     return (
-      <RigidBody type="kinematicVelocity" colliders="cuboid">
+      <RigidBody type="fixed" colliders="hull">
         <group ref={villain1ARef} {...props} dispose={null}>
           <mesh
             castShadow

@@ -4,6 +4,7 @@ import React from "react";
 import "../styles.css";
 import { useEffect } from "react";
 import { RigidBody } from "@react-three/rapier";
+import TrapWalls from "../TrapWalls";
 
 export default function World(props) {
   const { nodes, materials } = useGLTF("/assets/camino_al_atardecer/models/world/Proyecto-integrador-videojuego.glb");
@@ -137,8 +138,9 @@ export default function World(props) {
             geometry={nodes.trunk.geometry}
             material={materials.rootMaterial}
             position={[0, -1, 50]}
-
           />
+
+          <TrapWalls />
         </group>
       </group>
     </RigidBody>
