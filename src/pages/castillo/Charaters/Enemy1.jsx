@@ -62,7 +62,7 @@ export function Enemy1(props) {
       const movement = direction.clone().multiplyScalar(speed);
       group.current.position.add(movement);
       const distanceToAvatar = bearPosition.distanceTo(avatarPosition)
-      if (distanceToAvatar < 2) {
+      if (distanceToAvatar < 1) {
         if (lifes > 0) {
           restarLifes();
         }
