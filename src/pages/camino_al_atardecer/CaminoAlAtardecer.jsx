@@ -40,7 +40,7 @@ export const CaminoAlAtardecer = () => {
           <Environments />
           <FloatingText position={[0, 4, 160]} />
 
-          <Physics debug = {false} gravity={[0,-10,0]}>
+          <Physics debug = {true} gravity={[0,-10,0]}>
             <World />
             <Villains />
             {/* <Shape/> */}

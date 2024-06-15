@@ -10,6 +10,7 @@ export default function TrapWalls(props) {
   const { nodes, materials } = useGLTF("/assets/camino_al_atardecer/models/trapWalls.glb");
   const { world } = useRapier();
 
+  //atraccion de los objetos hacia los trapwalls
   useEffect(() => {
     const objects = world.bodies;
     const attractionRange = 20;
@@ -64,14 +65,24 @@ export default function TrapWalls(props) {
     return () => clearInterval(interval);
   }, [world]);
 
+const onCollisionEnter = (e) => {
+console.log("Collision enter", e);
+}
+const onCollisionExit = (e) => { 
+console.log("Collision exit", e);
+}
+
   return (
     <group {...props} dispose={null}>
       <group>
         <group>
           <RigidBody
+            name="trapWall1Body"
             type="dynamic"
             colliders="trimesh"
             ref={trapWall1Ref}
+            onCollisionEnter={(e) => onCollisionEnter(e)}
+            onCollisionExit={(e) => onCollisionExit(e)}
           >
             <mesh
               castShadow
@@ -92,6 +103,7 @@ export default function TrapWalls(props) {
 
         <group>
           <RigidBody
+            name="trapWall2Body"
             type="dynamic"
             colliders="trimesh"
             ref={trapWall2Ref}

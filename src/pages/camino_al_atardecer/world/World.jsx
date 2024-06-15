@@ -3,7 +3,7 @@ import { RepeatWrapping } from "three";
 import React from "react";
 import "../styles.css";
 import { useEffect } from "react";
-import { RigidBody } from "@react-three/rapier";
+import { CylinderCollider, RigidBody } from "@react-three/rapier";
 import TrapWalls from "../TrapWalls";
 
 export default function World(props) {
@@ -31,10 +31,11 @@ export default function World(props) {
   }
 
   return (
-    <RigidBody type="fixed" colliders="trimesh">
+    
       <group {...props} dispose={null}>
         <group>
-          {/* <mesh geometry={nodes.Walls.geometry} material={materials.Material} /> */}
+          
+        <RigidBody type="fixed" colliders="cuboid" name="FloorBody">
           <mesh
             castShadow={true}
             receiveShadow={true}
@@ -45,17 +46,24 @@ export default function World(props) {
           >
             <meshStandardMaterial {...propsTexture} displacementScale={0} />
           </mesh>
+        </RigidBody>  
 
+
+        <RigidBody name="chairBody" colliders={false} type="fixed"  >
           <group onClick={onHandleChairClick}>
-            <mesh
-              castShadow={true}
-              receiveShadow={true}
-              geometry={nodes.silla.geometry}
-              material={materials.Rockingchair_01}
-              position={[-1, -0.5, 50]}
-            />
+              <mesh
+                castShadow={true}
+                receiveShadow={true}
+                geometry={nodes.silla.geometry}
+                material={materials.Rockingchair_01}
+                position={[-3, -0.5, 50]}
+              >
+              </mesh>
+              <CylinderCollider args={[1.2, 1.2, 1.5]} position={[-5,1,-118.5]} />
           </group>
 
+        </RigidBody>
+         
           <mesh
             castShadow
             receiveShadow
@@ -122,7 +130,7 @@ export default function World(props) {
             geometry={nodes.tree_3.geometry}
             material={materials.root_material}
           />
-        </group> */}
+          </group> */}
           <mesh
             onClick={(e) => e.stopPropagation()}
             castShadow={true}
@@ -143,7 +151,6 @@ export default function World(props) {
           <TrapWalls />
         </group>
       </group>
-    </RigidBody>
   );
 }
 
