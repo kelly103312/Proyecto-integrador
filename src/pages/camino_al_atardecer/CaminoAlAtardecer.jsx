@@ -11,6 +11,7 @@ import Pane from "./layout/pane";
 import Villains from "./characters/villains/Villains";
 import { Physics } from "@react-three/rapier";
 import Shape from "./Shape";
+import TrapWalls from "./TrapWalls";
 
 export const CaminoAlAtardecer = () => {
   return (
@@ -39,10 +40,11 @@ export const CaminoAlAtardecer = () => {
           <Environments />
           <FloatingText position={[0, 4, 160]} />
 
-          <Physics debug = {false} gravity={[1,0,0]}>
+          <Physics debug = {false} gravity={[0,-10,0]}>
             <World />
             <Villains />
-            <Shape position={[0,2,40]} />
+            {/* <Shape/> */}
+            
           </Physics>
 
         </Suspense>
