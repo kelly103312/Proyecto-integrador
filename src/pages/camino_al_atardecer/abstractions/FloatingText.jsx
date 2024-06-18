@@ -47,6 +47,27 @@ const FloatingText = (props) => {
           </Text>
 
         </Float>
+
+        <Float
+             rotationIntensity={0.02}
+             speed={2}
+             floatIntensity={0.5}
+             floatingRange={[0,1]}
+        >
+         <Text
+            className="trapFloor"
+            position={[0, 8, 10]}
+            color={"black"}
+            fontSize={2}
+            center
+            distanceFactor={10}
+            font="/assets/Camino_al_atardecer/fonts/caminoALAtardecerFont.otf"
+          >
+            {`Don't touch the\ngreen platforms!!!`}
+          </Text>
+
+        </Float>
+
           
         <Float
              rotationIntensity={0.02}
@@ -57,7 +78,7 @@ const FloatingText = (props) => {
          <Text
             className="ClikOnTheChair"
             position={[-7, 3, -120]}
-            color={"black"}
+            color={"#00C9FF"}
             fontSize={1}
             center
             distanceFactor={10}

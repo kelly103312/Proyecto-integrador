@@ -7,7 +7,9 @@ export default function TrapWalls(props) {
   const trapWall1Ref = useRef();
   const trapWall2Ref = useRef();
 
-  const { nodes, materials } = useGLTF("/assets/camino_al_atardecer/models/trapWalls.glb");
+  const { nodes, materials } = useGLTF(
+    "/assets/camino_al_atardecer/models/trapWalls.glb"
+  );
   const { world } = useRapier();
 
   //atraccion de los objetos hacia los trapwalls
@@ -24,8 +26,12 @@ export default function TrapWalls(props) {
           const trapWall2Position = trapWall2Ref.current.translation();
 
           // Calcular la distancia solo en el eje x
-          const distanceToTrapWall1 = Math.abs(trapWall1Position.x - position.x);
-          const distanceToTrapWall2 = Math.abs(trapWall2Position.x - position.x);
+          const distanceToTrapWall1 = Math.abs(
+            trapWall1Position.x - position.x
+          );
+          const distanceToTrapWall2 = Math.abs(
+            trapWall2Position.x - position.x
+          );
 
           if (distanceToTrapWall1 < attractionRange) {
             const direction1 = {
@@ -65,12 +71,12 @@ export default function TrapWalls(props) {
     return () => clearInterval(interval);
   }, [world]);
 
-const onCollisionEnter = (e) => {
-console.log("Collision enter", e);
-}
-const onCollisionExit = (e) => { 
-console.log("Collision exit", e);
-}
+  const onCollisionEnter = (e) => {
+    console.log("Collision enter", e);
+  };
+  const onCollisionExit = (e) => {
+    console.log("Collision exit", e);
+  };
 
   return (
     <group {...props} dispose={null}>
@@ -78,7 +84,7 @@ console.log("Collision exit", e);
         <group>
           <RigidBody
             name="trapWall1Body"
-            type="dynamic"
+            type="fixed"
             colliders="trimesh"
             ref={trapWall1Ref}
             onCollisionEnter={(e) => onCollisionEnter(e)}
@@ -104,7 +110,7 @@ console.log("Collision exit", e);
         <group>
           <RigidBody
             name="trapWall2Body"
-            type="dynamic"
+            type="fixed"
             colliders="trimesh"
             ref={trapWall2Ref}
           >
