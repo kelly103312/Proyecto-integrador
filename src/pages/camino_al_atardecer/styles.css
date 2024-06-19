@@ -38,7 +38,6 @@ canvas{
     padding: 2rem;
     border-radius: 2rem;
     user-select: none;
-    position: absolute;
     top: 50%;
     left: 50%;
     background-color: rgba(0, 0, 0, 0.5);

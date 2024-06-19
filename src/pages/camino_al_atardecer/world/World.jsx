@@ -4,7 +4,7 @@ import React, { useRef } from "react";
 import "../styles.css";
 import { useEffect } from "react";
 import { ConeCollider, ConvexHullCollider, CuboidCollider, CylinderCollider, MeshCollider, RigidBody, RoundConeCollider } from "@react-three/rapier";
-import TrapWalls from "../TrapWalls";
+import TrapWalls from "../obstacles/TrapWalls";
 
 export default function World(props) {
   const { nodes, materials } = useGLTF("/assets/camino_al_atardecer/models/world/Proyecto-integrador-videojuego.glb");
