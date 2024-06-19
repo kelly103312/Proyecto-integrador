@@ -1,4 +1,4 @@
-import { Environment, Loader, OrbitControls } from "@react-three/drei";
+import { Environment, KeyboardControls, Loader, OrbitControls } from "@react-three/drei";
 import World from "./world/World";
 import {Lights} from "./lights/lights";
 import {Environments} from "./staging/environments";
@@ -12,10 +12,14 @@ import Villains from "./characters/villains/Villains";
 import { BallCollider, Physics, RigidBody } from "@react-three/rapier";
 import TrapWalls from "./obstacles/TrapWalls";
 import CharacterHubCamino from './hub/CharacterHub';
+import Controls from "./controls/Controls";
+import Avatar from "./characters/avatar/Avatar";
+import useMovements from "../../utils/key-movements";
 
 
-export const CaminoAlAtardecer = () => {
+export function CaminoAlAtardecer () {
 
+  const map = useMovements();
   const cameraBodyCollider = useRef();
   
   // useFrame(({camera}, delta)=>{
@@ -26,14 +30,15 @@ export const CaminoAlAtardecer = () => {
 
   return (
     <>
+      <KeyboardControls map={map} > 
       <Canvas
         shadows={true}
         camera={{
           position: [0, 4, 150],
-          rotation: [0, 0, -180],
+          
         }}
       >
-        <OrbitControls
+        {/* <OrbitControls
           target={[0, 6, 80]}
           enableZoom={true}
           enablePan={true}
@@ -42,24 +47,26 @@ export const CaminoAlAtardecer = () => {
           rotateSpeed={0.5}
           minAzimuthAngle={Math.PI / 2}
           screenSpacePanning={true}
-        />
+        /> */}
         <Suspense fallback={null}>
           <Lights />
           <Environments />
           <FloatingText position={[0, 4, 160]} />
 
-          <Physics debug={true} gravity={[0, -10, 0]}>
+          <Physics debug={true}>
             <World />
             <Villains />
-            <RigidBody ref={cameraBodyCollider} position={[0,2,60]}>
-              <BallCollider args={[5]}  />
-            </RigidBody>
+            <Avatar />
           </Physics>
-        </Suspense>
-      </Canvas>
 
-      <Loader />
-      <CharacterHubCamino />
+        </Suspense>
+        <Controls />
+      </Canvas>
+      </KeyboardControls>
+
+      
+      {/* <Loader /> */}
+      {/* <CharacterHubCamino /> */}
 
     </>
   );

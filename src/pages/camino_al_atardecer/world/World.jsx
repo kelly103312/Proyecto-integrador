@@ -33,7 +33,7 @@ export default function World(props) {
   return (
     <group {...props} dispose={null}>
       <group>
-        <RigidBody type="fixed" colliders="cuboid" name="FloorBody">
+        <RigidBody type="fixed" colliders="trimesh" name="FloorBody">
           <mesh
             castShadow={true}
             receiveShadow={true}

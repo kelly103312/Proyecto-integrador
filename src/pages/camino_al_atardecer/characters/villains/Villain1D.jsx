@@ -2,6 +2,8 @@ import { useGLTF } from "@react-three/drei";
 import { useFrame } from "@react-three/fiber";
 import { useRef } from "react";
 import React from "react";
+import { RigidBody } from "@react-three/rapier";
+
 
 export default function Villain1D(props) {
     const villain1DRef = useRef();
@@ -36,14 +38,16 @@ export default function Villain1D(props) {
     });
 
     return (
+        <RigidBody type="dynamic" colliders="hull">
         <group ref={villain1DRef} {...props} dispose={null}>
-            <mesh
-                castShadow
-                receiveShadow
-                geometry={nodes.villain1D.geometry}
-                material={materials.villainMaterial}
-            />
+          <mesh
+            castShadow
+            receiveShadow
+            geometry={nodes.villain1D.geometry}
+            material={materials.villainMaterial}
+          />
         </group>
+      </RigidBody>
     );
 }
 
