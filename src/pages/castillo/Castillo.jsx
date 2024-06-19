@@ -22,6 +22,9 @@ import { useAuth } from '../../context/AuthContext'
 import { createUser, readUser } from '../../db/users-collection'
 import { readCheckpoint, pointValidated} from '../../db/checkpoints-collection'
 import { UseCheckpoints } from '../../context/ManagementCheckpoints'
+import { useLifesEnemy } from '../../context/ManagementLifesEnemy'
+import { Object } from './Figures/Object'
+import CharacterHudCastillo from './hub/CharacterHud'
 
 
 export const Castillo = () => {
@@ -30,6 +33,7 @@ export const Castillo = () => {
   const auth = useAuth()
   const [coins, setCoins] = useState(0);
   const {checkpoints,obtained} = UseCheckpoints();
+  const { lifesEnemy, setLifesEnemy } = useLifesEnemy();
 
   // Función para manejar la recolección de monedas
   const handleCollectCoin = () => {
@@ -67,6 +71,7 @@ export const Castillo = () => {
               email: email,
           })
           readCheckpoints(email,"Castillo");
+          setLifesEnemy(3);
       }
   }, [auth.userLogged])
 
@@ -97,9 +102,7 @@ export const Castillo = () => {
             <Sphere position={[0,1,-40]} velocity={5} />
             <Sphere position={[0,1,-45]} velocity={6} />
             <Sphere position={[0,1,-50]} velocity={7} />
-            
-            <Box position={[0,2,-5]} />
-            
+            <Object/>
             <Laberinto position={[-4.6, 2, -15]} />
             <Coins position={[0, 2, -32]} onCollect={handleCollectCoin}/>
             <Coins position={[0, 2, -38]} onCollect={handleCollectCoin}/>
@@ -113,9 +116,7 @@ export const Castillo = () => {
       </Canvas>
       <Loader />
       {/* Mostrar el contador de monedas debajo del contador de vidas */}
-      <div style={{ position: 'absolute', top: 60, center: 10, backgroundColor: 'rgba(0, 0, 0, 0.5)', padding: 10, borderRadius: 5, color: 'white' }}>
-                Monedas: {coins}
-      </div>
+      <CharacterHudCastillo coins={coins} />
     </KeyboardControls>
   )
 }

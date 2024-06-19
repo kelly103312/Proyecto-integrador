@@ -32,7 +32,7 @@ export const Sphere = (props) => {
     <RigidBody ref={sphere} onCollisionExit={(e)=>{onCollisionExit(e)}} position={props.position} type="fixed" colliders="ball">  
       <mesh  ref={sphereBody}>
           <sphereGeometry args={[0.4, 6, 6]} />
-          <meshStandardMaterial color={"grey"} />
+          <meshStandardMaterial color={"black"} />
       </mesh>
     </RigidBody>
   )
