@@ -14,9 +14,8 @@ export default function Model(props) {
     const [color, setColor] = useState(new THREE.Color(0xffffff));
     const object1 = useRef(null);
     const { restarLifes } = useLifes();
-    const [gameOver, setGameOver] = useState(false);
-    const [gameOverShown, setGameOverShown] = useState(false);
     const PATH = '/assets/level1/models/floor/';
+   
 
     const propsTexture = useTexture({
         map: PATH + "aerial_rocks_02_diff_4k.jpg",
@@ -65,12 +64,31 @@ export default function Model(props) {
         }
     };
 
-    const handleReset = () => {
-        // Aquí puedes agregar lógica adicional de reinicio si es necesario
-        // Por ejemplo, restablecer el estado de gameOver y gameOverShown
-        setGameOver(false);
-        setGameOverShown(false);
-    };
+
+    
+
+    const soundRef = useRef();
+
+    useEffect(() => {
+      // Cargar el sonido de fondo
+      const listener = new THREE.AudioListener();
+      const sound = new THREE.Audio(listener);
+      const audioLoader = new THREE.AudioLoader();
+  
+      audioLoader.load('/assets/level1/sounds/Y2meta.app - Dracovallis - Morning In The Forest (Celtic Music) (128 kbps).mp3', (buffer) => { // Cambia 'background.mp3' al nombre de tu archivo de sonido
+        sound.setBuffer(buffer);
+        sound.setLoop(true);
+        sound.setVolume(0.5);
+        sound.play();
+      });
+  
+      soundRef.current = sound;
+  
+      return () => {
+        // Detener el sonido cuando el componente se desmonte
+        soundRef.current?.stop();
+      };
+    }, []);
 
 
 
