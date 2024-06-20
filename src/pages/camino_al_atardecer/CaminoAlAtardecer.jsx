@@ -29,13 +29,11 @@ export function CaminoAlAtardecer () {
   // })
 
   return (
-    <>
       <KeyboardControls map={map} > 
       <Canvas
         shadows={true}
         camera={{
-          position: [0, 4, 150],
-          
+          position: [0, 4, 150]
         }}
       >
         {/* <OrbitControls
@@ -65,9 +63,5 @@ export function CaminoAlAtardecer () {
       </KeyboardControls>
 
       
-      {/* <Loader /> */}
-      {/* <CharacterHubCamino /> */}
-
-    </>
   );
 }
