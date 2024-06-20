@@ -9,11 +9,11 @@ export function Model(props) {
   const group = useRef();
   const { avatar } = useAvatar(); // Acceso al contexto del avatar
   const { lifes, restarLifes } = useLifes(); // Acceso al contexto de vidas
-  const { nodes, materials, animations } = useGLTF('./assets/models/cueva_encantada/players/enemigo.glb');
+  const { nodes, materials, animations } = useGLTF('./assets/level1/models/avatar/enemigo.glb');
   const { actions } = useAnimations(animations, group);
   const [currentAction, setCurrentAction] = useState('Walking'); // Animación inicial
   const [screamTriggered, setScreamTriggered] = useState(false); // Estado para controlar si ya se restó una vida
-  
+
   useEffect(() => {
     actions[currentAction]?.reset().fadeIn(0.5).play();
     return () => {
@@ -203,4 +203,4 @@ export function Model(props) {
   );
 }
 
-useGLTF.preload('./assets/cueva_encantada/models/players/enemigo.glb');
+useGLTF.preload('./assets/level1/models/avatar/enemigo.glb');

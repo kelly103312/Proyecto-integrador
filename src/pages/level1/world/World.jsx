@@ -15,7 +15,8 @@ export default function Model(props) {
     const object1 = useRef(null);
     const { restarLifes } = useLifes();
     const PATH = '/assets/level1/models/floor/';
-   
+    
+
 
     const propsTexture = useTexture({
         map: PATH + "aerial_rocks_02_diff_4k.jpg",
@@ -63,6 +64,14 @@ export default function Model(props) {
             navigate('/cueva_encantada');
         }
     };
+
+    const handleCollisionExitss = (e) => {
+      if (e.other.rigidBodyObject.name === 'AVATAR') {
+          
+        setCoins(prevCoins => prevCoins + 1);
+          
+      }
+  };
 
 
     

@@ -10,7 +10,7 @@ export function Model(props) {
   const group = useRef();
   const { avatar } = useAvatar(); // Contexto del avatar
   const { lifes, restarLifes } = useLifes(); // Contexto para manejar las vidas del avatar
-  const { nodes, materials, animations } = useGLTF('./assets/level1/models/avatar/enemigo.glb'); // Cargar el modelo del enemigo
+  const { nodes, materials, animations } = useGLTF('./assets/level1/models/avatar/enemigo1.glb'); // Cargar el modelo del enemigo
   const { actions } = useAnimations(animations, group);
   const [currentAction, setCurrentAction] = useState('fly'); // Animación inicial 'fly'
   const [attackTriggered, setAttackTriggered] = useState(false); // Estado para controlar si ya se activó el ataque
@@ -97,4 +97,4 @@ export function Model(props) {
   );
 }
 
-useGLTF.preload('./assets/level1/models/avatar/enemigo.glb');
+useGLTF.preload('./assets/level1/models/avatar/enemigo1.glb');
