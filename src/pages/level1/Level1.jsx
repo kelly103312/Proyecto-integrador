@@ -96,6 +96,8 @@ export default function Level1() {
         }
     }, [auth.userLogged])
 
+    
+
     return (
         <KeyboardControls map={map}>
             <Pane />

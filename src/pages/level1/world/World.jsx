@@ -5,6 +5,8 @@ import * as THREE from 'three';
 import { useLifes } from '../../../context/ManagementLifes';
 import { useNavigate } from 'react-router-dom';
 import { RepeatWrapping } from "three";
+import CharacterHudcueva_encantada from "../hud/CharacterHud";
+
 
 export default function Model(props) {
     const { nodes, materials } = useGLTF('/assets/level1/models/world/game4.glb');
@@ -15,6 +17,8 @@ export default function Model(props) {
     const object1 = useRef(null);
     const { restarLifes } = useLifes();
     const PATH = '/assets/level1/models/floor/';
+    const [coins, setCoins] = useState(100);
+    
     
 
 
@@ -67,11 +71,15 @@ export default function Model(props) {
 
     const handleCollisionExitss = (e) => {
       if (e.other.rigidBodyObject.name === 'AVATAR') {
-          
-        setCoins(prevCoins => prevCoins + 1);
-          
+        navigate('/castillo');
       }
   };
+
+  const handleCollisionExitsss = (e) => {
+    if (e.other.rigidBodyObject.name === 'AVATAR') {
+      navigate('/level2');
+    }
+};
 
 
     
@@ -104,7 +112,7 @@ export default function Model(props) {
     return (
         <group ref={group} {...props} dispose={null}>
 
-             
+
             
             <group name="Scene">
                 <RigidBody type="fixed" colliders="trimesh">
@@ -243,6 +251,7 @@ export default function Model(props) {
           scale={[1, 10, 1]}
         />
         </RigidBody>
+        <RigidBody type="fixed" colliders="trimesh">
         <mesh
           name="Cylinder1"
           castShadow
@@ -253,6 +262,8 @@ export default function Model(props) {
           rotation={[0, 0, 1.587]}
           scale={[1, 10, 1]}
         />
+        </RigidBody>
+        <RigidBody type="fixed" colliders="trimesh">
         <mesh
           name="Cylinder2"
           castShadow
@@ -263,6 +274,8 @@ export default function Model(props) {
           rotation={[0, 0, 1.587]}
           scale={[1, 10, 1]}
         />
+        </RigidBody>
+        <RigidBody type="fixed" colliders="trimesh">
         <mesh
           name="Cylinder001"
           castShadow
@@ -273,6 +286,8 @@ export default function Model(props) {
           rotation={[0, 0, 1.587]}
           scale={[1, 10, 1]}
         />
+        </RigidBody>
+        <RigidBody type="fixed" colliders="trimesh">
         <mesh
           name="Cylinder3"
           castShadow
@@ -283,6 +298,8 @@ export default function Model(props) {
           rotation={[0, 0, 1.587]}
           scale={[1, 10, 1]}
         />
+        </RigidBody>
+        <RigidBody type="fixed" colliders="trimesh">
         <mesh
           name="tree7"
           castShadow
@@ -299,6 +316,8 @@ export default function Model(props) {
             position={[-0.073, 0, 0]}
           />
         </mesh>
+        </RigidBody>
+        <RigidBody type="fixed" colliders="trimesh">
         <mesh
           name="tree10"
           castShadow
@@ -314,6 +333,8 @@ export default function Model(props) {
             material={materials['Material.026']}
           />
         </mesh>
+        </RigidBody>
+        <RigidBody type="fixed" colliders="trimesh">
         <mesh
           name="tree11"
           castShadow
@@ -329,6 +350,8 @@ export default function Model(props) {
             material={materials['Material.028']}
           />
         </mesh>
+        </RigidBody>
+        <RigidBody type="fixed" colliders="trimesh">
         <mesh
           name="tree12"
           castShadow
@@ -343,9 +366,12 @@ export default function Model(props) {
             geometry={nodes.leaves011.geometry}
             material={materials['Material.030']}
           />
+          
         
         </mesh>
+        </RigidBody>
                 <RigidBody  type="fixed" onCollisionEnter={handleCollisionExits} colliders="trimesh">
+                
                     <mesh
                         name="polySurface10"
                         geometry={nodes.polySurface10.geometry}
@@ -356,6 +382,7 @@ export default function Model(props) {
                     />
                     
                 </RigidBody>
+        <RigidBody type="fixed" colliders="trimesh">        
         <mesh
           name="Cylinder4"
           castShadow
@@ -366,6 +393,8 @@ export default function Model(props) {
           rotation={[0, 0, 1.587]}
           scale={[1, 10, 1]}
         />
+        </RigidBody>
+        <RigidBody type="fixed" colliders="trimesh"> 
         <mesh
           name="Cylinder5"
           castShadow
@@ -376,6 +405,7 @@ export default function Model(props) {
           rotation={[0, 0, 1.587]}
           scale={[1, 10, 1]}
         />
+        </RigidBody>
          <RigidBody type="fixed" colliders="trimesh">
       <mesh
         name="stair2"
@@ -414,6 +444,7 @@ export default function Model(props) {
         />
       </mesh>
     </RigidBody>
+    <RigidBody type="fixed" onCollisionEnter={handleCollisionExitss} colliders="trimesh">
         <group
           name="tesoro2"
           position={[2.401, 18.193, -53.715]}
@@ -511,6 +542,7 @@ export default function Model(props) {
                       material={materials.Base}
                     />
                   </group>
+                  
                   <group
                     name="Coin006"
                     position={[1.203, 12.874, -1.686]}
@@ -673,6 +705,8 @@ export default function Model(props) {
             </group>
           </group>
         </group>
+        </RigidBody>
+        <RigidBody type="fixed" onCollisionEnter={handleCollisionExitsss} colliders="trimesh">
         <group
           name="tesoro1"
           position={[-7.063, 18.333, -14.703]}
@@ -934,7 +968,10 @@ export default function Model(props) {
             </group>
           </group>
         </group>
+        
+        </RigidBody>
       </group>
+      
     </group>
 
                 

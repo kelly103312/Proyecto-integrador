@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useRef } from "react";
 import "./Hud.css";
 
+
 const CharacterHudcueva_encantada= ({ coins }) => {
   const [displayText, setDisplayText] = useState("");
 
