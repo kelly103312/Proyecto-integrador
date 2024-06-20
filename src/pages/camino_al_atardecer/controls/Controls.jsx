@@ -2,21 +2,19 @@ import { OrbitControls, useKeyboardControls } from "@react-three/drei";
 import { useAvatar } from "../../../context/AvatarContext";
 import { useEffect, useRef } from "react";
 import { useFrame } from "@react-three/fiber";
+import { Quaternion, Vector3 } from "three";
 
 export default function Controls() {
-    const{avatar,setAvatar} = useAvatar();
+    const { avatar, setAvatar } = useAvatar();
     const [sub, get] = useKeyboardControls()
-    const controlsRef = useRef();
+    const controlsRef = useRef()
+    let walkDirection = new Vector3()
+    let rotateAngle = new Vector3(0, 1, 0);
+    let rotateQuaternion = new Quaternion();
+    const velocity = 3;
+    let cameraTarget = new Vector3();
+    const desiredDistance = 2;  
 
-    // useEffect(() => {
-    //     return sub(
-    //         (state)=> state.forward,
-    //         (pressed) => {
-    //             console.log("forward", pressed);
-    //         }
-    //     )
-
-    // },[]);
     useEffect(()=>{
         const unsubscribe = sub(
             (state) => {
@@ -37,16 +35,6 @@ export default function Controls() {
 
         if(forward || backward || leftward || rightward){
             console.log("entra a tecla")
-            /*if (avatar.bodyRef && avatar.ref) {
-              console.log(controlsRef.current)
-            avatar.bodyRef.applyImpulse({
-                x: 0,
-                y: 0,
-                z: -0.1 * delta,
-              },
-              true)
-              controlsRef.current.target.z = avatar.bodyRef.translation().z;
-          }*/
         }
 
         const pressed = get().back
@@ -56,7 +44,6 @@ export default function Controls() {
 
     return (
         <>
-            {/* <OrbitControls ref={controlsRef} target={[0, 1.5, -3]} /> */}
             null
         </>
     )

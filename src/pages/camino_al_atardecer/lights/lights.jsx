@@ -9,20 +9,6 @@ export const Lights = () => {
     const spotLightRef2 = useRef(null);
     const hemisphereRef = useRef(null);
 
-    // const optionHemisphereLight = useMemo(() => ({
-    //     intensityHL: { value: 2, min: 0, max: 1000, step: 1 },
-    //     colorHL: { value: "#ef7f15" },
-    // }), []);
-
-    // const optionSpotLight = useMemo(() => ({
-    //     intensitySL: { value: 10, min: 0, max: 1000, step: 1 },
-    //     colorSL: { value: "white" },
-    //     positionSL: { value: [30, 5, 0] }
-    // }), []);
-
-    // const { intensitySL, colorSL, positionSL } = useControls("Spot Light", optionSpotLight);
-    // const { intensityHL, colorHL } = useControls("Hemisphere Light", optionHemisphereLight);
-
     return (
         <>
             <ambientLight 
@@ -31,12 +17,12 @@ export const Lights = () => {
             />
             <directionalLight
                 castShadow={true}
-                position={[0, 10, -165]}
+                position={[0, 0, -165]}
                 color={new Color("#F95706")}
-                intensity={50}
+                intensity={20}
                 raycast={true}
-                length={100}    
-                shadow-mapSize={[4000, 4000]}
+                length={50}    
+                
             />
             <pointLight
                 ref={spotLightRef1}

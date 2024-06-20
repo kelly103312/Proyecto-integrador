@@ -11,7 +11,7 @@ export default function Villain1C(props) {
     // Verificar el contenido de nodes y materials
     console.log(nodes, materials);
 
-    const speed = 3; 
+    const speed = 1.6; 
     const amplitude = 10; 
     let direction = 1; // 1 para ir a la derecha, -1 para ir a la izquierda
     let prevX = 0; // posición x anterior
