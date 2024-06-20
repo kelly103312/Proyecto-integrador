@@ -29,6 +29,7 @@ import { EcctrlJoystick } from "ecctrl";
 import { Sphere2 } from './Figures/Sphere2';
 
 
+
 export default function Level1() {
     const map = useMovements();
     const { lifes } = useLifes();
@@ -135,31 +136,32 @@ export default function Level1() {
                         <Model1 position={[0.133, -1.001, -96.288]}/>
                         <Model position={[-2, 0.4, 80]}/> 
                         <Checkpoint position={[0,1,-90]}/>
+                        
 
-                        { /*<Model position={[-2, 0.4, 80]}/> Añadir las monedas y pasar la función handleCollectCoin como prop */}
-                        <Coins position={[-2, 0.4, -3]} onCollect={handleCollectCoin} />
-                        <Coins position={[-2, 0.4, -4]} onCollect={handleCollectCoin} />
-                        <Coins position={[-2, 0.4, -5]} onCollect={handleCollectCoin} />
-                        <Coins position={[-2, 0.4, -6]} onCollect={handleCollectCoin} />
-                        <Coins position={[-2, 0.4, -10]} onCollect={handleCollectCoin} />
-                        <Coins position={[-2, 0.4, -18]} onCollect={handleCollectCoin} />
-                        <Coins position={[-2, 0.4, -19]} onCollect={handleCollectCoin} />
-                        <Coins position={[-2, 0.4, -20]} onCollect={handleCollectCoin} />
-                        <Coins position={[-2, 0.4, -21]} onCollect={handleCollectCoin} />
-                        <Coins position={[-2, 0.4, -23]} onCollect={handleCollectCoin} />
-                        <Coins position={[-2, 0.4, -24]} onCollect={handleCollectCoin} />
-                        <Coins position={[-2, 0.4, -25]} onCollect={handleCollectCoin} />
-                        <Coins position={[-2, 0.4, -26]} onCollect={handleCollectCoin} />
-                        <Coins position={[-2, 0.4, -27]} onCollect={handleCollectCoin} />
-                        <Coins position={[-2, 0.4, -28]} onCollect={handleCollectCoin} />
-                        <Coins position={[-2, 0.4, -29]} onCollect={handleCollectCoin} />
-                        <Coins position={[-2, 0.4, -41]} onCollect={handleCollectCoin} />
-                        <Coins position={[-2, 0.4, -44]} onCollect={handleCollectCoin} />
-                        <Coins position={[-2, 0.4, -47]} onCollect={handleCollectCoin} />
-                        <Coins position={[-2, 0.4, -50]} onCollect={handleCollectCoin} />
-                        <Coins position={[-2, 0.4, -53]} onCollect={handleCollectCoin} />
-                        <Coins position={[-2, 0.4, -56]} onCollect={handleCollectCoin} />
-                        <Coins position={[-2, 0.4, -59]} onCollect={handleCollectCoin} />
+                        { /*<Model position={[-   2, 0.4, 80]}/> Añadir las monedas y pasar la función handleCollectCoin como prop */}
+                        <Coins position={[-2, 2, -3]} onCollect={handleCollectCoin} />
+                        <Coins position={[-2, 2, -4]} onCollect={handleCollectCoin} />
+                        <Coins position={[-2, 2, -5]} onCollect={handleCollectCoin} />
+                        <Coins position={[-2, 2, -6]} onCollect={handleCollectCoin} />
+                        <Coins position={[-2, 2, -10]} onCollect={handleCollectCoin} />
+                        <Coins position={[-2, 2, -18]} onCollect={handleCollectCoin} />
+                        <Coins position={[-2, 2, -19]} onCollect={handleCollectCoin} />
+                        <Coins position={[-2, 2, -20]} onCollect={handleCollectCoin} />
+                        <Coins position={[-2, 2, -21]} onCollect={handleCollectCoin} />
+                        <Coins position={[-2, 2, -23]} onCollect={handleCollectCoin} />
+                        <Coins position={[-2, 2, -24]} onCollect={handleCollectCoin} />
+                        <Coins position={[-2, 2, -25]} onCollect={handleCollectCoin} />
+                        <Coins position={[-2, 2, -26]} onCollect={handleCollectCoin} />
+                        <Coins position={[-2, 2, -27]} onCollect={handleCollectCoin} />
+                        <Coins position={[-2, 2, -28]} onCollect={handleCollectCoin} />
+                        <Coins position={[-2, 2, -29]} onCollect={handleCollectCoin} />
+                        <Coins position={[-2, 2, -41]} onCollect={handleCollectCoin} />
+                        <Coins position={[-2, 2, -44]} onCollect={handleCollectCoin} />
+                        <Coins position={[-2, 2, -47]} onCollect={handleCollectCoin} />
+                        <Coins position={[-2, 2, -50]} onCollect={handleCollectCoin} />
+                        <Coins position={[-2, 2, -53]} onCollect={handleCollectCoin} />
+                        <Coins position={[-2, 2, -56]} onCollect={handleCollectCoin} />
+                        <Coins position={[-2, 2, -59]} onCollect={handleCollectCoin} />
                        
 
                     </Physics>
