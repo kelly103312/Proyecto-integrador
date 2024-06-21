@@ -1,11 +1,12 @@
 import React, { useEffect, useState, useRef } from "react";
 import "./Hud.css";
 
+
 const CharacterHudcueva_encantada= ({ coins }) => {
   const [displayText, setDisplayText] = useState("");
 
   const textToShow =
-    "¡Bienvenidos a Bosque  Encantado! <br><br>  Atraviesa el sendero hasta llegar a la puerta para avanzar al siguiente nivel.";
+    "¡Bienvenidos a Bosque  Encantado! <br><br>  Atraviesa el sendero hasta llegar a la puerta para avanzar al siguiente nivel y protegete con la letra t.";
   const currentIndexRef = useRef(0);
 
   useEffect(() => {
