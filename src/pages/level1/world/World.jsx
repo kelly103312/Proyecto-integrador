@@ -6,7 +6,7 @@ import { useLifes } from '../../../context/ManagementLifes';
 import { useNavigate } from 'react-router-dom';
 import { RepeatWrapping } from "three";
 import CharacterHudcueva_encantada from "../hud/CharacterHud";
-
+import { Coins } from '../../level1/Figures/Coins';
 
 export default function Model(props) {
     const { nodes, materials } = useGLTF('/assets/level1/models/world/game4.glb');
@@ -69,17 +69,43 @@ export default function Model(props) {
         }
     };
 
+    const celebrationSound = new Audio('assets/level1/sounds/goodresult.mp3');
     const handleCollisionExitss = (e) => {
       if (e.other.rigidBodyObject.name === 'AVATAR') {
-        navigate('/castillo');
+        // Aumentar el tamaño del avatar
+        const avatarMesh = e.other.rigidBodyObject; // Suponiendo que e.other.rigidBodyObject es el avatar
+    
+        // Ajustar la escala del avatar
+        avatarMesh.scale.set(2, 2, 2); // Ejemplo de aumento del tamaño en 1.5 veces
+    
+        // Puedes ajustar los valores según sea necesario para aumentar el tamaño del avatar
+  
+        celebrationSound.play();
       }
   };
 
+
+  
   const handleCollisionExitsss = (e) => {
     if (e.other.rigidBodyObject.name === 'AVATAR') {
-      navigate('/level2');
+      const avatarMesh = e.other.rigidBodyObject;
+  
+      // Guardar la escala original del avatar
+      const originalScale = avatarMesh.scale.clone();
+  
+      // Aumentar temporalmente el tamaño del avatar
+      avatarMesh.scale.set(1.5, 1.5, 1.5);
+  
+      // Reproducir sonido de celebración
+      celebrationSound.play();
+  
+      // Restaurar la escala original después de 3 segundos
+      setTimeout(() => {
+        avatarMesh.scale.copy(originalScale);
+      }, 3000); // 3000 milisegundos = 3 segundos
     }
-};
+  };
+  
 
 
     

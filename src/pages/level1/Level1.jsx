@@ -164,8 +164,53 @@ export default function Level1() {
                         <Coins position={[-2, 2, -53]} onCollect={handleCollectCoin} />
                         <Coins position={[-2, 2, -56]} onCollect={handleCollectCoin} />
                         <Coins position={[-2, 2, -59]} onCollect={handleCollectCoin} />
-                       
+                        <Coins position={[-3, 2, -7]} onCollect={handleCollectCoin} />
+                        <Coins position={[-3, 2, -11]} onCollect={handleCollectCoin} />
+                        <Coins position={[-3, 2, -15]} onCollect={handleCollectCoin} />
+                        <Coins position={[-3, 2, -22]} onCollect={handleCollectCoin} />
+                        <Coins position={[-3, 2, -30]} onCollect={handleCollectCoin} />
+                        <Coins position={[-3, 2, -35]} onCollect={handleCollectCoin} />
+                        <Coins position={[-3, 2, -39]} onCollect={handleCollectCoin} />
+                        <Coins position={[-3, 2, -42]} onCollect={handleCollectCoin} />
+                        <Coins position={[-3, 2, -45]} onCollect={handleCollectCoin} />
+                        <Coins position={[-3, 2, -48]} onCollect={handleCollectCoin} />
+                        <Coins position={[-3, 2, -51]} onCollect={handleCollectCoin} />
+                        <Coins position={[-3, 2, -54]} onCollect={handleCollectCoin} />
+                        <Coins position={[-3, 2, -57]} onCollect={handleCollectCoin} />
+                        <Coins position={[-3, 2, -60]} onCollect={handleCollectCoin} />
+                        <Coins position={[-2, 2, -69]} onCollect={handleCollectCoin} />
+  <Coins position={[-2, 2, -70]} onCollect={handleCollectCoin} />
+  <Coins position={[-2, 2, -71]} onCollect={handleCollectCoin} />
+  <Coins position={[-2, 2, -72]} onCollect={handleCollectCoin} />
+  <Coins position={[-2, 2, -73]} onCollect={handleCollectCoin} />
+  <Coins position={[-2, 2, -74]} onCollect={handleCollectCoin} />
+  <Coins position={[-2, 2, -75]} onCollect={handleCollectCoin} />
+  <Coins position={[-2, 2, -76]} onCollect={handleCollectCoin} />
+  <Coins position={[-2, 2, -77]} onCollect={handleCollectCoin} />
+  <Coins position={[-2, 2, -78]} onCollect={handleCollectCoin} />
+  <Coins position={[-2, 2, -79]} onCollect={handleCollectCoin} />
+  <Coins position={[-2, 2, -80]} onCollect={handleCollectCoin} />
+  <Coins position={[-2, 2, -81]} onCollect={handleCollectCoin} />
+  <Coins position={[-2, 2, -82]} onCollect={handleCollectCoin} />
+  <Coins position={[-2, 2, -83]} onCollect={handleCollectCoin} />
+  <Coins position={[-2, 2, -84]} onCollect={handleCollectCoin} />
+  <Coins position={[-2, 2, -85]} onCollect={handleCollectCoin} />
+  <Coins position={[-2, 2, -86]} onCollect={handleCollectCoin} />
+  <Coins position={[-2, 2, -87]} onCollect={handleCollectCoin} />
+  <Coins position={[-2, 2, -88]} onCollect={handleCollectCoin} />
+  <Coins position={[-2, 2, -89]} onCollect={handleCollectCoin} />
+  <Coins position={[-2, 2, -90]} onCollect={handleCollectCoin} />
+  <Coins position={[-2, 2, -91]} onCollect={handleCollectCoin} />
+  <Coins position={[-2, 2, -92]} onCollect={handleCollectCoin} />
+  <Coins position={[-2, 2, -93]} onCollect={handleCollectCoin} />
+  <Coins position={[-2, 2, -94]} onCollect={handleCollectCoin} />
+  <Coins position={[-2, 2, -95]} onCollect={handleCollectCoin} />
+  <Coins position={[-2, 2, -96]} onCollect={handleCollectCoin} />
+  <Coins position={[-2, 2, -97]} onCollect={handleCollectCoin} />
+  <Coins position={[-2, 2, -98]} onCollect={handleCollectCoin} />
+                          
 
+                       
                     </Physics>
 
                 </Suspense>
