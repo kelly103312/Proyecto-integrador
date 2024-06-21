@@ -30,6 +30,9 @@ import { Checkpoint } from "./checkpoints/Checkpoint";
 import { readCheckpoint, pointValidated} from '../../db/checkpoints-collection'
 import { Characters } from "./characters/Characters";
 import { Model } from "./figures/Enemigo";
+import Sensei from "./characters/avatar/Sensei";
+
+
 
 
 export default function Level2() {
@@ -41,6 +44,26 @@ export default function Level2() {
     const { lifes } = useLifes();
     const [gameOver, setGameOver] = useState(false);
     const { checkpoints, obtained } = UseCheckpoints();
+
+    useEffect(()=>{
+        socket.emit("player-connected")
+    }, [])
+
+     //Desconecta el socket cuando cierra la ventana
+     useEffect(() => {
+        const handleBeforeUnload = (event) => {
+            // Call your disconnect function here
+            disconnectSocket();
+            // Optionally, you can show a confirmation dialog
+            event.returnValue = "Are you sure you want to leave?";
+        };
+
+        window.addEventListener("beforeunload", handleBeforeUnload);
+
+        return () => {
+            window.removeEventListener("beforeunload", handleBeforeUnload);
+        };
+    }, []);
 
     const readCheckpoints = async (email, nameLevel) => {
         const { success, checkpointData } = await readCheckpoint(email, nameLevel)
@@ -105,12 +128,8 @@ export default function Level2() {
             })
         }
     }, [auth.userLogged])
-    /**
-     * Emit to the server that the player is connected.
-     */
-    useEffect(() => {
-        socket.emit("player-connected")
-    }, [])
+    
+    
 
     return (
         <Suspense fallback={<Loader />}>
@@ -126,8 +145,9 @@ export default function Level2() {
                     {/* <Perf position="top-left" /> */}
                     <Lights />
                     <Environments />
-                    <Physics debug={false}>
+                    <Physics debug={false} timeStep="vary">
                         <World />
+                        <Sensei/>
                         <Avatar />
                         <Checkpoint position={[20.2,1.5,-88.5]}/>
                         <Coin position={[22.5, 1, -59]} catchCoin={handleCoin} />
@@ -139,7 +159,7 @@ export default function Level2() {
                         <Obs position={[-14, 1, -73]} velocity={3} onCollide={handleObsCollision} />
                         <Obs position={[-14, 6, -77]} velocity={12} onCollide={handleObsCollision} />
                         <Characters/>
-                        <Model position={[0, 0, -90]}/>
+                        {/* <Model position={[0, 0, -90]}/> */}
 
                     </Physics>
                     <WelcomeText position={[1, 15, -93]} />
