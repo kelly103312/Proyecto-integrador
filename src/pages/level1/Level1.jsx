@@ -109,7 +109,7 @@ export default function Level1() {
                     rotation: [0, 0, 0],
                 }}
             >
-                <Perf position="top-center" />
+                { /*<Perf position="top-center" />*/}
                 <Suspense fallback={null}>
                     <Lights />
                     <BakeShadows />
