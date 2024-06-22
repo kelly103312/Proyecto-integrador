@@ -1,38 +1,59 @@
-import { Environment, EnvironmentMap, Loader, OrbitControls, PerspectiveCamera } from "@react-three/drei";
+import { Environment, KeyboardControls, Loader, OrbitControls } from "@react-three/drei";
 import World from "./world/World";
-import { Color } from "three";
 import {Lights} from "./lights/lights";
 import {Environments} from "./staging/environments";
-import React, { Suspense } from "react";
-import { Canvas } from "@react-three/fiber";
+import { Suspense, useRef } from "react";
+import react from "react";
+import { Canvas, useFrame } from "@react-three/fiber";
 import "./styles.css";
 import FloatingText from "./abstractions/FloatingText";
 import Pane from "./layout/pane";
+import Villains from "./characters/villains/Villains";
+import { BallCollider, Physics, RigidBody } from "@react-three/rapier";
+import TrapWalls from "./obstacles/TrapWalls";
+import CharacterHubCamino from './hub/CharacterHub';
+import Controls from "./controls/Controls";
+import Avatar from "./characters/avatar/Avatar";
+import useMovements from "../../utils/key-movements";
+import Ecctrl,{EcctrlAnimation} from "ecctrl";
 
-export const CaminoAlAtardecer = () => {
+
+export function CaminoAlAtardecer () {
+
+  const map = useMovements();
+  const cameraBodyCollider = useRef();
+  
+  // useFrame(({camera}, delta)=>{
+  //   const position = vec3(camera.position);
+  //   cameraBodyCollider.current?.setTranslation(position, true);
+  //   console.log(cameraBodyCollider?.current?.translation());
+  // })
+
   return (
-    <>
-        {/* <Pane/> */}
-        <Canvas
-            shadows={true}
-            camera={{
-                position: [0, 4, 165],
-                rotation: [0, 0, 0],
-            }}
-        >
-                <OrbitControls target={[0,0,0]} enableZoom={true} enablePan={true} enableDamping dampingFactor={0.2} rotateSpeed={0.5} minAzimuthAngle={Math.PI / 2} screenSpacePanning={true}
-                />
-                <Suspense fallback={null}>
-                    <Lights />
-                    <Environments />
-                    <World />
-                    <FloatingText position={[0, 4 , 160]} />
-                </Suspense>
-        </Canvas>
+    <KeyboardControls map={map}>
+      <Canvas
+        shadows={true}
+        camera={{
+          position: [0, 4, 150],
+          rotation: [0, 0, 0], // Rotate the camera to face -Y
+        }}
+      >
+        <Suspense fallback={null}>
+          <Lights />
+          <Environments />
+          <FloatingText position={[0, 4, 160]} />
 
-        <Loader />
-    </>
-  )
+          <Physics debug={true} gravity={[0, -40, 0]}>
+            <World />
+            <Villains />
+            <Avatar />
+          </Physics>
+        </Suspense>
+        <Controls />
+      </Canvas>
+
+      <Loader />
+      <CharacterHubCamino />
+    </KeyboardControls>
+  );
 }
-
-

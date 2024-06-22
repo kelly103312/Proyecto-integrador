@@ -35,7 +35,7 @@ export const Environments = () => {
         speed={0.5}
         maxOpacity={2}
         opacity={3}
-        position={[0, 6, 160]}
+        position={[0, 6, 141]}
       />
 
       <Cloud
@@ -45,7 +45,7 @@ export const Environments = () => {
         height={70}
         depth={2}
         segments={10}
-        position={[0, 1, -40]}
+        position={[0, 1, -124]}
         size={10}
         color={"#EF94F1"}
       />

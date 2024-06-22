@@ -7,13 +7,13 @@ const FloatingText = (props) => {
     return (
       <>
         <Float
-            rotationIntensity={0.2}
-            speed={2}
+            rotationIntensity={0.08}
+            speed={1}
             floatIntensity={0.5}
             floatingRange={[0,1]}
         >
             <Text3D
-                position={[-7, 12, -25]}
+                position={[-7, 8, -120]}
                 font="/assets/camino_al_atardecer/fonts/caminoALAtardecerFont.json"
                 color={"black"}
                 bevelEnabled
@@ -36,7 +36,7 @@ const FloatingText = (props) => {
         >
          <Text
             className="Dontgiveup"
-            position={[-6, 10, 70]}
+            position={[-6, 10, 60]}
             color={"black"}
             fontSize={2}
             center
@@ -47,17 +47,38 @@ const FloatingText = (props) => {
           </Text>
 
         </Float>
+
+        <Float
+             rotationIntensity={0.02}
+             speed={2}
+             floatIntensity={0.5}
+             floatingRange={[0,1]}
+        >
+         <Text
+            className="trapFloor"
+            position={[0, 8, 10]}
+            color={"black"}
+            fontSize={2}
+            center
+            distanceFactor={10}
+            font="/assets/Camino_al_atardecer/fonts/caminoALAtardecerFont.otf"
+          >
+            {`Don't touch the\ngreen platforms!!!`}
+          </Text>
+
+        </Float>
+
           
         <Float
-             rotationIntensity={0.2}
-             speed={1}
-             floatIntensity={0.005}
+             rotationIntensity={0.02}
+             speed={2}
+             floatIntensity={0.5}
              floatingRange={[0,1]}
         >
          <Text
             className="ClikOnTheChair"
-            position={[-7, 3, -37]}
-            color={"black"}
+            position={[-7, 3, -120]}
+            color={"#00C9FF"}
             fontSize={1}
             center
             distanceFactor={10}
@@ -69,7 +90,7 @@ const FloatingText = (props) => {
         </Float>
 
         <Html
-          position={[0, 4, 150]}
+          position={[0, 8, 150]}
           color="white"
           center
           distanceFactor={12}
