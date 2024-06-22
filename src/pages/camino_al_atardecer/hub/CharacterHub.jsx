@@ -5,7 +5,7 @@ const CharacterHubCamino = ({ coins }) => {
   const [displayText, setDisplayText] = useState("");
 
   const textToShow =
-    "¡Bienvenidos al ultimo nivel!!! El camino hacia el atardecer! <br><br>  Atraviesa el sendero, siguiendo el sol, para terminar esta aventura.";
+    "¡Bienvenidos al ultimo nivel!  El camino hacia el atardecer! <br><br>  Atraviesa el sendero, siguiendo el sol, para terminar esta aventura.";
   const currentIndexRef = useRef(0);
 
   useEffect(() => {

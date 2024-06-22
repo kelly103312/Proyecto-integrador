@@ -90,7 +90,7 @@ const FloatingText = (props) => {
         </Float>
 
         <Html
-          position={[0, 8, 140]}
+          position={[0, 8, 150]}
           color="white"
           center
           distanceFactor={12}

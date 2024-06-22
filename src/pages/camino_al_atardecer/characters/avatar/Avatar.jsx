@@ -4,31 +4,37 @@ import Ecctrl from "ecctrl";
 import { useAnimations, useGLTF } from "@react-three/drei";
 
 export default function Avatar() {
-  const [avatar, setAvatar] = useState([0, 2, 140]);
+  const { avatar, setAvatar } = useAvatar();
   const avatarRef = useRef();
+  const avatarBodyRef = useRef();
   const { nodes, materials, animations } = useGLTF('/assets/camino_al_atardecer/models/avatar/Avatar.glb');
   const { actions } = useAnimations(animations, avatarRef);
 
   useEffect(() => {
-    if (avatarRef.current) {
-      // Adjust the rotation of the avatar to face -y
-    //   avatarRef.current.rotation.y = -40;
+    if (avatar.animation && actions[avatar.animation]) {
+      actions[avatar.animation]?.reset().fadeIn(0.5).play();
+      return () => {
+        if (actions[avatar.animation]) actions[avatar.animation].fadeOut(0.5);
+      };
     }
-  }, [avatarRef]);
+  }, [actions, avatar.animation]);
 
   return (
     <>
       <Ecctrl
-        jumpVel={4}
+        jumpVel={10}
         name="AVATAR"
         autoBalance={true}
-        camInitDis={-10}
+        camInitDis={-8}
         camMaxDis={-15}
-        position={avatar}
-        maxVelLimit={20}
-        onChangePosition={setAvatar}
+        position={avatar.position}
+        maxVelLimit={17}
+        onChangePosition={(pos) => setAvatar({ ...avatar, position: pos })}
+        height={6} // Ajusta esta altura según tus necesidades
+        camCollisionOffset={0.7}
+
       >
-        <group ref={avatarRef} scale={[2,2,2]} position-y={-0.8} name="Scene">
+        <group ref={avatarRef} scale={[2,2,2]} position-y={-0.8} name="Scene" > 
           <group name="Armature">
             <skinnedMesh
               name="EyeLeft"

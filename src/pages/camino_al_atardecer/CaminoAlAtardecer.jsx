@@ -15,6 +15,7 @@ import CharacterHubCamino from './hub/CharacterHub';
 import Controls from "./controls/Controls";
 import Avatar from "./characters/avatar/Avatar";
 import useMovements from "../../utils/key-movements";
+import Ecctrl,{EcctrlAnimation} from "ecctrl";
 
 
 export function CaminoAlAtardecer () {
@@ -29,33 +30,30 @@ export function CaminoAlAtardecer () {
   // })
 
   return (
-      <KeyboardControls map={map} > 
+    <KeyboardControls map={map}>
       <Canvas
         shadows={true}
         camera={{
           position: [0, 4, 150],
-          rotation: [0, 180, 0]
+          rotation: [0, 0, 0], // Rotate the camera to face -Y
         }}
       >
-      
         <Suspense fallback={null}>
           <Lights />
           <Environments />
           <FloatingText position={[0, 4, 160]} />
 
-          <Physics debug={true}>
+          <Physics debug={true} gravity={[0, -40, 0]}>
             <World />
             <Villains />
             <Avatar />
           </Physics>
-
         </Suspense>
         <Controls />
       </Canvas>
 
       <Loader />
       <CharacterHubCamino />
-      </KeyboardControls>
- 
+    </KeyboardControls>
   );
 }
