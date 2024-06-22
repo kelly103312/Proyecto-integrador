@@ -27,7 +27,7 @@ export default function Avatar() {
         autoBalance={true}
         camInitDis={-8}
         camMaxDis={-15}
-        position={avatar.position}
+        position={[0,1,140]}
         maxVelLimit={17}
         onChangePosition={(pos) => setAvatar({ ...avatar, position: pos })}
         height={6} // Ajusta esta altura según tus necesidades
