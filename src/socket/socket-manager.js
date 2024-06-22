@@ -1,18 +1,19 @@
-"use strict"
-import socketIOClient from 'socket.io-client';
+"use strict";
+
+import socketIOClient from "socket.io-client";
+
+const urlDeployServer = "https://server-jekh.onrender.com";
+
+// Añadir en esta variable el enalce
+const urlLocalServer = "";
 
 /**
  * Socket connection
  */
-//export const socket = socketIOClient("http://localhost:3000");
-console.log("Connecting to server:", "http://localhost:3000");
-export const socket = socketIOClient("http://localhost:3000");
-//export const socket = socketIOClient(process.env.REACT_APP_SOCKET_URL_DEPLOY_CLIENT);
+export const socket = socketIOClient(urlDeployServer);
+// export const socket = socketIOClient(urlLocalServer);
 
-/**
- * Disconnect to the socket server
- */
-export const disconnectSocket = () => {
+export const disconnectSocket = () =>{
+    console.log("disconnecting socket...");
     socket.disconnect();
 }
-
